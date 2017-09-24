@@ -47,7 +47,7 @@ export class LoginPage {
    */
   logout() {
     firebase.auth().signOut().catch(err => {
-      let msg = this.authService.getErrMsg(err.name);
+      console.error(err);
     });
   }
   /**

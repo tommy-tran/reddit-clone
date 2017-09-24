@@ -3,7 +3,6 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from "../shared/pages";
 import { DataSharingService } from "../shared/data-sharing.service";
 import * as firebase from 'firebase';
@@ -22,10 +21,10 @@ export class MyApp {
       splashScreen.hide();
       console.log(window.screen.height, window.screen.width);
       //setting screen height and width for web app to be mobile friendly
-      dataSharing.setScreenX(window.screen.width);
-      dataSharing.setScreenY(window.screen.height);
+      this.dataSharing.setScreenX(window.screen.width);
+      this.dataSharing.setScreenY(window.screen.height);
       let isMobile = platform.is('mobile');
-      dataSharing.setIsMobile(isMobile);
+      this.dataSharing.setIsMobile(isMobile);
       //firebase configuration PLS DON'T TOUCH
       var config = {
         apiKey: "AIzaSyAreoTdCsTtPbCzatkDT-nelNIbizsj2UI",

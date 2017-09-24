@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, Events } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { AuthService } from '../../shared/auth.service';
-import { LoginPage, AboutPage } from '../../shared/pages';
 import * as firebase from 'firebase';
 
 @Component({
@@ -10,7 +9,7 @@ import * as firebase from 'firebase';
 })
 export class HomePage {
   username: string;
-  constructor(public navCtrl: NavController, private events: Events, private authService: AuthService) {
+  constructor(public navCtrl: NavController, private authService: AuthService) {
     this.username = authService.getUName();
   }
 }

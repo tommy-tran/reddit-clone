@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, ToastController, Events } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { AuthService } from '../../shared/auth.service';
-import { LoginPage } from '../login/login';
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
@@ -12,8 +11,8 @@ export class AboutPage {
   password: string;
   user: any;
   constructor(public navCtrl: NavController, private events: Events, private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService) {
-    this.email = authService.getEmail();
-    this.password = authService.getPswd();
+    this.email = this.authService.getEmail();
+    this.password = this.authService.getPswd();
   }
   /** 
    * sign out and emit an event to go back to the login page
