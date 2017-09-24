@@ -1,0 +1,57 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{userHasAccount ? 'Login' : 'Sign Up'}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="background">
+  <div [style.width]="screenX" [style.height]="screenY" [style.paddingTop]="screenY/8+'px'">
+    <!-- authentication card container -->
+    <div id="auth-card" [style.width]="isMobile ? (screenX - 100) + 'px' : '500px'">
+      <h3 text-center [style.paddingTop]="'50px'">Welcome to Reddit Clone</h3>
+      <!-- form for a new account -->
+      <div *ngIf="!userHasAccount && !needsVerification" text-center>
+        <form #signupForm="ngForm" (ngSubmit)="signUpUser(signupForm)">
+          <ion-item>
+            <ion-input name="emailInput" placeholder="Enter Email" ngModel></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="password" type="password" placeholder="Enter Password" ngModel></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="confirmPassword" type="password" placeholder="Confirm Password" ngModel></ion-input>
+          </ion-item>
+          <button ion-button type="submit">Submit</button>
+        </form>
+      </div>
+      <!-- form for an existing user -->
+      <div *ngIf="userHasAccount && !needsVerification" text-center>
+        <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
+          <ion-item>
+            <ion-input name="emailInput" placeholder="Enter Email" ngModel></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="password" type="password" placeholder="Enter Password" ngModel></ion-input>
+          </ion-item>
+          <button ion-button type="submit">Submit</button>
+        </form>
+      </div>
+      <!--error messages only show if form not complete or passwords don't match-->
+      <div [style.color]="'red'" text-center>
+        <div [style.visibility]="showIncompleteFormErr ? 'visible' : 'hidden'">Please Complete All Fields</div>
+        <div [style.visibility]="showPasswordsErr ? 'visible' : 'hidden'">Passwords Do Not Match</div>
+      </div>
+      <!-- button to switch form type -->
+      <div *ngIf="!needsVerification" text-center>
+        <button text-wrap clear ion-button (click)="switchForms()">{{userHasAccount ? "Don't have an account? Create one here" : 'Already have an account? Login in Here'}}</button>
+      </div>
+      <!-- only displayed after user creates and account and needs to verify their email -->
+      <div *ngIf="needsVerification" text-center id="verify-container">
+        <button ion-button large (click)="attemptSignIn()">Sign In</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

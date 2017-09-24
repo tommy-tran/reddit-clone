@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- buttons to change account stuff -->
+  <div text-center style="width: 100%">
+    <button ion-button block (click)="changePassword()">Change Password</button>
+    <button ion-button block (click)="logout()">Sign Out</button>
+    <br>
+    <br>
+    <br>
+    <button ion-button color="danger" block (click)="deleteAccount()">Delete Account</button>
+  </div>
+</ion-content>
