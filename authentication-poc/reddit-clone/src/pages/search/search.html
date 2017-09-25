@@ -1,0 +1,16 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Explore</ion-title>
+  </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="searchInput" [showCancelButton]="shouldShowCancelButton" (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" placeholder="Search for Subreddits..." type="text"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item (click)="goToSubreddit(subreddit)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
+  </ion-list>
+</ion-content>

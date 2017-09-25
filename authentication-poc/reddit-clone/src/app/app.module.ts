@@ -3,21 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage, ContactPage, HomePage, TabsPage, LoginPage } from '../shared/pages';
+import { AboutPage, SearchPage, SubredditPage, HomePage, TabsPage, LoginPage } from '../shared/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DataSharingService } from '../shared/data-sharing.service';
 import { AuthService } from '../shared/auth.service';
+import { DatabaseService } from '../shared/database.service';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
-    ContactPage,
+    SearchPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SubredditPage
   ],
   imports: [
     BrowserModule,
@@ -27,14 +29,15 @@ import { AuthService } from '../shared/auth.service';
   entryComponents: [
     MyApp,
     AboutPage,
-    ContactPage,
+    SearchPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SubredditPage
   ],
   providers: [
     StatusBar,
-    SplashScreen, DataSharingService, AuthService,
+    SplashScreen, DataSharingService, AuthService, DatabaseService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

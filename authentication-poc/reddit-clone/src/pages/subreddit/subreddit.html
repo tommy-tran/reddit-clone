@@ -1,0 +1,49 @@
+<ion-header no-border>
+
+  <ion-navbar transparent>
+    <ion-title>r/{{subreddit.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="sort-bar-div"></div>
+  <div class="write-post-div"></div>
+  <div class="subreddit-posts-container">
+    <ion-list>
+      <ion-card *ngFor="let post of posts; let i = index" class="postitem">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="post-topbar">
+              <div>u/{{post.user}} - {{times[i]}}</div>
+              <div ></div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p class="post-message">{{post.message}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col text-center class="post-upvotes">
+              <button ion-button clear small>
+                <ion-icon name="arrow-up"></ion-icon>&nbsp;&nbsp;{{post.upvotes}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>
+              </button>
+            </ion-col>
+            <ion-col text-center class="post-comments">
+              <button ion-button clear small><ion-icon name="text"></ion-icon>&nbsp;&nbsp;NUM_COMMENTS</button>
+            </ion-col>
+            <ion-col text-center>
+              <button class="post-share" ion-button clear small>
+                <ion-icon name="share"></ion-icon>&nbsp;&nbsp;Share
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-list>
+  </div>
+</ion-content>
