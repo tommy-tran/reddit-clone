@@ -1,10 +1,31 @@
 import { Injectable } from "@angular/core";
+import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService {
     password: string;
     uname: string;
     email: string;
+
+    constructor() {
+        this.firebaseSetup();
+    }
+
+    /**
+     * Initialize firebase
+    */
+    firebaseSetup() {    
+        var config = {
+            apiKey: "AIzaSyAreoTdCsTtPbCzatkDT-nelNIbizsj2UI",
+            authDomain: "reddit-clone-ced0e.firebaseapp.com",
+            databaseURL: "https://reddit-clone-ced0e.firebaseio.com",
+            projectId: "reddit-clone-ced0e",
+            storageBucket: "reddit-clone-ced0e.appspot.com",
+            messagingSenderId: "896550001075"
+          };
+          firebase.initializeApp(config);
+    }
+
     /**
      * get the user's email
      */

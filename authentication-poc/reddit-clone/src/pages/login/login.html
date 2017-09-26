@@ -40,8 +40,8 @@
         </form>
       </div>
       <!--error messages only show if form not complete or passwords don't match-->
-      <div [style.color]="'red'" text-center>
-        <div [style.visibility]="showIncompleteFormErr ? 'visible' : 'hidden'">Please Complete All Fields</div>
+      <div class="login-errors" [style.display]="(showIncompleteFormErr || showPasswordsErr) ? 'block' : 'none'" text-center>
+        <div [style.display]="showIncompleteFormErr ? 'visible' : 'hidden'">Please Complete All Fields</div>
         <div [style.visibility]="showPasswordsErr ? 'visible' : 'hidden'">Passwords Do Not Match</div>
       </div>
       <!-- button to switch form type -->
@@ -50,7 +50,11 @@
       </div>
       <!-- only displayed after user creates and account and needs to verify their email -->
       <div *ngIf="needsVerification" text-center id="verify-container">
-        <button ion-button large (click)="attemptSignIn()">Sign In</button>
+        <div [style.padding]="'30px 0'" text-center>For your convenience, you can quickly sign in AFTER you verify your email</div>
+        <div><button ion-button large (click)="attemptSignIn()">Sign In</button></div>
+        <!-- TODO: showHome() -->
+        <!-- <div><button ion-button large (click)="showHome()">Back to front page</button></div> -->
+
       </div>
     </div>
   </div>
