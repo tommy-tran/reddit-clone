@@ -2,13 +2,20 @@ page-login {
     #auth-card {
         margin: auto;
         background-color: white;
-        border-radius: 25px;
-        box-shadow: 1px 1px 18px gray;
     }
     #auth-card > div {
-        padding-top: 40px;
+        padding-top: 10px;
     }
     #verify-container {
         padding-bottom: 50px;
+    }
+
+    .login-errors {
+        color: red;
+    }
+
+    #close-icon {
+        font-size: 2em;
+        padding: 0 12px;
     }
 }
