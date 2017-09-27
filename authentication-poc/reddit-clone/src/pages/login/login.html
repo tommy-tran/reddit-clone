@@ -1,7 +1,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{userHasAccount ? 'Login' : 'Sign Up'}}</ion-title>
+    <ion-title float-left>{{userHasAccount ? 'Login' : 'Sign Up'}}</ion-title>
+    <ion-icon id="close-icon" float-right name="md-close" (click)="closeModal()"></ion-icon>
   </ion-navbar>
 
 </ion-header>
@@ -10,7 +11,7 @@
 <ion-content padding class="background">
   <div [style.width]="screenX" [style.height]="screenY" [style.paddingTop]="screenY/8+'px'">
     <!-- authentication card container -->
-    <div id="auth-card" [style.width]="isMobile ? (screenX - 100) + 'px' : '500px'">
+    <div id="auth-card" [style.width]="isMobile ? (screenX - 80) + 'px' : '500px'">
       <h3 text-center [style.paddingTop]="'50px'">Welcome to Reddit Clone</h3>
       <!-- form for a new account -->
       <div *ngIf="!userHasAccount && !needsVerification" text-center>

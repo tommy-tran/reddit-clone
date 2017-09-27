@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
+    <ion-buttons end>      
+      <button ion-button (click)="openAuth(true)">Log In</button>
+      <button ion-button (click)="openAuth(false)">Sign Up</button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 

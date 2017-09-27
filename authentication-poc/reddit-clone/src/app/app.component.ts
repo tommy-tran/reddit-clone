@@ -3,7 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { LoginPage } from "../shared/pages";
+import { HomePage } from "../shared/pages";
 import { DataSharingService } from "../shared/data-sharing.service";
 
 
@@ -11,7 +11,7 @@ import { DataSharingService } from "../shared/data-sharing.service";
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any = HomePage;
 
   constructor(platform: Platform, private dataSharing: DataSharingService, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

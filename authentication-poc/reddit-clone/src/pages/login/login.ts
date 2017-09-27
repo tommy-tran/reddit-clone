@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController, ViewController } from 'ionic-angular';
 import { DataSharingService } from '../../shared/data-sharing.service';
 import { NgForm } from '@angular/forms';
 import { TabsPage } from '../../shared/pages';
@@ -25,6 +25,7 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     public navCtrl: NavController,
     public navParams: NavParams,
+    public viewController: ViewController,
     platform: Platform) {
     this.screenX = this.dataSharing.getScreenX();
     this.screenY = this.dataSharing.getScreenY();
@@ -32,6 +33,7 @@ export class LoginPage {
     this.screenX = window.screen.width;
     this.screenY = window.screen.height;
     this.isMobile = platform.is('mobile');
+    this.userHasAccount = this.navParams.get('userHasAccount');
   }
   /**
    * get form data and log user in
@@ -155,5 +157,9 @@ export class LoginPage {
    */
   switchForms() {
     this.userHasAccount = !this.userHasAccount;
+  }
+
+  closeModal() {
+    this.viewController.dismiss();
   }
 }
