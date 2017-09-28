@@ -1,0 +1,39 @@
+<ion-header no-border>
+
+  <ion-navbar transparent>
+    <ion-title>r/{{subreddit.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list inset>
+    <div *ngFor="let post of posts" (click)="showComments(post)" style="padding-bottom: 0 !important;">
+      <div class="post-container">
+        <div class="post-media">
+          <img src="{{post.media}}" alt="post media">
+        </div>
+        <div class="post-info-bar"><a class="subreddit-name" (click)="goToSubreddit(post.subreddit)">r/{{post.subreddit}}</a> - TIMEAGO - u/{{post.user}}</div>
+        <div class="post-content-container">{{post.message}}</div>
+        <div class="post-action-bar">
+          <div class="comments"><a><ion-icon name="text"></ion-icon>&nbsp;&nbsp;# Comments</a></div>
+
+          <div class="actions">
+            <a><ion-icon name="more"></ion-icon></a>
+            &nbsp;&nbsp;
+            <span style="border-left: 1px solid lightgray; height: 50px; width: 1px;"></span>
+            &nbsp;&nbsp;&nbsp;
+              <a>
+                <ion-icon name="arrow-up"></ion-icon>
+              </a>&nbsp;{{post.upvotes}}&nbsp;
+              <a>
+                <ion-icon name="arrow-down"></ion-icon>
+              </a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showFullMedia" class="media-full"></div>
+    </div>
+  </ion-list>
+</ion-content>

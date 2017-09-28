@@ -8,11 +8,9 @@ import { AuthService } from '../../shared/auth.service';
 })
 export class AboutPage {
   email: string;
-  password: string;
   user: any;
   constructor(public navCtrl: NavController, private events: Events, private alertCtrl: AlertController, private toastCtrl: ToastController, private authService: AuthService) {
     this.email = this.authService.getEmail();
-    this.password = this.authService.getPswd();
   }
   /** 
    * sign out and emit an event to go back to the login page
@@ -53,11 +51,18 @@ export class AboutPage {
         {
           text: 'Ok',
           handler: data => {
-            console.log(data, this.password);
-            if (data.oldPswd == this.password) {
-              //confirm that both passwords match
+            // Reauthenticate user
+            const user = firebase.auth().currentUser;
+            const credential = firebase.auth.EmailAuthProvider.credential(user.email,data.oldPswd);
+            user.reauthenticateWithCredential(credential).then(() => {
               if (data.newPswd == data.confirmNewPswd) {
-                firebase.auth().currentUser.updatePassword(data.newPswd).catch(err => {
+                firebase.auth().currentUser.updatePassword(data.newPswd).then(() => {
+                  this.toastCtrl.create({
+                    message: 'Password updated',
+                    position: 'middle',
+                    duration: 2000
+                  }).present();
+                }).catch(err => {
                   //display an alert with the error message
                   this.alertCtrl.create({
                     title: 'Error',
@@ -68,12 +73,6 @@ export class AboutPage {
                       }
                     ]
                   }).present();
-                }).then(() => {
-                  this.toastCtrl.create({
-                    message: 'Password updated',
-                    position: 'middle',
-                    duration: 2000
-                  }).present();
                 });
               }
               else {
@@ -83,14 +82,13 @@ export class AboutPage {
                   duration: 2500
                 }).present();
               }
-            }
-            else {
+            }).catch(() =>  {
               this.toastCtrl.create({
                 message: 'Password input not correct. Please try again.',
                 duration: 2500,
                 position: 'middle'
               }).present();
-            }
+            });
           }
         }
       ]

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Home
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toggleNewPostBox()"><ion-icon name="create"></ion-icon></button>
+      <button ion-button icon-only (click)="toggleSearchbar()"><ion-icon name="search"></ion-icon></button>
+      <button ion-button icon-only (click)="toggleMenu()"><ion-icon name="menu"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- search results overlay -->
+  <div id="searchbar" *ngIf="showSearchbar">
+    <ion-searchbar (ionInput)="onInput($event)" showCancelButton="true" placeholder="Search for Subreddits..." type="text"></ion-searchbar>
+    <ion-list inset padding-left padding-right>
+      <button ion-item no-lines (click)="goToSubreddit(subreddit)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
+    </ion-list>
+  </div>
+  <!-- sort by tab -->
+  <div id="sort-and-login">
+    <button ion-button clear small (click)="showSortByPopover($event)">
+      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>
+    </button>
+    <a text-right (click)="openAuth()">Log In / Register</a>
+  </div>
+
+  <h2>Welcome to Reddit Clone</h2>
+  <p *ngIf="username">Your username is {{username}}</p>
+  <p>There will be posts here eventually!</p>
+  <button ion-button (click)="getPosts()">Get Posts</button>
+
+  <!-- menu overlay -->
+  <div id="menu" *ngIf="showMenu">
+    <button ion-item text-right no-lines *ngFor="let option of menuOptions" (click)="self[option.action]()">
+      <ion-icon color="secondary" name="{{option.icon}}"></ion-icon>&nbsp;&nbsp;&nbsp;{{option.title}}
+    </button>
+  </div>
+
+  <!--keep this at the bottom to preserve page layout-->
+  <div *ngIf="showBackgroundDiv ||showMenu || showNewPostBox || showSearchbar" id="page-cover" (click)="closeAllOverlays()"></div>
+</ion-content>

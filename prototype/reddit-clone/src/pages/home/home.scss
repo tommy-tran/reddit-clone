@@ -1,0 +1,36 @@
+page-home {
+    #page-cover {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 50;
+        background-color: black;
+        opacity: 0.5;
+        top: 0;
+        left: 0;
+    }
+    #menu {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: white;
+        z-index: 100;
+    }
+    #searchbar {
+        position: absolute;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+    #sort-and-login {
+        width: 100%;
+        position: relative;
+    }
+    #sort-and-login > a {
+        position: absolute;
+        right: 0;
+    }
+}
