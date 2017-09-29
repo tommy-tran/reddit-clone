@@ -44,14 +44,18 @@ Tommy Tran\\
 \pagebreak
 \tableofcontents
 
-\section {Revision History}
+\section* {Revision History}
+
 \begin{tabular}{ |c| c| c| }
 \hline
 Version & Date & Comments \\
 \hline
 1.0 & 25/09/17 & Created document \\
 \hline
-
+1.1 & 26/09/17 & Updated sections (1, 5, 6) \\
+\hline
+1.2 & 27/09/17 & Updated content \\
+\hline
 \end{tabular}
 
 
@@ -60,29 +64,38 @@ Version & Date & Comments \\
 \section{Team Meeting Plan}
 \textbf{Where, When, Frequency, Roles, Rules for Agenda}
 
-\subsection{Meeting Frequency and Details}
+\subsection{Meeting Details}
 
-Team AKT will meet regularly twice a week with all members present for the duration of the project.  The meetings will take place in Lab (L03) at 8:30am on Wednesdays and 2:30pm on Fridays.  Depending on the progress of the project, a third meeting may be required and will take place at Thode Library on the McMaster University campus; times may vary.  Additional meetings may not require all members to be present.
+Team AKT will meet regularly twice a week with all members present for the duration of the project.  The meetings will take place in Lab (L03) at 8:30am on Wednesdays and 2:30pm on Fridays.  Depending on the progress of the project, extra meetings may be required and will take place at Thode Library on the McMaster University campus; times may vary.  Additional meetings may not require all members to be present.
+
+% Or online through skype?
 
 \subsection{Meeting Roles}
 Roles for the each team meeting will be assigned as follows:\\ \\
-\textbf{Chair:} The chair of each meeting will be selected on a regular rotating basis.  The chair will be responsible for preparing the meeting agenda (see section 2.3 below).\\ \\
+\textbf{Chair:} The chair of each meeting will be selected on a regular rotating basis.  The chair will be responsible for preparing the meeting agenda (see section 1.3 below).\\ \\
 \textbf{Notetaker:} The primary notetaker will be Kathryn Kodama.  If the primary notetaker is not present, either Alex Trudeau or Tommy Tran will fill the role.  The notetaker is responsible for taking meeting minutes when appropriate, that is if there is a large amount of content covered in the meeting or an import design decision has been made.  
 
 \subsection{Meeting Agenda}
-As stated in section 2.2 above, each meeting will have a chair who will prepare the meeting agenda.  The notetaker will take meeting minutes when appropriate.  \\ 
-Basic Meeting Agenda Outline: \\ \\
-\textbf{To be filled out prior to meeting:}
-Chair:
-Topic Selection: What checkmarks are specified in the documentation that should be completed since the last meeting? 
-\\ \\
-\textbf{To be completed throughout meeting:}
-1. Review Agenda
-2. 
-\\ \\
-\textbf{To be completed at the end of each meeting:}
-Written statement on decisions made in meeting.
-Reminder of what is to be completed by the next meeting.
+As stated in section 1.2 above, each meeting will have a chair who will prepare the meeting agenda.  The notetaker will take meeting minutes when appropriate.  \\ \\
+\textbf{Basic Meeting Agenda Outline} \\ \\
+\textit{To be filled out prior to meeting:}
+\begin{itemize}
+    \item Chair of meeting contacts team members in order to generate meeting agenda.  Checkmarks specified in documentation that should have been completed since last meeting are added to the agenda.
+\end{itemize}
+
+\textit{To be completed throughout meeting:}
+\begin{itemize}
+    \item Chair reviews agenda
+    \item Team members responsible for each topic present the issue and seek input from other team members if required.
+    \item If necessary project schedule is modified based on current progress.
+\end{itemize}
+
+\textit{To be completed at the end of each meeting:}
+\begin{itemize}
+    \item Entire team comes up with a written statement on decisions made in meeting and effectiveness of the meeting.
+    \item Chair reminds team of what is to be completed by the next meeting according to the Project Schedule.
+\end{itemize}
+
 
 \section {Team Communication Plan}
 Team AKT will primarily communicate through a Facebook Messenger Chat, Git issues, and in person.  Facebook Messenger will be used for casual conversation such as questions, quick updates, and choosing a meeting time and place if an additional meeting outside of lab hours is required. Git issues will be used for flaws in the code discovered through creation or testing.
@@ -92,24 +105,42 @@ Team AKT will primarily communicate through a Facebook Messenger Chat, Git issue
 \hline 
 \textbf{Team Member} & \textbf{Roles} \\
 \hline
-Alex Trudeau & Software Developer, Databasing, User Authentication \\
+Alex Trudeau & Backend Developer \\
 \hline 
-Kathryn Kodama & Software Developer, Documentation \\
+Kathryn Kodama & Developer, Documentation \\
 \hline
-Tommy Tran & Software Developer, Testing \\
+Tommy Tran & Developer, Tester \\
 \hline
 
 \end{tabular}
 
 \section {Git Workflow Plan}
+\begin{itemize}
+\item Properly tag commits and documentation on Gitlab.
+\item The Master will be branch for finalized, working code.  Where there are merge issues Alex Trudeau will primarily resolve the conflict.  Where there are merge issues Alex Trudeau will primarily resolve the conflict.
+\item Create a developer branch that stems to feature branches.
+\item Notify other members on possible breaking code conflicts
+\item Git Issues will be used should the team notice any significant issues while testing. 
+\end{itemize}
+
 \section {Proof of Concept Demonstration Plan}
+Considering the experience of our members, most features of the application will not be difficult to implement. Since we plan on showcasing many features of the application by the deadline, one of the challenges of the project will be to develop and test that all features function according to the requirements. Many features such as a mobile friendly experience, user profile, and post sorting may be postponed for development after our proof of concept demonstration. Core functionality such as viewing posts or comments and user handling(authentication and account management) will be demonstrated as a proof of concept.
+
+
 \section {Technology}
+\textbf{Programming Languages: }JavaScript \\
+
+\textbf{Frameworks: }Ionic 2 and Angular \\
+
+\textbf{Document Generation: } Latex will be used for official documentation and Google Docs will be used for meeting minutes and meeting agendas. 
+
 \section {Coding Style}
+ https://google.github.io/styleguide/javascriptguide.xml
+
 \section {Project Schedule}
+
+
 \section {Project Review (for Revisions 1)}
-
-
-
-
+To be completed.
 
 \end{document}
