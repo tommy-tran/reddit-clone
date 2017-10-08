@@ -48,12 +48,22 @@ export class HomePage {
     ];
     this.isCardLayout = false;
     this.closeAllOverlays();
-    this.authService.checkAuthState();
+    this.authService.checkAuthState().then(() => {
+      this.username = this.authService.getUsername();
+    });
   }
   /**
    * used for dynamic 'click' events for menuOptions and ngFor in template
    */
   get self() { return this; }
+
+  /** 
+   * Set up env variables
+   */
+  setUp() {
+    this.username = this.authService.getUsername();
+  }
+
   /**
    * open the login/signup page
    */

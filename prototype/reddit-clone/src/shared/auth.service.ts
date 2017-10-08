@@ -29,27 +29,36 @@ export class AuthService {
     }
 
     checkAuthState() {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in.
-                this.loggedIn = true;
-                this.uid = user.uid;
-                this.email = user.email;
-                this.setUsername();
-            } else {
-                // No user is signed in
-            }
-        });
+        return new Promise((resolve, reject) => {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // User is signed in.
+                    this.loggedIn = true;
+                    this.uid = user.uid;
+                    this.email = user.email;
+                    this.setUsername().then(() => {
+                        return resolve();
+                    });
+                } else {
+                    // No user is signed in
+                    return reject();                    
+                }
+            });
+        }).catch(err => console.log(err));
     }
 
     /**
      * Set username
      */
     setUsername() {
+        return new Promise((resolve, reject) => {
             var database = firebase.database();
             database.ref('users/' + this.uid).once('value').then((snapshot) => {
                 this.username = (snapshot.val() && snapshot.val().username);
+            }).then(() => {
+                resolve();
             });
+        }).catch(err => console.log(err));
     }
 
     /**
