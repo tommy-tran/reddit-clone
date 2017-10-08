@@ -3,11 +3,11 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService {
-    username: string;
-    password: string;
-    uid: string;
-    email: string;
-    loggedIn: boolean;
+    private username: string;
+    private uid: string;    
+    private email: string;    
+    private password: string;
+    private loggedIn: boolean;
 
     constructor() {
         this.firebaseSetup();
@@ -29,7 +29,6 @@ export class AuthService {
     }
 
     checkAuthState() {
-        console.log(firebase.auth().currentUser);
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 // User is signed in.
@@ -52,12 +51,28 @@ export class AuthService {
                 this.username = (snapshot.val() && snapshot.val().username);
             });
     }
+
+    /**
+     * Get username
+     */
+    getUsername() {
+        return this.username;
+    }
+
+    /**
+     * Get UID
+     */
+    getUID() {
+        return this.uid;
+    }
+
     /**
      * Get the user's email
      */
     getEmail() {
         return this.email;
     }
+
     /**
      * set the user's email
      * @param email the users email
@@ -65,18 +80,24 @@ export class AuthService {
     setEmail(email: string) {
         this.email = email;
     }
+
     /**
      * get the user's passwd
      */
     getPswd() {
         return this.password;
     }
+
     /**
      * set the user's passwd
      * @param password the users password
      */
     setPswd(pswd: string) {
         this.password = pswd;
+    }
+    
+    isLoggedIn() {
+        return this.loggedIn;
     }
     /**
      * return an error message from firebases error codes

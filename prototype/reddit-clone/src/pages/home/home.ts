@@ -69,9 +69,9 @@ export class HomePage {
   }
 
   showUserInfo() {
-    console.log("Username: " + this.authService.username);
-    console.log("UID: " + this.authService.uid);
-    console.log("Email: " + this.authService.email);
+    console.log("Username: " + this.authService.getUsername());
+    console.log("UID: " + this.authService.getUID());
+    console.log("Email: " + this.authService.getEmail());
   }
 
   /**
