@@ -3,9 +3,11 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService {
-    password: string;
-    uname: string;
-    email: string;
+    private username: string;
+    private uid: string;    
+    private email: string;    
+    private password: string;
+    private loggedIn: boolean;
 
     constructor() {
         this.firebaseSetup();
@@ -26,12 +28,60 @@ export class AuthService {
           firebase.initializeApp(config);
     }
 
+    updateAuthState() {
+        return new Promise((resolve, reject) => {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // User is signed in.
+                    this.loggedIn = true;
+                    this.uid = user.uid;
+                    this.email = user.email;
+                    this.setUsername().then(() => {
+                        return resolve();
+                    });
+                } else {
+                    // No user is signed in
+                    return reject();                    
+                }
+            });
+        }).catch(err => console.log(err));
+    }
+
     /**
-     * get the user's email
+     * Set username
+     */
+    setUsername() {
+        return new Promise((resolve, reject) => {
+            var database = firebase.database();
+            database.ref('users/' + this.uid).once('value').then((snapshot) => {
+                this.username = (snapshot.val() && snapshot.val().username);
+            }).then(() => {
+                resolve();
+            });
+        }).catch(err => console.log(err));
+    }
+
+    /**
+     * Get username
+     */
+    getUsername() {
+        return this.username;
+    }
+
+    /**
+     * Get UID
+     */
+    getUID() {
+        return this.uid;
+    }
+
+    /**
+     * Get the user's email
      */
     getEmail() {
         return this.email;
     }
+
     /**
      * set the user's email
      * @param email the users email
@@ -39,12 +89,14 @@ export class AuthService {
     setEmail(email: string) {
         this.email = email;
     }
+
     /**
      * get the user's passwd
      */
     getPswd() {
         return this.password;
     }
+
     /**
      * set the user's passwd
      * @param password the users password
@@ -52,18 +104,9 @@ export class AuthService {
     setPswd(pswd: string) {
         this.password = pswd;
     }
-    /**
-     * set the user's username
-     * @param userName the user's username
-     */
-    setUName(userName: string) {
-        this.uname = userName;
-    }
-    /**
-     * return the user's username
-     */
-    getUName() {
-        return this.uname;
+    
+    isLoggedIn() {
+        return this.loggedIn;
     }
     /**
      * return an error message from firebases error codes

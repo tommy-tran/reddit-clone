@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController, ViewController, Events } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 
 import { DataSharingService } from '../../shared/data-sharing.service';
@@ -21,6 +21,9 @@ export class LoginPage {
   isMobile: boolean;
   isLoggedIn: boolean;
   userHasAccount: boolean;
+  validUsername: boolean;
+  usernameText: string;
+
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -30,6 +33,7 @@ export class LoginPage {
     public navParams: NavParams,
     private storage: Storage,
     public viewController: ViewController,
+    public events: Events,
     platform: Platform) {
     this.screenX = this.dataSharing.getScreenX();
     this.screenY = this.dataSharing.getScreenY();
@@ -41,7 +45,29 @@ export class LoginPage {
     this.storage.get('userHasAccount').then((val: boolean) => {
       this.userHasAccount = val;
     });
+    this.validUsername = false;
   }
+
+  /**
+   * Checking username availibility
+   */
+  checkUsername(username : string) {
+    // Check if username is letters and numbers
+    if (!(/^\w+$/i.test(username)) || username.length < 3)  {
+        this.validUsername = false;
+    } else {
+      username = username.toLowerCase();
+      var database = firebase.database();
+      database.ref('userlist/' + username).on('value', (snapshot) => {
+        if (snapshot.val()) {
+          this.validUsername = false;
+        } else {
+          this.validUsername = true;
+        }
+      });
+    }
+  }
+
   /**
    * get form data and log user in
    * @param form form with user's login info
@@ -81,6 +107,7 @@ export class LoginPage {
    * @param form form with user's sign up information
    */
   signUpUser(form: NgForm) {
+    let username = this.usernameText;
     let email = form.value.emailInput;
     let password = form.value.password;
     let confirmPassword = form.value.confirmPassword;
@@ -88,11 +115,26 @@ export class LoginPage {
       if (password == confirmPassword) {
         this.showPasswordsErr = false;
         this.showIncompleteFormErr = false;
-        //user passwd is ok, form is complete, so sign up user, then log them in (catch any errors and log them)
+        //user password is ok, form is complete, so sign up user, then log them in (catch any errors and log them)
         firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
           this.needsVerification = true;
           this.authService.setEmail(email);
           this.authService.setPswd(password);
+
+          let uid = firebase.auth().currentUser.uid;
+
+          // Add user to user collection
+          firebase.database().ref('users/' + uid).set({
+              email: email,
+              karma: 0,
+              username: username,
+          });
+
+          // Add user to userlist (to handle looking for duplicate users)
+          firebase.database().ref('userlist/').update({
+            [username]: uid
+          });
+
           //send an email to verify the user's email address
           firebase.auth().currentUser.sendEmailVerification().then(() => {
             this.alertCtrl.create({
@@ -140,8 +182,7 @@ export class LoginPage {
     });
     loading.present();
     firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-      //'username' is just everything before the @ in the user's email
-      this.authService.setUName(email.substring(0, email.indexOf('@')));
+      // TODO: Replace setEmail and setPswd with setUserInfo()
       this.authService.setEmail(email);
       this.authService.setPswd(password);
       this.needsVerification = false;
@@ -161,7 +202,9 @@ export class LoginPage {
     }).then(() => {
       this.storage.set('isLoggedIn', true).then(() => {
         this.viewController.dismiss();
-      });
+        this.events.publish('user:loggedin');            
+      }
+    );
     });
   }
   /**
