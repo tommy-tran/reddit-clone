@@ -17,15 +17,15 @@ export class SubredditPage {
     this.subreddit = this.navParams.data.subreddit;
     this.posts = [];
     this.times = [];
-    this.databaseService.getSubredditPosts(this.subreddit.id).then(posts => {
-      this.posts = posts;
-      let currentDate = new Date();
-      posts.forEach(post => {
-        let postDate = new Date(post.timestamp);
-        let timeDiff = this.calculateTimeDifference(postDate, currentDate)
-        this.times.push(timeDiff);
-      });
-    });
+    // this.databaseService.getSubredditPosts(this.subreddit.id).then(posts => {
+    //   this.posts = posts;
+    //   let currentDate = new Date();
+    //   posts.forEach(post => {
+    //     let postDate = new Date(post.timestamp);
+    //     let timeDiff = this.calculateTimeDifference(postDate, currentDate)
+    //     this.times.push(timeDiff);
+    //   });
+    // });
 
   }
   calculateTimeDifference(date1, date2) {

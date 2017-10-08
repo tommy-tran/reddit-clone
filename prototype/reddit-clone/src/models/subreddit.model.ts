@@ -1,8 +1,11 @@
 export class Subreddit {
-    id: string;
     name: string;
-    constructor(id: string, name: string) {
-        this.id = id; 
+    description: string;
+    UID: string; // UID of creator
+
+    constructor(name: string, description: string, uid: string) {
         this.name = name;
+        this.description = description;
+        this.UID = uid;
     }
 }

@@ -18,13 +18,25 @@ export class DatabaseService {
         });
     }
     /**
+     * return a JSON obj of all posts
+     */
+    getAllPosts() {
+        return new Promise<Post[]>(resolve => {
+            var database = firebase.database();
+            database.ref('posts/').once('value').then(posts => {
+                console.log(posts.val());
+                return resolve(posts.val());
+            }).catch(err => console.error(err));
+        });
+    }
+    /**
      * return a JSON obj of all posts in a subreddit
      * @param subredditId id of the subreddit
      */
     getSubredditPosts(subredditId: string) {
         return new Promise<Post[]>(resolve => {
             var database = firebase.database();
-            database.ref('subreddit-data/' + subredditId + '/posts').once('value').then(posts => {
+            database.ref('posts/' + subredditId).once('value').then(posts => {
                 console.log(posts.val());
                 return resolve(posts.val());
             }).catch(err => console.error(err));

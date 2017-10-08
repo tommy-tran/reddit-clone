@@ -94,13 +94,23 @@ export class HomePage {
   }
 
   /**
-   * get some post from a subreddit
+   * Get posts from specified subreddit
    */
   getPosts() {
-    this.databaseService.getSubredditPosts("1").then((subreddits) => {
+    this.databaseService.getSubredditPosts("subredditID_1").then((subreddits) => {
       console.log(subreddits);
     }).catch(err => console.error(err));
   }
+
+  /**
+   * Get all posts
+   */
+  getAllPosts() {
+    this.databaseService.getAllPosts().then((subreddits) => {
+      console.log(subreddits);
+    }).catch(err => console.error(err));
+  }
+
   /**
    * toggle the display of the menu
    */
