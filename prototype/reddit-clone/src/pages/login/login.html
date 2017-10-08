@@ -20,6 +20,18 @@
       <!-- form for a new account -->
       <div *ngIf="!userHasAccount && !needsVerification" text-center>
         <form #signupForm="ngForm" (ngSubmit)="signUpUser(signupForm)">
+          <div *ngIf="usernameText && usernameText?.length >= 3">
+            <p class="help is-success" *ngIf="validUsername">
+              {{usernameText}} is available.
+            </p>
+            <p class="help is-danger" *ngIf="!validUsername">
+              {{usernameText}} is unavailable.
+            </p>
+          </div>
+
+          <ion-item>
+            <ion-input name="usernameInput" placeholder="Enter Username" [(ngModel)]="usernameText"  (keyup)="checkUsername(usernameText)"></ion-input>
+          </ion-item>
           <ion-item>
             <ion-input name="emailInput" placeholder="Enter Email" ngModel></ion-input>
           </ion-item>
@@ -29,7 +41,7 @@
           <ion-item>
             <ion-input name="confirmPassword" type="password" placeholder="Confirm Password" ngModel></ion-input>
           </ion-item>
-          <button [style.marginTop]="screenY/24+'px'" ion-button type="submit">Submit</button>
+          <button [style.marginTop]="screenY/24+'px'" ion-button type="submit" [disabled]="!validUsername || !usernameText">Submit</button>
         </form>
       </div>
       <!-- form for an existing user -->
