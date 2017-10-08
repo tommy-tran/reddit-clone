@@ -48,8 +48,17 @@ export class HomePage {
     ];
     this.isCardLayout = false;
     this.closeAllOverlays();
-    this.authService.checkAuthState().then(() => {
-      this.username = this.authService.getUsername();
+    
+    // When user logs in, update authservice variables
+    this.events.subscribe('user:loggedin', () => {
+      this.authService.updateAuthState().then(() => {
+        this.setUp();
+      });
+    });
+
+    // Update authservice variables when still logged in
+    this.authService.updateAuthState().then(() => {
+      this.setUp();
     });
   }
   /**
@@ -58,7 +67,7 @@ export class HomePage {
   get self() { return this; }
 
   /** 
-   * Set up env variables
+   * Set up environment
    */
   setUp() {
     this.username = this.authService.getUsername();

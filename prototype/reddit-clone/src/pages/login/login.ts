@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController, ViewController, Events } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 
 import { DataSharingService } from '../../shared/data-sharing.service';
@@ -33,6 +33,7 @@ export class LoginPage {
     public navParams: NavParams,
     private storage: Storage,
     public viewController: ViewController,
+    public events: Events,
     platform: Platform) {
     this.screenX = this.dataSharing.getScreenX();
     this.screenY = this.dataSharing.getScreenY();
@@ -201,7 +202,9 @@ export class LoginPage {
     }).then(() => {
       this.storage.set('isLoggedIn', true).then(() => {
         this.viewController.dismiss();
-      });
+        this.events.publish('user:loggedin');            
+      }
+    );
     });
   }
   /**

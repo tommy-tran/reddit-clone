@@ -28,7 +28,7 @@ export class AuthService {
           firebase.initializeApp(config);
     }
 
-    checkAuthState() {
+    updateAuthState() {
         return new Promise((resolve, reject) => {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
