@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, PopoverController, Events, ViewController, NavParams } from 'ionic-angular';
-import { Storage } from "@ionic/storage";
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
@@ -31,13 +30,8 @@ export class HomePage {
     private events: Events,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
-    private popoverCtrl: PopoverController,
-    private storage: Storage) {
-    //determine if user has account
-    this.storage.get('userHasAccount').then((val: boolean) => {
-      this.userHasAccount = val;
-    });
-    
+    private popoverCtrl: PopoverController) {
+      
     //initial sort by method and icon
     this.sortIcon = 'flame';
     this.sortMethod = 'hot';
@@ -54,18 +48,12 @@ export class HomePage {
     ];
     this.isCardLayout = false;
     this.closeAllOverlays();
-    this.getUserInfo();
+    this.authService.checkAuthState();
   }
   /**
    * used for dynamic 'click' events for menuOptions and ngFor in template
    */
   get self() { return this; }
-  /**
-   * get username
-   */
-  getUserInfo() {
-    this.username = this.authService.getUName();
-  }
   /**
    * open the login/signup page
    */
@@ -79,6 +67,13 @@ export class HomePage {
       }
     });
   }
+
+  showUserInfo() {
+    console.log("Username: " + this.authService.username);
+    console.log("UID: " + this.authService.uid);
+    console.log("Email: " + this.authService.email);
+  }
+
   /**
    * get some post from a subreddit
    */
