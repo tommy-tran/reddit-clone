@@ -12,15 +12,15 @@
 </ion-header>
 
 
-<ion-content>
-  <div [style.paddingTop]="screenY/24+'px'">
+<ion-content class="no-scroll">
+  <div class="authcard-container">
     <!-- authentication card container -->
-    <div id="auth-card">
-      <h3 text-center [style.paddingTop]="'50px'">Welcome to Reddit Clone</h3>
+    <div id="authcard">
+      <h3 text-center>Welcome to Reddit Clone</h3>
       <!-- form for a new account -->
       <div *ngIf="!userHasAccount && !needsVerification" text-center>
         <form #signupForm="ngForm" (ngSubmit)="signUpUser(signupForm)">
-          <div *ngIf="usernameText && usernameText?.length >= 3">
+          <div *ngIf="usernameText && usernameText.length >= 3">
             <p class="help is-success" *ngIf="validUsername">
               {{usernameText}} is available.
             </p>
@@ -30,7 +30,7 @@
           </div>
 
           <ion-item>
-            <ion-input name="usernameInput" placeholder="Enter Username" [(ngModel)]="usernameText"  (keyup)="checkUsername(usernameText)"></ion-input>
+            <ion-input name="usernameInput" placeholder="Enter a username (between 3 and 16 characters)" [(ngModel)]="usernameText"  (keyup)="checkUsername(usernameText)"></ion-input>
           </ion-item>
           <ion-item>
             <ion-input name="emailInput" placeholder="Enter Email" ngModel></ion-input>

@@ -4,6 +4,8 @@ import { Comment } from "../models/comment.model";
 import * as firebase from 'firebase';
 import { Subreddit } from "../models/subreddit.model";
 
+// TODO: Sorting posts, creating subreddits, posts, upvotes/downvotes
+
 @Injectable()
 export class DatabaseService {
     /**

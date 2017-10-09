@@ -15,6 +15,8 @@ export class SubredditPage {
   posts: Post[];
   times: string[];
 
+  // TODO: Description, possibly creator privileges, goToPost, voting
+
   constructor(private databaseService: DatabaseService, public navCtrl: NavController, public navParams: NavParams) {
     this.subreddit = this.navParams.data;
     this.id = this.subreddit.subreddit_id;

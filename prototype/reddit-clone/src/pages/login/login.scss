@@ -1,11 +1,15 @@
 page-login {
-    #auth-card {
-        margin: auto;
-        background-color: white;
+    .no-scroll .scroll-content{
+        overflow: hidden;
     }
-    #auth-card > div {
-        padding-top: 10px;
+
+    .authcard-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
+    
     #verify-container {
         padding-bottom: 50px;
     }

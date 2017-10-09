@@ -35,17 +35,20 @@ export class LoginPage {
     public viewController: ViewController,
     public events: Events,
     platform: Platform) {
-    this.screenX = this.dataSharing.getScreenX();
-    this.screenY = this.dataSharing.getScreenY();
-    this.isMobile = this.dataSharing.getIsMobile();
-    this.screenX = window.screen.width;
-    this.screenY = window.screen.height;
-    this.isMobile = platform.is('mobile');
-    //does the user have an account?
-    this.storage.get('userHasAccount').then((val: boolean) => {
-      this.userHasAccount = val;
-    });
-    this.validUsername = false;
+		// Initialize
+		this.usernameText = "";
+
+		this.screenX = this.dataSharing.getScreenX();
+		this.screenY = this.dataSharing.getScreenY();
+		this.isMobile = this.dataSharing.getIsMobile();
+		this.screenX = window.screen.width;
+		this.screenY = window.screen.height;
+		this.isMobile = platform.is('mobile');
+		//does the user have an account?
+		this.storage.get('userHasAccount').then((val: boolean) => {
+		this.userHasAccount = val;
+		});
+		this.validUsername = false;
   }
 
   /**
@@ -53,7 +56,7 @@ export class LoginPage {
    */
   checkUsername(username : string) {
     // Check if username is letters and numbers
-    if (!(/^\w+$/i.test(username)) || username.length < 3)  {
+    if (!(/^\w+$/i.test(username)) || username.length < 3 || username.length > 16)  {
         this.validUsername = false;
     } else {
       username = username.toLowerCase();
