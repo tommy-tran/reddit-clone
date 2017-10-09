@@ -78,14 +78,6 @@ export class LoginPage {
     }
   }
   /**
-   * logout the user
-   */
-  logout() {
-    firebase.auth().signOut().catch(err => {
-      console.error(err);
-    });
-  }
-  /**
    * attempt to sign in after verification email is sent
    */
   attemptSignIn() {

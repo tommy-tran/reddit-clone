@@ -24,7 +24,8 @@
     <button ion-button clear small (click)="showSortByPopover($event)">
       <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>
     </button>
-    <a text-right (click)="openAuth()">Log In / Register</a>
+    <a text-right *ngIf="!username" (click)="openAuth()">Log In / Register</a>
+    <a text-right *ngIf="username" (click)="logout()">Sign Out</a>
   </div>
 
   <h2>Welcome to Reddit Clone</h2>

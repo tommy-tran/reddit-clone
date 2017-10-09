@@ -47,6 +47,8 @@ export class AuthService {
         }).catch(err => console.log(err));
     }
 
+
+
     /**
      * Set username
      */
@@ -91,14 +93,14 @@ export class AuthService {
     }
 
     /**
-     * get the user's passwd
+     * get the user's password
      */
     getPswd() {
         return this.password;
     }
 
     /**
-     * set the user's passwd
+     * set the user's password
      * @param password the users password
      */
     setPswd(pswd: string) {
@@ -107,6 +109,25 @@ export class AuthService {
     
     isLoggedIn() {
         return this.loggedIn;
+    }
+
+    /**
+     * logout the user
+     */
+    logout() {
+        return new Promise((resolve, reject) => {
+            firebase.auth().signOut().then(() => {
+                this.username = "";
+                this.email = "";
+                this.uid = "";
+                this.loggedIn = false;
+                this.password = "";
+                return resolve();
+            }).catch(err => {
+                console.error(err);
+                return reject();
+            })
+        });
     }
     /**
      * return an error message from firebases error codes

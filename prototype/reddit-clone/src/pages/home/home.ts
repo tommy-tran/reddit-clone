@@ -74,6 +74,14 @@ export class HomePage {
   }
 
   /**
+   * Log out user
+   */
+  logout() {
+    this.authService.logout().then(() => {
+      this.username = "";
+    });
+  }
+  /**
    * open the login/signup page
    */
   openAuth() {
