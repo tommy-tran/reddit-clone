@@ -9,8 +9,8 @@
 
 <ion-content>
   <ion-list inset>
-    <div *ngFor="let post of posts" (click)="showComments(post)">
-      <post [post]="post"></post>
+    <div *ngFor="let post of posts">
+      <post [post]="post" [subreddit]="subreddit"></post>
     </div>
   </ion-list>
 </ion-content>

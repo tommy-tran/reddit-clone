@@ -32,8 +32,6 @@
   <p *ngIf="username">Your username is {{username}}</p>
   <p>There will be posts here eventually!</p>
   <button ion-button (click)="showUserInfo()">Show user information</button>
-  <button ion-button (click)="testSubreddit1()">Go to test subreddit 1</button>
-  <button ion-button (click)="testSubreddit2()">Go to test subreddit 2</button>
   <div class="posts" *ngFor="let post of posts">
     <post *ngIf="posts" [post]="post"></post>
   </div>

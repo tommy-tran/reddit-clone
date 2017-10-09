@@ -7,6 +7,17 @@ import { Subreddit } from "../models/subreddit.model";
 @Injectable()
 export class DatabaseService {
     /**
+     * return a JSON obj of a subreddit
+     */
+    getSubreddit(subreddit_id : string) {
+        return new Promise<Subreddit[]>(resolve => {
+            var database = firebase.database();
+            database.ref('subreddits/' + subreddit_id).once('value').then(subreddit => {
+                return resolve(subreddit.val());
+            }).catch(err => console.error(err));
+        });
+    }
+    /**
      * return a JSON obj of subreddits from the database
      */
     getSubreddits() {
@@ -17,6 +28,7 @@ export class DatabaseService {
             }).catch(err => console.error(err));
         });
     }
+
     /**
      * return a JSON obj of posts from all subreddits
      */
@@ -24,7 +36,6 @@ export class DatabaseService {
         return new Promise<Post[]>(resolve => {
             var database = firebase.database();
             database.ref('posts/').once('value').then(posts => {
-                console.log(posts.val());
                 return resolve(posts.val());
             }).catch(err => console.error(err));
         });
@@ -37,7 +48,6 @@ export class DatabaseService {
         return new Promise<Post[]>(resolve => {
             var database = firebase.database();
             database.ref('posts/' + subredditId).once('value').then(posts => {
-                console.log(posts.val());
                 return resolve(posts.val());
             }).catch(err => console.error(err));
         })
@@ -75,7 +85,7 @@ export class DatabaseService {
     writePost(post: Post, subredditId: string) {
         firebase.database().ref('posts/' + subredditId).set({
             message: post.message,
-            postId: post.postId,
+            postId: post.post_id,
             subreddit: post.subreddit,
             timestamp: post.timestamp,
             upvotes: post.upvotes,

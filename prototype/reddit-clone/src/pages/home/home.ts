@@ -206,15 +206,6 @@ export class HomePage {
   goToSubreddit(subreddit: Subreddit) {
     this.navCtrl.push(SubredditPage, { subreddit: subreddit });
   }
-
-  testSubreddit1() {
-    this.navCtrl.push(SubredditPage, { subreddit: {UID: "hDDxFq0vIuVNRFYvGoc0cFKaSbk1", creator: "jimmy", description: "A subreddit description", name: "apples", subreddit_id: "subredditID_1"}});
-  }
-
-  testSubreddit2() {
-    this.navCtrl.push(SubredditPage, { subreddit: {UID: "hDDxFq0vIuVNRFYvGoc0cFKaSbk1", creator: "jim", description: "paw-inspiring", name: "aww", subreddit_id: "subredditID_2"}});
-  }
-
 }
 @Component({
   template: `

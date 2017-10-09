@@ -16,7 +16,7 @@ export class SubredditPage {
   times: string[];
 
   constructor(private databaseService: DatabaseService, public navCtrl: NavController, public navParams: NavParams) {
-    this.subreddit = this.navParams.data.subreddit;
+    this.subreddit = this.navParams.data;
     this.id = this.subreddit.subreddit_id;
     this.posts = [];
     this.times = [];

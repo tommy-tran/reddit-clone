@@ -5,7 +5,11 @@
         <img src="{{post.media}}" alt="post media">
       </div>
       <div class="post-info">
-        <div class="post-info-bar"><a class="subreddit-name" (click)="goToSubreddit(post.subreddit)">r/{{post.subreddit}}</a> - TIMEAGO - u/{{post.user}}</div>         
+        <div class="post-info-bar">
+          <a class="subreddit-name" *ngIf="!subreddit" (click)="goToSubreddit()">r/{{post.subreddit}}</a>
+          <a class="subreddit-name" *ngIf="subreddit">r/{{post.subreddit}}</a>
+           - TIMEAGO - u/{{post.user}}
+        </div>
         <div class="post-title">{{post.title}}</div>         
       </div>
       
