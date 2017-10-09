@@ -53,7 +53,9 @@ export class HomePage {
     
     // When user logs in, update authservice variables
     this.events.subscribe('user:loggedin', () => {
-      this.authService.updateAuthState();
+      this.authService.updateAuthState().then(() => {
+        this.setUsername();
+      });
     });
 
     // Update authservice variables when still logged in
@@ -70,8 +72,7 @@ export class HomePage {
    * Set up environment
    */
   setUp() {
-    this.username = this.authService.getUsername();
-
+    this.setUsername();
     // Get all posts from all subreddits
     this.databaseService.getAllPosts().then((subreddits) => {
       let subredditList = Object.values(subreddits);
@@ -79,6 +80,10 @@ export class HomePage {
         this.posts = this.posts.concat(Object.values(post));
       });
     }).catch(err => console.error(err));
+  }
+
+  setUsername() {
+    this.username = this.authService.getUsername();
   }
 
   /**
