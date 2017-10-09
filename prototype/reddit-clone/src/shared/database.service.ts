@@ -73,10 +73,9 @@ export class DatabaseService {
      * @param subredditId id of the subreddit to write the post
      */
     writePost(post: Post, subredditId: string) {
-        firebase.database().ref('subreddit-data/' + subredditId + '/posts').set({
+        firebase.database().ref('posts/' + subredditId).set({
             message: post.message,
             postId: post.postId,
-            submessage: post.submessage,
             subreddit: post.subreddit,
             timestamp: post.timestamp,
             upvotes: post.upvotes,

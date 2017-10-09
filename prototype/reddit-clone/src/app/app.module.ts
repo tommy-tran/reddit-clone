@@ -7,6 +7,7 @@ import { IonicStorageModule } from "@ionic/storage";
 
 import { MyApp } from './app.component';
 import { HomePage, SortByPopover, LoginPage, SubredditPage } from '../shared/pages';
+import { PostComponent } from '../components/post/post';
 import { DataSharingService } from '../shared/data-sharing.service';
 import { AuthService } from '../shared/auth.service';
 import { DatabaseService } from '../shared/database.service';
@@ -16,7 +17,8 @@ import { DatabaseService } from '../shared/database.service';
     HomePage,
     SortByPopover,
     LoginPage,
-    SubredditPage
+    SubredditPage,
+    PostComponent
   ],
   imports: [
     BrowserModule,

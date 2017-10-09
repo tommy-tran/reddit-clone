@@ -1,0 +1,46 @@
+.post {
+    .post-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-content {
+        display: flex;
+    }
+
+    .post-media {
+        margin-left: 10px;
+        max-width: 80px;
+        height: 60px;
+    }
+    .post-media > img {
+        
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden !important;
+    }
+
+    .post-info {
+        margin-left: 10px;
+    }
+
+    .post-title {
+        padding-top: 0.3em;
+    }
+
+    .post-actions {
+        padding: 5px 10px 0px 10px;
+        .comments {
+            float: left;
+        }
+        .actions {
+            float: right;
+        }
+    }
+    
+    hr {
+        margin-bottom: 10px;
+        height: 1px;
+    }
+}

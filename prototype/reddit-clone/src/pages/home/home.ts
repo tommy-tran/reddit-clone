@@ -6,11 +6,13 @@ import { DatabaseService } from '../../shared/database.service';
 import { DataSharingService } from "../../shared/data-sharing.service";
 import { LoginPage, SubredditPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
+import { Post } from '../../models/post.model';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  posts: Post[];
   isCardLayout: boolean;
   isLoggedIn: boolean;
   menuOptions: { icon: string, title: string, action: string }[];
@@ -31,7 +33,7 @@ export class HomePage {
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     private popoverCtrl: PopoverController) {
-      
+    this.posts = [];
     //initial sort by method and icon
     this.sortIcon = 'flame';
     this.sortMethod = 'hot';
@@ -71,6 +73,14 @@ export class HomePage {
    */
   setUp() {
     this.username = this.authService.getUsername();
+
+    // Get all posts from all subreddits
+    this.databaseService.getAllPosts().then((subreddits) => {
+      let subredditList = Object.values(subreddits);
+      subredditList.forEach((post) => {
+        this.posts = this.posts.concat(Object.values(post));
+      });
+    }).catch(err => console.error(err));
   }
 
   /**
@@ -104,20 +114,11 @@ export class HomePage {
   /**
    * Get posts from specified subreddit
    */
-  getPosts() {
-    this.databaseService.getSubredditPosts("subredditID_1").then((subreddits) => {
-      console.log(subreddits);
-    }).catch(err => console.error(err));
-  }
-
-  /**
-   * Get all posts
-   */
-  getAllPosts() {
-    this.databaseService.getAllPosts().then((subreddits) => {
-      console.log(subreddits);
-    }).catch(err => console.error(err));
-  }
+  // getPosts() {
+  //   this.databaseService.getSubredditPosts("subredditID_1").then((posts) => {
+  //     this.posts = this.posts.concat(Object.values(posts));
+  //   }).catch(err => console.error(err));
+  // }
 
   /**
    * toggle the display of the menu
@@ -204,6 +205,14 @@ export class HomePage {
    */
   goToSubreddit(subreddit: Subreddit) {
     this.navCtrl.push(SubredditPage, { subreddit: subreddit });
+  }
+
+  testSubreddit1() {
+    this.navCtrl.push(SubredditPage, { subreddit: {UID: "hDDxFq0vIuVNRFYvGoc0cFKaSbk1", creator: "jimmy", description: "A subreddit description", name: "apples", subreddit_id: "subredditID_1"}});
+  }
+
+  testSubreddit2() {
+    this.navCtrl.push(SubredditPage, { subreddit: {UID: "hDDxFq0vIuVNRFYvGoc0cFKaSbk1", creator: "jim", description: "paw-inspiring", name: "aww", subreddit_id: "subredditID_2"}});
   }
 
 }

@@ -1,0 +1,26 @@
+<div class="post">
+  <div class="post-container">
+    <div class="post-content">
+      <div class="post-media" *ngIf="post.media">
+        <img src="{{post.media}}" alt="post media">
+      </div>
+      <div class="post-info">
+        <div class="post-info-bar"><a class="subreddit-name" (click)="goToSubreddit(post.subreddit)">r/{{post.subreddit}}</a> - TIMEAGO - u/{{post.user}}</div>         
+        <div class="post-title">{{post.title}}</div>         
+      </div>
+      
+    </div>
+    <div class="post-actions">
+      <div class="comments"><a><ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments</a></div>
+      <div class="actions">
+          <a>
+            <ion-icon name="arrow-up"></ion-icon>
+          </a>&nbsp;{{post.upvotes}}&nbsp;
+          <a>
+            <ion-icon name="arrow-down"></ion-icon>
+          </a>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>

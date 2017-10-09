@@ -10,22 +10,27 @@ import { DatabaseService } from '../../shared/database.service';
   templateUrl: 'subreddit.html',
 })
 export class SubredditPage {
+  id : string;
   subreddit: Subreddit;
   posts: Post[];
   times: string[];
+
   constructor(private databaseService: DatabaseService, public navCtrl: NavController, public navParams: NavParams) {
     this.subreddit = this.navParams.data.subreddit;
+    this.id = this.subreddit.subreddit_id;
     this.posts = [];
     this.times = [];
-    // this.databaseService.getSubredditPosts(this.subreddit.id).then(posts => {
-    //   this.posts = posts;
-    //   let currentDate = new Date();
-    //   posts.forEach(post => {
-    //     let postDate = new Date(post.timestamp);
-    //     let timeDiff = this.calculateTimeDifference(postDate, currentDate)
-    //     this.times.push(timeDiff);
-    //   });
-    // });
+    this.databaseService.getSubredditPosts(this.id).then(posts => {
+      this.posts = Object.values(posts);
+      
+      // https://firebase.google.com/docs/reference/js/firebase.database.ServerValue for working with timestamps
+      // let currentDate = new Date();
+      // posts.forEach(post => {
+      //   let postDate = new Date(post.timestamp);
+      //   let timeDiff = this.calculateTimeDifference(postDate, currentDate)
+      //   this.times.push(timeDiff);
+      // });
+    });
 
   }
   calculateTimeDifference(date1, date2) {
