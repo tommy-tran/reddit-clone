@@ -18,7 +18,7 @@ export class DatabaseService {
         });
     }
     /**
-     * return a JSON obj of all posts
+     * return a JSON obj of posts from all subreddits
      */
     getAllPosts() {
         return new Promise<Post[]>(resolve => {
