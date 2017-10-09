@@ -53,9 +53,7 @@ export class HomePage {
     
     // When user logs in, update authservice variables
     this.events.subscribe('user:loggedin', () => {
-      this.authService.updateAuthState().then(() => {
-        this.setUp();
-      });
+      this.authService.updateAuthState();
     });
 
     // Update authservice variables when still logged in
