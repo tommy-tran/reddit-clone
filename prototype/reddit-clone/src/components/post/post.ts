@@ -35,7 +35,6 @@ export class PostComponent implements OnInit{
     this.databaseService.upvotePost(user, this.post).then((points) => {
       this.score = this.score + points;
       this.updatePost();
-      this.disableInput = false;
     });
   }
 
@@ -45,13 +44,13 @@ export class PostComponent implements OnInit{
     this.databaseService.downvotePost(user, this.post).then((points) => {
       this.score = this.score + points;
       this.updatePost();
-      this.disableInput = false;
     });
   }
 
   updatePost() {
     this.databaseService.getPost(this.post.post_id, this.post.subreddit_id).then((post) => {
       this.post = post;
+      this.disableInput = false;
     })
   }
 }
