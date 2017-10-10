@@ -12,13 +12,15 @@ import { Subreddit } from '../../models/subreddit.model';
 })
 export class PostComponent implements OnInit{
   score : number;
+  disableInput : boolean;
   @Input() post: Post;
   @Input() subreddit: Subreddit;
   constructor(private authService: AuthService, private databaseService: DatabaseService, public navCtrl: NavController,) {
   }
 
   ngOnInit() {
-    this.score = this.post.score;    
+    this.score = this.post.score;
+    this.disableInput = false;
   }
 
   goToSubreddit() {
@@ -28,18 +30,22 @@ export class PostComponent implements OnInit{
   }
 
   upvote() {
+    this.disableInput = true;
     let user = this.authService.getUsername();
     this.databaseService.upvotePost(user, this.post).then((points) => {
       this.score = this.score + points;
       this.updatePost();
+      this.disableInput = false;
     });
   }
 
   downvote() {
+    this.disableInput = true;
     let user = this.authService.getUsername();
     this.databaseService.downvotePost(user, this.post).then((points) => {
       this.score = this.score + points;
       this.updatePost();
+      this.disableInput = false;
     });
   }
 
