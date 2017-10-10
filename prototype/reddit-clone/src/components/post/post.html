@@ -16,10 +16,10 @@
     </div>
     <div class="post-actions">
       <div class="comments"><a><ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments</a></div>
-      <div class="actions">
+      <div class="voting-box">
           <a>
             <ion-icon (click)="upvote()" name="arrow-up"></ion-icon>
-          </a>&nbsp;{{score}}&nbsp;
+          </a><span class="post-score">{{score}}</span>
           <a>
             <ion-icon (click)="downvote()" name="arrow-down"></ion-icon>
           </a>

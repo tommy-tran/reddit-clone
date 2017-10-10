@@ -8,23 +8,17 @@ import { Subreddit } from "../models/subreddit.model";
 
 @Injectable()
 export class DatabaseService {
-
-    // TODO: Make voting operations atomic
     checkVoted(username: string, post: Post) {
         return new Promise<number>(resolve => {
             firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).once('value').then(post => {
                 let hasUpvotes = post.val().hasOwnProperty("upvotes");
                 let hasDownvotes = post.val().hasOwnProperty("downvotes");
                 if (hasUpvotes || hasDownvotes) {
-                    if (hasUpvotes) {
-                        if (post.val().upvotes[username]) {       
-                            return resolve(0); // Found in upvotes
-                        }
+                    if (hasUpvotes && post.val().upvotes[username]) {
+                        return resolve(0); // Found in upvotes
                     }
-                    if (hasDownvotes) {
-                        if (post.val().downvotes[username]) {                
-                            return resolve(1); // Found in downvotes
-                        }
+                    if (hasDownvotes && post.val().downvotes[username]) {       
+                        return resolve(1); // Found in downvotes
                     }
                 } else {
                     return resolve(2); // Didn't vote
@@ -34,6 +28,7 @@ export class DatabaseService {
     }
 
     upvotePost(username : string, post: Post) {
+        
         return new Promise<number>(resolve => {
             this.checkVoted(username, post).then((voted) => {
                 let updates = {};

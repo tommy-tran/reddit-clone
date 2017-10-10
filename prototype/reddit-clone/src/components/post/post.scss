@@ -31,12 +31,19 @@
 
     .post-actions {
         padding: 5px 10px 0px 10px;
-        .comments {
-            float: left;
+        position: relative;
+
+        .voting-box {
+            position: absolute;
+            bottom: 0;
+            right: 0;
         }
-        .actions {
-            float: right;
-        }
+    }
+
+    .post-score {
+        padding: 0 10px;
+        box-sizing: border-box;
+        flex-shrink: 1;
     }
     
     hr {
