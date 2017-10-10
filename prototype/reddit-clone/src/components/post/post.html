@@ -18,10 +18,10 @@
       <div class="comments"><a><ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments</a></div>
       <div class="actions">
           <a>
-            <ion-icon name="arrow-up"></ion-icon>
-          </a>&nbsp;{{post.upvotes}}&nbsp;
+            <ion-icon (click)="upvote()" name="arrow-up"></ion-icon>
+          </a>&nbsp;{{score}}&nbsp;
           <a>
-            <ion-icon name="arrow-down"></ion-icon>
+            <ion-icon (click)="downvote()" name="arrow-down"></ion-icon>
           </a>
       </div>
     </div>

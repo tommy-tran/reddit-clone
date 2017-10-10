@@ -8,8 +8,98 @@ import { Subreddit } from "../models/subreddit.model";
 
 @Injectable()
 export class DatabaseService {
+
+    // TODO: Make voting operations atomic
+    checkVoted(username: string, post: Post) {
+        return new Promise<number>(resolve => {
+            firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).once('value').then(post => {
+                let hasUpvotes = post.val().hasOwnProperty("upvotes");
+                let hasDownvotes = post.val().hasOwnProperty("downvotes");
+                if (hasUpvotes || hasDownvotes) {
+                    if (hasUpvotes) {
+                        if (post.val().upvotes[username]) {       
+                            return resolve(0); // Found in upvotes
+                        }
+                    }
+                    if (hasDownvotes) {
+                        if (post.val().downvotes[username]) {                
+                            return resolve(1); // Found in downvotes
+                        }
+                    }
+                } else {
+                    return resolve(2); // Didn't vote
+                }
+            }).catch(err => console.error(err));
+        });
+    }
+
+    upvotePost(username : string, post: Post) {
+        return new Promise<number>(resolve => {
+            this.checkVoted(username, post).then((voted) => {
+                let updates = {};
+                
+                switch(voted) {
+                    case 0: // upvoted --> take away upvote
+                        updates["/upvotes/" + username] = null;
+                        updates["/score"] = post.score - 1;
+                        firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        return resolve(-1);
+                    case 1: // downvoted
+                        updates["/upvotes/" + username] = true;
+                        updates["/downvotes/" + username] = null;
+                        updates["/score"] = post.score + 2;
+                        firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        return resolve(2);
+                    case 2: // no vote
+                        updates["/upvotes/" + username] = true;
+                        updates["/score"] = post.score + 1;
+                        firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        return resolve(1);
+                }
+            });
+
+        });
+    }
+
+    downvotePost(username : string, post: Post) {
+        return new Promise<number>(resolve => {
+            this.checkVoted(username, post).then((voted) => {
+                let updates = {};
+                
+                switch(voted) {
+                    case 0: // upvoted
+                        updates["/upvotes/" + username] = null;
+                        updates["/downvotes/" + username] = true;
+                        updates["/score"] = post.score - 2;
+                        firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        return resolve(-2);
+                    case 1: // downvoted --> take away downvote
+                        updates["/downvotes/" + username] = null;
+                        updates["/score"] = post.score + 1;
+                        firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        return resolve(1);
+                    case 2: // no vote
+                        updates["/downvotes/" + username] = true;
+                        updates["/score"] = post.score - 1;
+                        firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        return resolve(-1);
+                }
+            });
+
+        });
+    }
+
+    getPost(post_id: string, subreddit_id) {
+        return new Promise<Post>(resolve => {
+            firebase.database().ref('posts/' + subreddit_id + "/" + post_id).once('value').then(post => {
+                return resolve(post.val());
+            }).catch(err => console.error(err));
+        });
+    }
+
     /**
      * return a JSON obj of a subreddit
+     * @param subreddit_id 
      */
     getSubreddit(subreddit_id : string) {
         return new Promise<Subreddit[]>(resolve => {
