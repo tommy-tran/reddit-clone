@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, Navbar, Events } from 'ionic-angular';
 import { Subreddit } from '../../models/subreddit.model';
 import { Post } from '../../models/post.model';
 import { DatabaseService } from '../../shared/database.service';
@@ -9,7 +9,8 @@ import { DatabaseService } from '../../shared/database.service';
   selector: 'page-subreddit',
   templateUrl: 'subreddit.html',
 })
-export class SubredditPage {
+export class SubredditPage implements OnInit {
+  @ViewChild(Navbar) navBar: Navbar;
   id : string;
   subreddit: Subreddit;
   posts: Post[];
@@ -17,7 +18,7 @@ export class SubredditPage {
 
   // TODO: Description, possibly creator privileges, goToPost, voting
 
-  constructor(private databaseService: DatabaseService, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private databaseService: DatabaseService, public navCtrl: NavController, public navParams: NavParams, public events: Events) {
     this.subreddit = this.navParams.data;
     this.id = this.subreddit.subreddit_id;
     this.posts = [];
@@ -35,6 +36,15 @@ export class SubredditPage {
     });
 
   }
+
+  ngOnInit() {
+    // When the back button is pressed
+    this.navBar.backButtonClick = () => {
+      this.events.publish('nav:subreddit');  
+      this.navCtrl.pop();
+    }
+  }
+  
   calculateTimeDifference(date1, date2) {
     var difference = date1.getTime() - date2.getTime();
 

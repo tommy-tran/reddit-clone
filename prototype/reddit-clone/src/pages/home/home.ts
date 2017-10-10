@@ -58,6 +58,11 @@ export class HomePage {
       });
     });
 
+    // When user navigates from subreddits, refresh
+    this.events.subscribe('nav:subreddit', () => {
+      this.getAllPosts();
+    });
+
     // Update authservice variables when still logged in
     this.authService.updateAuthState().then(() => {
       this.setUp();
@@ -73,7 +78,13 @@ export class HomePage {
    */
   setUp() {
     this.setUsername();
-    // Get all posts from all subreddits
+    this.getAllPosts();
+  }
+
+  getAllPosts() {
+    // Clean posts
+    this.posts = [];
+    // Get posts
     this.databaseService.getAllPosts().then((subreddits) => {
       let subredditList = Object.values(subreddits);
       subredditList.forEach((post) => {
