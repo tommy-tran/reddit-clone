@@ -55,6 +55,8 @@ export class HomePage {
     this.events.subscribe('user:loggedin', () => {
       this.authService.updateAuthState().then(() => {
         this.setUsername();
+        this.posts = []; // Clear posts
+        this.getAllPosts(); // Get votable posts
       });
     });
 
@@ -103,6 +105,10 @@ export class HomePage {
   logout() {
     this.authService.logout().then(() => {
       this.username = "";
+      this.authService.updateAuthState().then(() => {
+        this.posts = [];
+        this.getAllPosts();
+      })
     });
   }
   /**

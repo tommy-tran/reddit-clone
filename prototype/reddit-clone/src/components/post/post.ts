@@ -12,15 +12,17 @@ import { Subreddit } from '../../models/subreddit.model';
 })
 export class PostComponent implements OnInit{
   score : number;
+  userLoggedIn: boolean;
   disableInput : boolean;
   @Input() post: Post;
   @Input() subreddit: Subreddit;
   constructor(private authService: AuthService, private databaseService: DatabaseService, public navCtrl: NavController,) {
+    this.userLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
+    this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
 
   ngOnInit() {
     this.score = this.post.score;
-    this.disableInput = false;
   }
 
   goToSubreddit() {

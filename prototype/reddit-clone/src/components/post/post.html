@@ -18,12 +18,12 @@
       <div class="comments"><a><ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments</a></div>
       <div class="voting-box">
           <a>
-            <ion-icon (click)="upvote()" *ngIf="!disableInput" name="arrow-up"></ion-icon>
-            <ion-icon *ngIf="disableInput" name="arrow-up"></ion-icon>
+            <ion-icon (click)="upvote()" *ngIf="!disableInput && userLoggedIn" name="arrow-up"></ion-icon>
+            <ion-icon *ngIf="disableInput || !userLoggedIn" name="arrow-up"></ion-icon>
           </a><span class="post-score">{{score}}</span>
           <a>
-            <ion-icon (click)="downvote()" *ngIf="!disableInput" name="arrow-down"></ion-icon>
-            <ion-icon *ngIf="disableInput" name="arrow-down"></ion-icon>
+            <ion-icon (click)="downvote()" *ngIf="!disableInput && userLoggedIn" name="arrow-down"></ion-icon>
+            <ion-icon *ngIf="disableInput || !userLoggedIn" name="arrow-down"></ion-icon>
           </a>
       </div>
     </div>
