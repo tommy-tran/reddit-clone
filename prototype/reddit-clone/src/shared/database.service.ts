@@ -4,11 +4,15 @@ import { Comment } from "../models/comment.model";
 import * as firebase from 'firebase';
 import { Subreddit } from "../models/subreddit.model";
 
-// TODO: Sorting posts, creating subreddits, posts, upvotes/downvotes
-
 @Injectable()
 export class DatabaseService {
-    checkVoted(username: string, post: Post) {
+
+    /**
+     * Check if current user has voted on specified post
+     * @param username 
+     * @param post 
+     */
+    checkVotedPost(username: string, post: Post) {
         return new Promise<number>(resolve => {
             firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).once('value').then(post => {
                 let hasUpvotes = post.val().hasOwnProperty("upvotes");
@@ -24,62 +28,107 @@ export class DatabaseService {
         });
     }
 
-    upvotePost(username : string, post: Post) {
-        
+    /**
+     * Update users karma points
+     * @param user_id 
+     * @param change 
+     */
+    userKarmaUpdate(user_id: string, change: number) {
         return new Promise<number>(resolve => {
-            this.checkVoted(username, post).then((voted) => {
+            let ref = firebase.database().ref('users/' + user_id + "/karma");
+            ref.transaction((karma) => {
+                return (karma || 0) + change;   
+            })
+        });
+    }
+
+    /**
+     * Update post score
+     * @param post_id 
+     * @param change 
+     */
+    updatePostScore(post: Post, change: number) {
+        return new Promise<number>(resolve => {
+            let ref = firebase.database().ref('posts/' + post.subreddit_id + "/" + post.post_id + "/score");
+            ref.transaction((score) => {
+                return (score || 0) + change;   
+            })
+        });
+    }
+
+    /**
+     * Upvote a post
+     * @param username 
+     * @param post 
+     */
+    upvotePost(username : string, post: Post) {
+        return new Promise<number>(resolve => {
+            this.checkVotedPost(username, post).then((voted) => {
                 let updates = {};
                 switch(voted) {
                     case 0: // upvoted --> take away upvote
-                        updates["/upvotes/" + username] = null;
-                        updates["/score"] = post.score - 1;
+                        updates["/upvotes/" + username] = null;                        
                         firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        this.updatePostScore(post, - 1);
+                        this.userKarmaUpdate(post.user_id, - 1);
                         return resolve(-1);
                     case 1: // downvoted
                         updates["/upvotes/" + username] = true;
                         updates["/downvotes/" + username] = null;
-                        updates["/score"] = post.score + 2;
                         firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        this.updatePostScore(post, + 2);
+                        this.userKarmaUpdate(post.user_id, + 2);
                         return resolve(2);
                     case 2: // no vote
                         updates["/upvotes/" + username] = true;
-                        updates["/score"] = post.score + 1;
                         firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        this.updatePostScore(post, + 1);
+                        this.userKarmaUpdate(post.user_id, + 1);
                         return resolve(1);
                 }
             });
-
         });
     }
 
+    /**
+     * Downvote a post
+     * @param username 
+     * @param post 
+     */
     downvotePost(username : string, post: Post) {
         return new Promise<number>(resolve => {
-            this.checkVoted(username, post).then((voted) => {
+            this.checkVotedPost(username, post).then((voted) => {
                 let updates = {};
-                
                 switch(voted) {
                     case 0: // upvoted
                         updates["/upvotes/" + username] = null;
                         updates["/downvotes/" + username] = true;
-                        updates["/score"] = post.score - 2;
                         firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        this.updatePostScore(post, - 2);
+                        this.userKarmaUpdate(post.user_id, - 2);
                         return resolve(-2);
                     case 1: // downvoted --> take away downvote
                         updates["/downvotes/" + username] = null;
-                        updates["/score"] = post.score + 1;
                         firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        this.updatePostScore(post, + 1);
+                        this.userKarmaUpdate(post.user_id, + 1);
                         return resolve(1);
                     case 2: // no vote
                         updates["/downvotes/" + username] = true;
-                        updates["/score"] = post.score - 1;
                         firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
+                        this.updatePostScore(post, - 1);
+                        this.userKarmaUpdate(post.user_id, - 1);
                         return resolve(-1);
                 }
             });
-
         });
     }
 
+    /**
+     * Get a post from specified subreddit
+     * @param post_id 
+     * @param subreddit_id 
+     */
     getPost(post_id: string, subreddit_id) {
         return new Promise<Post>(resolve => {
             firebase.database().ref('posts/' + subreddit_id + "/" + post_id).once('value').then(post => {
