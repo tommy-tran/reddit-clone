@@ -13,16 +13,13 @@ export class DatabaseService {
             firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).once('value').then(post => {
                 let hasUpvotes = post.val().hasOwnProperty("upvotes");
                 let hasDownvotes = post.val().hasOwnProperty("downvotes");
-                if (hasUpvotes || hasDownvotes) {
-                    if (hasUpvotes && post.val().upvotes[username]) {
-                        return resolve(0); // Found in upvotes
-                    }
-                    if (hasDownvotes && post.val().downvotes[username]) {       
-                        return resolve(1); // Found in downvotes
-                    }
-                } else {
-                    return resolve(2); // Didn't vote
+                if (hasUpvotes && post.val().upvotes[username]) {
+                    return resolve(0); // Found in upvotes
                 }
+                if (hasDownvotes && post.val().downvotes[username]) {       
+                    return resolve(1); // Found in downvotes
+                }   
+                return resolve(2); // Didn't vote
             }).catch(err => console.error(err));
         });
     }
@@ -32,7 +29,6 @@ export class DatabaseService {
         return new Promise<number>(resolve => {
             this.checkVoted(username, post).then((voted) => {
                 let updates = {};
-                
                 switch(voted) {
                     case 0: // upvoted --> take away upvote
                         updates["/upvotes/" + username] = null;
