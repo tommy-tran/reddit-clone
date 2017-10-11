@@ -1,0 +1,34 @@
+page-createpost {
+    .scroll-content{
+        padding-bottom: 0 !important;
+    }
+    
+    .subreddit-name {
+        color: #24a0ed;
+    }
+    
+    ion-textarea {
+        background-color: #f2f2f2;
+        padding: 0 12px;
+        resize: none;
+        overflow: hidden;
+    }
+
+    .input-box {
+        margin-bottom: 10px;
+    }
+
+    .actions {
+        position: absolute;
+        bottom: 36px;
+        right: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+
+        button {
+            font-size: 1.4em;
+            margin: 0 16px;
+        }
+    }
+}

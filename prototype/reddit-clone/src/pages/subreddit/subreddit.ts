@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, Events, ModalController } from 'ionic-angular';
 import { Subreddit } from '../../models/subreddit.model';
+import { CreatePostPage } from "../../shared/pages";
 import { Post } from '../../models/post.model';
 import { DatabaseService } from '../../shared/database.service';
 
@@ -18,7 +19,12 @@ export class SubredditPage implements OnInit {
 
   // TODO: Description, possibly creator privileges, goToPost, voting
 
-  constructor(private databaseService: DatabaseService, public navCtrl: NavController, public navParams: NavParams, public events: Events) {
+  constructor(
+    private databaseService: DatabaseService, 
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public events: Events,
+    public modalCtrl: ModalController) {
     this.subreddit = this.navParams.data;
     this.id = this.subreddit.subreddit_id;
     this.posts = [];
@@ -27,6 +33,7 @@ export class SubredditPage implements OnInit {
       this.posts = Object.values(posts);
       
       // https://firebase.google.com/docs/reference/js/firebase.database.ServerValue for working with timestamps
+
       // let currentDate = new Date();
       // posts.forEach(post => {
       //   let postDate = new Date(post.timestamp);
@@ -43,6 +50,12 @@ export class SubredditPage implements OnInit {
       this.events.publish('nav:subreddit');  
       this.navCtrl.pop();
     }
+  }
+
+  createPost() {
+    let createPostModal = this.modalCtrl.create(CreatePostPage, {subreddit: this.subreddit});
+    createPostModal.present();
+    // onWillDismiss()
   }
   
   calculateTimeDifference(date1, date2) {

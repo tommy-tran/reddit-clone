@@ -9,6 +9,7 @@
 
 <ion-content>
   <ion-list inset>
+    <button ion-button (click)="createPost()" style="margin-bottom: 20px">Create a post</button>
     <div *ngFor="let post of posts">
       <post [post]="post" [subreddit]="subreddit"></post>
     </div>

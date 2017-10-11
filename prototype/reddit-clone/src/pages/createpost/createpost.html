@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Submitting a post to <span class="subreddit-name">{{subreddit.name}}</span></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+	<div class="container">
+		<button ion-button *ngIf="isLinkPost">Link</button>
+		<button ion-button clear *ngIf="!isLinkPost" (click)="linkPost()">Link</button>
+		<button ion-button clear *ngIf="isLinkPost" (click)="textPost()">Text</button>
+		<button ion-button *ngIf="!isLinkPost">Text</button>
+		<form #createPostForm="ngForm" (ngSubmit)="createPost(createPostForm)">
+			<div class="input-box" ion-item>
+				<ion-label floating>Title</ion-label>
+				<ion-input type="text" name="titleInput"></ion-input>
+			</div>
+			<div class="input-box" *ngIf="isLinkPost" ion-item>
+				<ion-label floating>URL</ion-label>
+				<ion-input type="url" name="urlInput" ngModel></ion-input>
+			</div>
+			<div class="input-box" ion-item *ngIf="!isLinkPost">
+				<ion-label floating>Text</ion-label>
+				<ion-textarea [attr.rows]="10" name="textInput" ngModel></ion-textarea>
+			</div>
+		</form>
+		<div class="actions">
+			<button ion-button large type="submit" [disabled]="">Submit</button>
+			<button ion-button large (click)="closeModal()">Cancel</button>
+		</div>
+	</div>
+</ion-content>

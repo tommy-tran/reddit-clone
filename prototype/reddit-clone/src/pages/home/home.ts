@@ -3,7 +3,6 @@ import { NavController, ModalController, PopoverController, Events, ViewControll
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
-import { DataSharingService } from "../../shared/data-sharing.service";
 import { LoginPage, SubredditPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 import { Post } from '../../models/post.model';
@@ -28,7 +27,6 @@ export class HomePage {
   userHasAccount: boolean;
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
-    private dataSharing: DataSharingService,
     private events: Events,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
