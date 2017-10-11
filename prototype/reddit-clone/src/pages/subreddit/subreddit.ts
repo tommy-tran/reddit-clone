@@ -54,6 +54,7 @@ export class SubredditPage implements OnInit {
 			this.authService.updateAuthState().then(() => {
 				this.posts = []; // Clear posts
 				this.getPosts(); // Get votable posts
+				this.isLoggedIn = true;
 			});
 		});
 
