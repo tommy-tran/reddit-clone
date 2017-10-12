@@ -23,12 +23,22 @@ export class PostComponent implements OnInit{
 
   ngOnInit() {
     this.score = this.post.score;
+    console.log(this.post.link);
   }
 
   goToSubreddit() {
     this.databaseService.getSubreddit(this.post.subreddit_id).then((subreddit) => {
       this.navCtrl.push(SubredditPage, subreddit);
     });
+  }
+
+  goToLink() {
+    if (this.post.link) {
+      window.open(this.post.link);
+    } else {
+      console.log("TODO: post page");
+    }
+    
   }
 
   upvote() {

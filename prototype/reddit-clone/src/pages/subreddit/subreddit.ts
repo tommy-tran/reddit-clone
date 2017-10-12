@@ -75,8 +75,9 @@ export class SubredditPage implements OnInit {
 	}
 
 	createPost() {
+		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit });
+
 		if (this.isLoggedIn) {
-			let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit });
 			createPostModal.present();
 		} else {
 			let authModal = this.modalCtrl.create(LoginPage);
@@ -87,7 +88,10 @@ export class SubredditPage implements OnInit {
 				}
 			});
 		}
-		// onWillDismiss()
+		
+		createPostModal.onDidDismiss(() => {
+			this.getPosts();
+		});
 	}
 
 	calculateTimeDifference(date1, date2) {

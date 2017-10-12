@@ -9,10 +9,10 @@
 		<button ion-button clear *ngIf="!isLinkPost" (click)="linkPost()">Link</button>
 		<button ion-button clear *ngIf="isLinkPost" (click)="textPost()">Text</button>
 		<button ion-button *ngIf="!isLinkPost">Text</button>
-		<form #createPostForm="ngForm" (ngSubmit)="createPost(createPostForm)">
+		<form #createPostForm="ngForm" (ngSubmit)="submitPost(createPostForm)">
 			<div class="input-box" ion-item>
 				<ion-label floating>Title</ion-label>
-				<ion-input type="text" name="titleInput"></ion-input>
+				<ion-input type="text" name="titleInput" ngModel></ion-input>
 			</div>
 			<div class="input-box" *ngIf="isLinkPost" ion-item>
 				<ion-label floating>URL</ion-label>
@@ -22,10 +22,11 @@
 				<ion-label floating>Text</ion-label>
 				<ion-textarea [attr.rows]="10" name="textInput" ngModel></ion-textarea>
 			</div>
+			<div class="actions">
+				<button ion-button large type="submit" [disabled]="">Submit</button>
+				<button ion-button type="button" large (click)="closeModal()">Cancel</button>
+			</div>
 		</form>
-		<div class="actions">
-			<button ion-button large type="submit" [disabled]="">Submit</button>
-			<button ion-button large (click)="closeModal()">Cancel</button>
-		</div>
+
 	</div>
 </ion-content>

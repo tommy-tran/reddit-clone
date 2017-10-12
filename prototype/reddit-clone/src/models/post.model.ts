@@ -1,6 +1,6 @@
 export class Post {
     title: string;
-    media: string;
+    link: string;
     message: string;
     post_id: string;
     subreddit: string;
@@ -14,30 +14,26 @@ export class Post {
     numcomments: number;
     constructor(
         title: string, 
-        media: string, 
-        post_id: string, 
+        link: string, 
+        post_id: string,
         message: string, 
         subreddit: string, 
         subreddit_id: string, 
-        timestamp: number, 
-        upvotes: {key: boolean},
-        downvotes: {key : boolean},
-        score: number,
+        timestamp: number,
         user: string,
         user_id: string, 
+        score: number,
         numcomments: number) {
             this.title = title;
-            this.media = media;
+            this.link = link;
             this.post_id = post_id;
             this.message = message;
             this.subreddit = subreddit;
             this.subreddit_id = subreddit_id;
             this.timestamp = timestamp;
-            this.upvotes = upvotes;
-            this.downvotes = downvotes;
-            this.score = score;
             this.user = user;
             this.user_id = user_id;
+            this.score = score;
             this.numcomments = numcomments;
     }
 }

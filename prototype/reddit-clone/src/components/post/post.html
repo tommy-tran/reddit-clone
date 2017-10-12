@@ -1,8 +1,8 @@
 <div class="post">
   <div class="post-container">
     <div class="post-content">
-      <div class="post-media" *ngIf="post.media">
-        <img src="{{post.media}}" alt="post media">
+      <div class="post-link" *ngIf="post.link">
+        <img src="{{post.link}}" alt="post media" (click)="goToLink()">
       </div>
       <div class="post-info">
         <div class="post-info-bar">
@@ -10,7 +10,7 @@
           <a class="subreddit-name" *ngIf="subreddit">r/{{post.subreddit}}</a>
            - TIMEAGO - u/{{post.user}}
         </div>
-        <div class="post-title">{{post.title}}</div>         
+        <div class="post-title" (click)="goToLink()">{{post.title}}</div>         
       </div>
       
     </div>

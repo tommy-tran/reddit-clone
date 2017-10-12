@@ -214,14 +214,52 @@ export class DatabaseService {
      * @param post post to be written
      * @param subredditId id of the subreddit to write the post
      */
-    writePost(post: Post, subredditId: string) {
-        firebase.database().ref('posts/' + subredditId).set({
-            message: post.message,
-            postId: post.post_id,
-            subreddit: post.subreddit,
-            timestamp: post.timestamp,
-            upvotes: post.upvotes,
-            user: post.user
+    createLinkPost(title: string, link: string, subreddit: Subreddit, username: string, user_id: string) {
+        return new Promise(resolve => {
+            let key = firebase.database().ref('posts/' + subreddit.subreddit_id + '/').push().key;
+            console.log(key);
+            let post = new Post(
+                title,
+                link,
+                key,
+                null,
+                subreddit.name,
+                subreddit.subreddit_id,
+                1000000,
+                username,
+                user_id,
+                0,
+                0
+            );
+            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post);
+            resolve();
+        });
+    }
+        /**
+     * Write a post to a subreddit
+     * @param post post to be written
+     * @param subredditId id of the subreddit to write the post
+     */
+    createTextPost(title: string, message: string, subreddit: Subreddit, username: string, user_id: string) {
+        return new Promise(resolve => {
+            let key = firebase.database().ref('posts/' + subreddit.subreddit_id + '/').push().key;
+            console.log(key);
+            let post = new Post(
+                title,
+                null,
+                key,
+                message,
+                subreddit.name,
+                subreddit.subreddit_id,
+                1000000,
+                username,
+                user_id,
+                0,
+                0
+            );
+            console.log(post);
+            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post);
+            resolve();
         });
     }
     /**
