@@ -182,6 +182,12 @@ export class LoginPage {
       this.authService.setPswd(password);
       this.needsVerification = false;
       loading.dismiss();
+    }).then(() => {
+      this.storage.set('isLoggedIn', true).then(() => {
+        this.viewController.dismiss();
+        this.events.publish('user:loggedin');            
+      }
+    );
     }).catch(err => {
       loading.dismiss();
       console.log(err);
@@ -194,12 +200,6 @@ export class LoginPage {
           }
         ]
       }).present();
-    }).then(() => {
-      this.storage.set('isLoggedIn', true).then(() => {
-        this.viewController.dismiss();
-        this.events.publish('user:loggedin');            
-      }
-    );
     });
   }
   /**
