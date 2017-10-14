@@ -1,3 +1,15 @@
 page-createsubreddit {
+    .actions {
+        position: absolute;
+        bottom: 36px;
+        right: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
 
+        button {
+            font-size: 1.4em;
+            margin: 0 16px;
+        }
+    }
 }
