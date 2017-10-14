@@ -42,7 +42,6 @@ export class HomePage {
     //searchbar results
     this.databaseService.getSubreddits().then(subreddits => {
       this.subreddits = subreddits;
-      console.log(this.subreddits);
       this.subredditDisplay = [];
     });
     //menu display

@@ -19,7 +19,7 @@ export class Post {
         message: string, 
         subreddit: string, 
         subreddit_id: string, 
-        timestamp: number,
+        timestamp: any,
         user: string,
         user_id: string, 
         score: number,

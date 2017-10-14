@@ -229,7 +229,6 @@ export class DatabaseService {
     createLinkPost(title: string, link: string, subreddit: Subreddit, username: string, user_id: string) {
         return new Promise(resolve => {
             let key = firebase.database().ref('posts/' + subreddit.subreddit_id + '/').push().key;
-            console.log(key);
             let post = new Post(
                 title,
                 link,
@@ -237,7 +236,7 @@ export class DatabaseService {
                 null,
                 subreddit.name,
                 subreddit.subreddit_id,
-                1000000,
+                firebase.database.ServerValue.TIMESTAMP,
                 username,
                 user_id,
                 0,
@@ -263,7 +262,7 @@ export class DatabaseService {
                 message,
                 subreddit.name,
                 subreddit.subreddit_id,
-                1000000,
+                firebase.database.ServerValue.TIMESTAMP,
                 username,
                 user_id,
                 0,
