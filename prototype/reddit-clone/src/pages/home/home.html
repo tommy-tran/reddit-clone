@@ -29,12 +29,19 @@
   </div>
 
   <h2>Welcome to Reddit Clone</h2>
+  <p><i>A social news aggregator where users have the power to add, rate, and curate content!</i></p>
   <p *ngIf="username">Your username is {{username}}</p>
-  <p>There will be posts here eventually!</p>
+  
   <button ion-button (click)="showUserInfo()" style="margin-bottom: 20px;">Show user information</button>
+  <!-- create subreddit -->
+  <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button>
+  
+  <!-- display posts -->
   <div class="posts" *ngFor="let post of posts">
     <post *ngIf="posts" [post]="post"></post>
   </div>
+  
+
   <!-- menu overlay -->
   <div id="menu" *ngIf="showMenu">
     <button ion-item text-right no-lines *ngFor="let option of menuOptions" (click)="self[option.action]()">

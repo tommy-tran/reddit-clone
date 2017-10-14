@@ -200,14 +200,26 @@ export class DatabaseService {
     }
     /**
      * create a new subreddit
-     * @param subredditId id of the new subreddit
      * @param subredditName name of the new subreddit
+     * @param subredditDescription description of the new subreddit
+     * @param username username of the creator
+     * @param user_id user_id of the creator
      */
-    newSubreddit(subredditId: string, subredditName: string) {
-        firebase.database().ref('subreddits/').set({
-            id: subredditId,
-            name: subredditName
+    newSubreddit(subredditName: string, subredditDescription: string, username: string, user_id: string ) {
+        return new Promise(resolve =>{
+            let key = firebase.database().ref('subreddits').push().key;
+            console.log(key);
+            let subreddit = new Subreddit(
+                subredditName,
+                subredditDescription,
+                user_id,
+                username,
+                key
+            );
+            firebase.database().ref('subreddits/' + key).update(subreddit);
+            resolve();
         });
+
     }
     /**
      * Write a post to a subreddit
@@ -217,7 +229,6 @@ export class DatabaseService {
     createLinkPost(title: string, link: string, subreddit: Subreddit, username: string, user_id: string) {
         return new Promise(resolve => {
             let key = firebase.database().ref('posts/' + subreddit.subreddit_id + '/').push().key;
-            console.log(key);
             let post = new Post(
                 title,
                 link,
@@ -225,7 +236,7 @@ export class DatabaseService {
                 null,
                 subreddit.name,
                 subreddit.subreddit_id,
-                1000000,
+                firebase.database.ServerValue.TIMESTAMP,
                 username,
                 user_id,
                 0,
@@ -251,7 +262,7 @@ export class DatabaseService {
                 message,
                 subreddit.name,
                 subreddit.subreddit_id,
-                1000000,
+                firebase.database.ServerValue.TIMESTAMP,
                 username,
                 user_id,
                 0,

@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>Creating a Subreddit</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content padding>
+    <div class="container">
+     
+      <form #createSubredditForm="ngForm" (ngSubmit)="submitSubreddit(createSubredditForm)">
+        <div class="input-box" ion-item>
+          <ion-label floating>Title</ion-label>
+          <ion-input type="text" name="titleInput" ngModel></ion-input>
+        </div>
+       
+        <div class="input-box" ion-item *ngIf="!isLinkPost">
+          <ion-label floating>Description</ion-label>
+          <ion-textarea [attr.rows]="10" name="textInput" ngModel></ion-textarea>
+        </div>
+        <div class="actions">
+          <button ion-button large type="submit" [disabled]="">Submit</button>
+          <button ion-button type="button" large (click)="closeModal()">Cancel</button>
+        </div>
+      </form>
+  
+    </div>
+  </ion-content>
+  

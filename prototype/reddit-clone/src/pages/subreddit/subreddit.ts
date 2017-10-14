@@ -32,16 +32,7 @@ export class SubredditPage implements OnInit {
 		this.subreddit = this.navParams.data;
 		this.id = this.subreddit.subreddit_id;
 		this.posts = [];
-		this.times = [];
 		this.getPosts();
-
-		// https://firebase.google.com/docs/reference/js/firebase.database.ServerValue for working with timestamps
-		// let currentDate = new Date();
-		// posts.forEach(post => {
-		//   let postDate = new Date(post.timestamp);
-		//   let timeDiff = this.calculateTimeDifference(postDate, currentDate)
-		//   this.times.push(timeDiff);
-		// });
 
 		this.events.subscribe('user:loggedin', () => {
 			this.authService.updateAuthState().then(() => {
@@ -76,7 +67,7 @@ export class SubredditPage implements OnInit {
 
 	createPost() {
 		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit });
-
+		console.log("isLoggedIn: " + this.isLoggedIn);
 		if (this.isLoggedIn) {
 			createPostModal.present();
 		} else {
@@ -92,33 +83,5 @@ export class SubredditPage implements OnInit {
 		createPostModal.onDidDismiss(() => {
 			this.getPosts();
 		});
-	}
-
-	calculateTimeDifference(date1, date2) {
-		var difference = date1.getTime() - date2.getTime();
-
-		var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
-		difference -= daysDifference * 1000 * 60 * 60 * 24
-
-		var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
-		difference -= hoursDifference * 1000 * 60 * 60
-
-		var minutesDifference = Math.floor(difference / 1000 / 60);
-		difference -= minutesDifference * 1000 * 60
-
-		var secondsDifference = Math.floor(difference / 1000);
-
-		if (daysDifference >= 1) {
-			return daysDifference + ' d'
-		}
-		else if (hoursDifference >= 1 && hoursDifference < 24) {
-			return hoursDifference + ' hr'
-		}
-		else if (minutesDifference < 60 && minutesDifference >= 1) {
-			return minutesDifference + ' m';
-		}
-		else {
-			return secondsDifference + ' s'
-		}
 	}
 }
