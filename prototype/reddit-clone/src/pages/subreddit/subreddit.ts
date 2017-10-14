@@ -76,7 +76,7 @@ export class SubredditPage implements OnInit {
 
 	createPost() {
 		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit });
-
+		console.log("isLoggedIn: " + this.isLoggedIn);
 		if (this.isLoggedIn) {
 			createPostModal.present();
 		} else {

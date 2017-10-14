@@ -3,9 +3,10 @@ import { NavController, ModalController, PopoverController, Events, ViewControll
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
-import { LoginPage, SubredditPage } from "../../shared/pages";
+import { LoginPage, SubredditPage, CreateSubredditPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 import { Post } from '../../models/post.model';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -31,13 +32,17 @@ export class HomePage {
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     private popoverCtrl: PopoverController) {
+    this.isLoggedIn = this.authService.isLoggedIn();
+ 
     this.posts = [];
+    
     //initial sort by method and icon
     this.sortIcon = 'flame';
     this.sortMethod = 'hot';
     //searchbar results
     this.databaseService.getSubreddits().then(subreddits => {
       this.subreddits = subreddits;
+      console.log(this.subreddits);
       this.subredditDisplay = [];
     });
     //menu display
@@ -57,7 +62,6 @@ export class HomePage {
         this.getAllPosts(); // Get votable posts
       });
     });
-
     // When user navigates from subreddits, refresh
     this.events.subscribe('nav:subreddit', () => {
       this.getAllPosts();
@@ -66,6 +70,7 @@ export class HomePage {
     // Update authservice variables when still logged in
     this.authService.updateAuthState().then(() => {
       this.setUp();
+      this.isLoggedIn = this.authService.isLoggedIn();      
     });
   }
   /**
@@ -78,7 +83,7 @@ export class HomePage {
    */
   setUp() {
     this.setUsername();
-    this.getAllPosts();
+    this.getAllPosts();    
   }
 
   getAllPosts() {
@@ -119,6 +124,7 @@ export class HomePage {
     authModal.onWillDismiss((isLoggedIn) => {
       if (isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
+        console.log("loggedin: " +this.isLoggedIn);
       }
     });
   }
@@ -224,6 +230,30 @@ export class HomePage {
   goToSubreddit(subreddit: Subreddit) {
     this.navCtrl.push(SubredditPage, { subreddit: subreddit });
   }
+
+  /**
+   * create a new subreddit
+   */
+  createSubreddit() {
+  
+		let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { });
+    console.log("loggedIn: " + this.isLoggedIn);
+		if (this.isLoggedIn) {
+			createSubredditModal.present();
+		} else {
+			let authModal = this.modalCtrl.create(LoginPage);
+			authModal.present();
+			authModal.onWillDismiss((isLoggedIn) => {
+				if (isLoggedIn) {
+					this.isLoggedIn = isLoggedIn;
+				}
+			});
+		}
+		/*
+		createPostModal.onDidDismiss(() => {
+			this.getPosts();
+		}); */
+	}
 }
 @Component({
   template: `

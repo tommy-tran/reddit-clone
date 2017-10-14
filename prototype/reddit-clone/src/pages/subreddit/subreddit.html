@@ -1,13 +1,17 @@
 <ion-header no-border>
 
   <ion-navbar transparent>
-    <ion-title>r/{{subreddit.name}}</ion-title>
+    <ion-title>/r/{{subreddit.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content padding>
+    <h3>Welcome to /r/{{subreddit.name}}</h3>
+    <p>{{subreddit.description}}</p>
+    <p>Scroll through the posts below or click "Create a post" to add your own content.</p>
+
   <ion-list inset>
     <button ion-button (click)="createPost()" style="margin-bottom: 20px">Create a post</button>
     <div *ngFor="let post of posts">
