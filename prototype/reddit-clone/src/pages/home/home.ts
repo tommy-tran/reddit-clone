@@ -26,6 +26,7 @@ export class HomePage {
   subredditDisplay: Subreddit[];
   username: string;
   userHasAccount: boolean;
+  selectedSubreddit: string;
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
     private events: Events,
@@ -40,10 +41,10 @@ export class HomePage {
     this.sortIcon = 'flame';
     this.sortMethod = 'hot';
     //searchbar results
-    this.databaseService.getSubreddits().then(subreddits => {
-      this.subreddits = subreddits;
-      this.subredditDisplay = [];
-    });
+    // this.databaseService.getSubreddits().then(subreddits => {
+    //   this.subreddits = subreddits;
+    //   this.subredditDisplay = [];
+    // });
     //menu display
     this.menuOptions = [
       { icon: 'contact', title: 'Log In / Sign Up', action: 'openAuth' },
@@ -82,7 +83,18 @@ export class HomePage {
    */
   setUp() {
     this.setUsername();
+    this.getAllSubreddits();
     this.getAllPosts();    
+  }
+
+  getAllSubreddits() {
+    // Clean subreddits
+    this.subreddits = [];
+    // Get subreddits
+    this.databaseService.getSubreddits().then((subreddits) => {
+      console.log(Object.values(subreddits));
+      this.subreddits = Object.values(subreddits);
+    }).catch(err => console.error(err));
   }
 
   getAllPosts() {
@@ -226,8 +238,12 @@ export class HomePage {
    * navigate to a subreddit's page
    * @param subreddit the subreddit to nav to
    */
-  goToSubreddit(subreddit: Subreddit) {
-    this.navCtrl.push(SubredditPage, { subreddit: subreddit });
+  goToSubreddit(subreddit_id: string) {
+    this.databaseService.getSubreddit(subreddit_id).then((subreddit) => {
+      if (subreddit) {
+        this.navCtrl.push(SubredditPage, subreddit);
+      }
+    });
   }
 
   /**

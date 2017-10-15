@@ -28,6 +28,17 @@
     <a text-right *ngIf="username" (click)="logout()">Sign Out</a>
   </div>
 
+  <div>
+    <span>Subreddit navigation:</span>
+    <select [(ngModel)]="selectedSubreddit">
+      <option *ngFor="let subreddit of subreddits" value="{{subreddit.subreddit_id}}">
+        <li>{{subreddit.name}}</li>
+      </option>
+    </select>
+    <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
+  </div>
+  
+
   <h2>Welcome to Reddit Clone</h2>
   <p><i>A social news aggregator where users have the power to add, rate, and curate content!</i></p>
   <p *ngIf="username">Your username is {{username}}</p>

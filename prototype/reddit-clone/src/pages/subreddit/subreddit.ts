@@ -18,6 +18,7 @@ export class SubredditPage implements OnInit {
 	posts: Post[];
 	times: string[];
 	isLoggedIn: boolean;
+	isEmpty: boolean;
 
 	// TODO: Description, possibly creator privileges, goToPost, voting
 
@@ -53,7 +54,12 @@ export class SubredditPage implements OnInit {
 
 	getPosts() {
 		this.databaseService.getSubredditPosts(this.id).then(posts => {
-			this.posts = Object.values(posts);
+			if (posts) {
+				this.isEmpty = false;
+				this.posts = Object.values(posts);
+			} else {
+				this.isEmpty = true;
+			}
 		});
 	}
 
