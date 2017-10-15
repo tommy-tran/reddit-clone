@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../../models/post.model';
 import { DatabaseService } from '../../shared/database.service';
 import { AuthService } from '../../shared/auth.service';
-import { NavController, NavParams } from 'ionic-angular';
-import { SubredditPage } from "../../shared/pages";
+import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { LoginPage, SubredditPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 
 @Component({
@@ -13,12 +13,19 @@ import { Subreddit } from '../../models/subreddit.model';
 export class PostComponent implements OnInit {
   score: number;
   datePosted: string;
-  userLoggedIn: boolean;
+  isLoggedIn: boolean;
   disableInput: boolean;
+  userHasAccount: boolean;
+  
   @Input() post: Post;
   @Input() subreddit: Subreddit;
-  constructor(private authService: AuthService, private databaseService: DatabaseService, public navCtrl: NavController, ) {
-    this.userLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
+  constructor(private authService: AuthService, 
+    private databaseService: DatabaseService, 
+    public navCtrl: NavController, 
+    public alertCtrl: AlertController, 
+    public modalCtrl: ModalController) {
+
+    this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
 
@@ -87,21 +94,63 @@ export class PostComponent implements OnInit {
   }
 
   upvote() {
-    this.disableInput = true;
-    let user = this.authService.getUsername();
-    this.databaseService.upvotePost(user, this.post).then((points) => {
-      this.score = this.score + points;
-      this.updatePost();
-    });
+    if (this.isLoggedIn){
+      this.disableInput = true;
+      
+      let user = this.authService.getUsername();
+      this.databaseService.upvotePost(user, this.post).then((points) => {
+        this.score = this.score + points;
+        this.updatePost();
+      });
+    } else{
+      console.log("not logged in");
+      const alert = this.alertCtrl.create({
+        title: "Not Logged In",
+        subTitle: "Please log in to upvote and downvote posts, as well as create your own subreddits, posts, and comments!",
+        buttons: [
+          {
+            text: 'Log In/Sign Up',
+            role: 'login',
+            handler: data => {
+              this.openAuth();
+            }
+          },
+          {
+            text: 'Dismiss'          }
+        ]
+      });
+      alert.present();
+    }
   }
 
   downvote() {
-    this.disableInput = true;
-    let user = this.authService.getUsername();
-    this.databaseService.downvotePost(user, this.post).then((points) => {
-      this.score = this.score + points;
-      this.updatePost();
-    });
+    if (this.isLoggedIn){
+      this.disableInput = true;
+      let user = this.authService.getUsername();
+      this.databaseService.downvotePost(user, this.post).then((points) => {
+        this.score = this.score + points;
+        this.updatePost();
+      });
+    } else{
+      console.log("not logged in");
+      const alert = this.alertCtrl.create({
+        title: "Not Logged In",
+        subTitle: "Please log in to upvote and downvote posts, as well as create your own subreddits, posts, and comments!",
+        buttons: [
+          {
+            text: 'Log In/Sign Up',
+            role: 'login',
+            handler: data => {
+              this.openAuth();
+            }
+          },
+          {
+            text: 'Dismiss'          }
+        ]
+      });
+      alert.present();
+    }
+    
   }
 
   updatePost() {
@@ -109,5 +158,20 @@ export class PostComponent implements OnInit {
       this.post = post;
       this.disableInput = false;
     })
+  }
+
+  /**
+   * open the login/signup page
+   */
+  openAuth() {
+    let param = { userHasAccount: this.userHasAccount };
+    let authModal = this.modalCtrl.create(LoginPage, param);
+    authModal.present();
+    authModal.onWillDismiss((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
+        console.log("loggedin: " +this.isLoggedIn);
+      }
+    });
   }
 }
