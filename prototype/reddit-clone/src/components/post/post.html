@@ -18,12 +18,18 @@
       <div class="comments"><a><ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments</a></div>
       <div class="voting-box">
           <a>
-            <ion-icon (click)="upvote()" *ngIf="!disableInput" name="arrow-up"></ion-icon>
-            <!--<ion-icon *ngIf="disableInput || !userLoggedIn" name="arrow-up"></ion-icon>-->
+            <ion-icon (click)="upvote()" *ngIf="!disableInput && userUpvoted" name="arrow-up" color="secondary"></ion-icon>
+            <ion-icon (click)="upvote()" *ngIf="!disableInput && !userUpvoted" name="arrow-up"></ion-icon>
+            <!-- Prevent user spamming -->
+            <ion-icon *ngIf="disableInput && userUpvoted" name="arrow-up" color="secondary"></ion-icon>
+            <ion-icon *ngIf="disableInput && !userUpvoted" name="arrow-up"></ion-icon>
           </a><span class="post-score">{{score}}</span>
           <a>
-            <ion-icon (click)="downvote()" *ngIf="!disableInput" name="arrow-down"></ion-icon>
-            <!--<ion-icon *ngIf="disableInput || !userLoggedIn" name="arrow-down"></ion-icon>-->
+            <ion-icon (click)="downvote()" *ngIf="!disableInput && userDownvoted" name="arrow-down" color="secondary"></ion-icon>              
+            <ion-icon (click)="downvote()" *ngIf="!disableInput && !userDownvoted" name="arrow-down"></ion-icon>
+            <!-- Prevent user spamming -->
+            <ion-icon *ngIf="disableInput && userDownvoted" name="arrow-down" color="secondary"></ion-icon>
+            <ion-icon *ngIf="disableInput && !userDownvoted" name="arrow-down"></ion-icon>
           </a>
       </div>
     </div>

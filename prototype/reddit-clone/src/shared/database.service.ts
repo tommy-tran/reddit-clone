@@ -27,7 +27,42 @@ export class DatabaseService {
             }).catch(err => console.error(err));
         });
     }
-
+/**
+ * Check upvoted post
+ * @param username 
+ * @param post 
+ */
+    checkUpvoted(username: string, post: Post) {
+        return new Promise<boolean>(resolve => {
+            firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).once('value').then(post => {
+                let hasUpvotes = post.val().hasOwnProperty("upvotes");
+                if (hasUpvotes && post.val().upvotes[username]) {
+                    return resolve(true); // Found in upvotes
+                }
+                else{
+                    return resolve(false); 
+                }
+            }).catch(err => console.error(err));
+        });
+    }
+    /**
+     * Check downvoted post
+     * @param username 
+     * @param post 
+     */
+    checkDownvoted(username: string, post: Post) {
+        return new Promise<boolean>(resolve => {
+            firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).once('value').then(post => {
+                let hasDownvotes = post.val().hasOwnProperty("downvotes");
+                if (hasDownvotes && post.val().downvotes[username]) {
+                    return resolve(true); // Found in upvotes
+                }
+                else{
+                    return resolve(false); 
+                }
+            }).catch(err => console.error(err));
+        });
+    }
     /**
      * Update users karma points
      * @param user_id 

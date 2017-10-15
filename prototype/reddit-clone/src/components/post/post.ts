@@ -16,6 +16,8 @@ export class PostComponent implements OnInit {
   isLoggedIn: boolean;
   disableInput: boolean;
   userHasAccount: boolean;
+  userUpvoted: boolean;
+  userDownvoted: boolean;
   
   @Input() post: Post;
   @Input() subreddit: Subreddit;
@@ -76,6 +78,14 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.score = this.post.score;
     this.calculateDatePosted();
+    let user = this.authService.getUsername();
+    //initialize posts upvotes and downvotes
+    this.databaseService.checkUpvoted(user, this.post).then(boolean => {
+      this.userUpvoted = boolean;
+    });
+    this.databaseService.checkDownvoted(user, this.post).then(boolean => {
+      this.userDownvoted = boolean;
+    });
   }
 
   goToSubreddit() {
@@ -96,11 +106,18 @@ export class PostComponent implements OnInit {
   upvote() {
     if (this.isLoggedIn){
       this.disableInput = true;
-      
       let user = this.authService.getUsername();
       this.databaseService.upvotePost(user, this.post).then((points) => {
         this.score = this.score + points;
+        
+        this.databaseService.checkUpvoted(user, this.post).then(boolean => {
+          this.userUpvoted = boolean;
+        });
+        this.databaseService.checkDownvoted(user, this.post).then(boolean => {
+          this.userDownvoted = boolean;
+        });
         this.updatePost();
+        
       });
     } else{
       console.log("not logged in");
@@ -129,6 +146,12 @@ export class PostComponent implements OnInit {
       let user = this.authService.getUsername();
       this.databaseService.downvotePost(user, this.post).then((points) => {
         this.score = this.score + points;
+        this.databaseService.checkDownvoted(user, this.post).then(boolean => {
+          this.userDownvoted = boolean;
+        });
+        this.databaseService.checkUpvoted(user, this.post).then(boolean => {
+          this.userUpvoted = boolean;
+        });
         this.updatePost();
       });
     } else{
