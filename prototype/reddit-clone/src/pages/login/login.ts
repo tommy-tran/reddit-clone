@@ -184,7 +184,8 @@ export class LoginPage {
       loading.dismiss();
     }).then(() => {
       this.storage.set('isLoggedIn', true).then(() => {
-        this.viewController.dismiss();
+        this.isLoggedIn = true;
+        this.viewController.dismiss(this.isLoggedIn);
         this.events.publish('user:loggedin');            
       }
     );
@@ -210,6 +211,6 @@ export class LoginPage {
   }
 
   closeModal() {
-    this.viewController.dismiss();
+    this.viewController.dismiss(this.isLoggedIn);
   }
 }

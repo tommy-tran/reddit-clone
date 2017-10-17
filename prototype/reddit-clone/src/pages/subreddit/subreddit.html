@@ -8,10 +8,12 @@
 
 
 <ion-content padding>
-    <h3>Welcome to /r/{{subreddit.name}}</h3>
-    <p>{{subreddit.description}}</p>
-    <p>Scroll through the posts below or click "Create a post" to add your own content.</p>
-
+  <h3>Welcome to /r/{{subreddit.name}}</h3>
+  <p>{{subreddit.description}}</p>
+  <p>Scroll through the posts below or click "Create a post" to add your own content.</p>
+  <button ion-button clear small (click)="showSortByPopover($event)">
+        <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>
+  </button>
   <ion-list inset>
     <button ion-button (click)="createPost()" style="margin-bottom: 20px">Create a post</button>
     <div *ngFor="let post of posts">

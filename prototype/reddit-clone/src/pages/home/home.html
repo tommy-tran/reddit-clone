@@ -14,9 +14,12 @@
 <ion-content padding>
   <!-- search results overlay -->
   <div id="searchbar" *ngIf="showSearchbar">
-    <ion-searchbar (ionInput)="onInput($event)" showCancelButton="true" placeholder="Search for Subreddits..." type="text"></ion-searchbar>
+    <ion-toolbar color="secondary">
+      <ion-searchbar (ionInput)="onInput($event)" showCancelButton="true" placeholder="Search for Subreddits..."
+        type="text"></ion-searchbar>
+    </ion-toolbar>
     <ion-list inset padding-left padding-right>
-      <button ion-item no-lines (click)="goToSubreddit(subreddit)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
+      <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
     </ion-list>
   </div>
   <!-- sort by tab -->
@@ -37,21 +40,21 @@
     </select>
     <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
   </div>
-  
+
 
   <h2>Welcome to Reddit Clone</h2>
   <p><i>A social news aggregator where users have the power to add, rate, and curate content!</i></p>
   <p *ngIf="username">Your username is {{username}}</p>
-  
+
   <button ion-button (click)="showUserInfo()" style="margin-bottom: 20px;">Show user information</button>
   <!-- create subreddit -->
   <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button>
-  
+
   <!-- display posts -->
   <div class="posts" *ngFor="let post of posts">
-    <post *ngIf="posts" [post]="post"></post>
+    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout"></post>
   </div>
-  
+
 
   <!-- menu overlay -->
   <div id="menu" *ngIf="showMenu">

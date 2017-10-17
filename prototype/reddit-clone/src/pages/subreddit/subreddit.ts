@@ -1,10 +1,12 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar, Events, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Navbar, Events, ModalController, PopoverController } from 'ionic-angular';
 import { Subreddit } from '../../models/subreddit.model';
 import { CreatePostPage, LoginPage } from "../../shared/pages";
 import { Post } from '../../models/post.model';
 import { DatabaseService } from '../../shared/database.service';
 import { AuthService } from '../../shared/auth.service';
+import { SortByPopover } from '../../components/sortBy/sortBy';
+import { DataSharingService } from '../../shared/data-sharing.service';
 
 @IonicPage()
 @Component({
@@ -12,6 +14,9 @@ import { AuthService } from '../../shared/auth.service';
 	templateUrl: 'subreddit.html',
 })
 export class SubredditPage implements OnInit {
+	sortIcon: string;
+	sortMethod: string;
+	showBackgroundDiv: boolean;
 	@ViewChild(Navbar) navBar: Navbar;
 	id: string;
 	subreddit: Subreddit;
@@ -23,12 +28,17 @@ export class SubredditPage implements OnInit {
 	// TODO: Description, possibly creator privileges, goToPost, voting
 
 	constructor(
-		private databaseService: DatabaseService,
+		private databaseService: DatabaseService,    
+		private dataSharing: DataSharingService,
 		private authService: AuthService,
 		public navCtrl: NavController,
 		public navParams: NavParams,
 		public events: Events,
-		public modalCtrl: ModalController) {
+		public modalCtrl: ModalController,
+		private popoverCtrl: PopoverController) {
+		//initial sort by method and icon
+		this.sortIcon = 'flame';
+		this.sortMethod = 'hot';
 		this.isLoggedIn = this.authService.isLoggedIn();
 		this.subreddit = this.navParams.data;
 		this.id = this.subreddit.subreddit_id;
@@ -56,7 +66,11 @@ export class SubredditPage implements OnInit {
 		this.databaseService.getSubredditPosts(this.id).then(posts => {
 			if (posts) {
 				this.isEmpty = false;
-				this.posts = Object.values(posts);
+				this.posts = [];
+				for (var key in posts) {
+					this.posts.push(posts[key]);
+				}
+				this.posts = this.dataSharing.sortBy(this.posts, this.sortMethod);
 			} else {
 				this.isEmpty = true;
 			}
@@ -85,9 +99,27 @@ export class SubredditPage implements OnInit {
 				}
 			});
 		}
-		
+
 		createPostModal.onDidDismiss(() => {
 			this.getPosts();
 		});
+	}
+	/**
+  * show a popover with options to sort posts by
+  * @param ev tells the popover where to display on the page
+  */
+	showSortByPopover(ev) {
+		this.showBackgroundDiv = true;
+		let popover = this.popoverCtrl.create(SortByPopover, { sortMethod: this.sortMethod });
+		popover.present({ ev: ev });
+		popover.onWillDismiss(sortMethod => {
+			if (sortMethod != this.sortMethod) {
+				this.sortMethod = sortMethod.sortMethod;
+				this.sortIcon = sortMethod.icon;
+				this.posts = this.dataSharing.sortBy(this.posts, this.sortMethod);
+				//function to resort posts
+			}
+			this.showBackgroundDiv = false;
+		})
 	}
 }

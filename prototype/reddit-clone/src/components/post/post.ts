@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
   userDownvoted: boolean;
   
   @Input() post: Post;
+  @Input() isCardLayout: boolean;
   @Input() subreddit: Subreddit;
   constructor(private authService: AuthService, 
     private databaseService: DatabaseService, 

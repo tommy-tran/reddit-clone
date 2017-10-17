@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, PopoverController, Events, ViewController, NavParams } from 'ionic-angular';
+import { Storage } from "@ionic/storage";
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
 import { LoginPage, SubredditPage, CreateSubredditPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 import { Post } from '../../models/post.model';
+import { DataSharingService } from '../../shared/data-sharing.service';
+import { SortByPopover } from '../../components/sortBy/sortBy';
 
 @Component({
   selector: 'page-home',
@@ -29,14 +32,18 @@ export class HomePage {
   selectedSubreddit: string;
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
+    private dataSharing: DataSharingService,
     private events: Events,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
-    private popoverCtrl: PopoverController) {
+    private popoverCtrl: PopoverController,
+    private storage: Storage) {
     this.isLoggedIn = this.authService.isLoggedIn();
- 
+    this.storage.get("userHasAccount").then(val => {
+      this.userHasAccount = val;
+    });
     this.posts = [];
-    
+
     //initial sort by method and icon
     this.sortIcon = 'flame';
     this.sortMethod = 'hot';
@@ -53,7 +60,7 @@ export class HomePage {
     ];
     this.isCardLayout = false;
     this.closeAllOverlays();
-    
+
     // When user logs in, update authservice variables
     this.events.subscribe('user:loggedin', () => {
       this.authService.updateAuthState().then(() => {
@@ -70,7 +77,7 @@ export class HomePage {
     // Update authservice variables when still logged in
     this.authService.updateAuthState().then(() => {
       this.setUp();
-      this.isLoggedIn = this.authService.isLoggedIn();      
+      this.isLoggedIn = this.authService.isLoggedIn();
     });
   }
   /**
@@ -84,7 +91,7 @@ export class HomePage {
   setUp() {
     this.setUsername();
     this.getAllSubreddits();
-    this.getAllPosts();    
+    this.getAllPosts();
   }
 
   getAllSubreddits() {
@@ -92,8 +99,11 @@ export class HomePage {
     this.subreddits = [];
     // Get subreddits
     this.databaseService.getSubreddits().then((subreddits) => {
-      console.log(Object.values(subreddits));
-      this.subreddits = Object.values(subreddits);
+      this.subreddits = [];
+      for (var key in subreddits) {
+        this.subreddits.push(subreddits[key]);
+      }
+      console.log(this.subreddits);
     }).catch(err => console.error(err));
   }
 
@@ -102,10 +112,17 @@ export class HomePage {
     this.posts = [];
     // Get posts
     this.databaseService.getAllPosts().then((subreddits) => {
-      let subredditList = Object.values(subreddits);
-      subredditList.forEach((post) => {
-        this.posts = this.posts.concat(Object.values(post));
+      let subredditList = [];
+      for (var key in subreddits) {
+        subredditList.push(subreddits[key]);
+      }
+      subredditList.forEach((subreddit) => {
+        for (var subredditKey in subreddit) {
+          this.posts.push(subreddit[subredditKey]);
+        }
       });
+      //initially sort the posts by most popular
+      this.posts = this.dataSharing.sortBy(this.posts, 'hot');
     }).catch(err => console.error(err));
   }
 
@@ -132,10 +149,11 @@ export class HomePage {
     let param = { userHasAccount: this.userHasAccount };
     let authModal = this.modalCtrl.create(LoginPage, param);
     authModal.present();
-    authModal.onWillDismiss((isLoggedIn) => {
+    authModal.onWillDismiss((isLoggedIn: boolean) => {
       if (isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
-        console.log("loggedin: " +this.isLoggedIn);
+        this.userHasAccount = true;
+        console.log("loggedin: " + this.isLoggedIn);
       }
     });
   }
@@ -209,6 +227,7 @@ export class HomePage {
       if (sortMethod != this.sortMethod) {
         this.sortMethod = sortMethod.sortMethod;
         this.sortIcon = sortMethod.icon;
+        this.posts = this.dataSharing.sortBy(this.posts, this.sortMethod);
         //function to resort posts
       }
       this.showBackgroundDiv = false;
@@ -240,6 +259,7 @@ export class HomePage {
    */
   goToSubreddit(subreddit_id: string) {
     this.databaseService.getSubreddit(subreddit_id).then((subreddit) => {
+      console.log(subreddit);
       if (subreddit) {
         this.navCtrl.push(SubredditPage, subreddit);
       }
@@ -250,68 +270,23 @@ export class HomePage {
    * create a new subreddit
    */
   createSubreddit() {
-  
-		let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { });
+
+    let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, {});
     console.log("loggedIn: " + this.isLoggedIn);
-		if (this.isLoggedIn) {
-			createSubredditModal.present();
-		} else {
-			let authModal = this.modalCtrl.create(LoginPage);
-			authModal.present();
-			authModal.onWillDismiss((isLoggedIn) => {
-				if (isLoggedIn) {
-					this.isLoggedIn = isLoggedIn;
-				}
-			});
-		}
+    if (this.isLoggedIn) {
+      createSubredditModal.present();
+    } else {
+      let authModal = this.modalCtrl.create(LoginPage);
+      authModal.present();
+      authModal.onWillDismiss((isLoggedIn) => {
+        if (isLoggedIn) {
+          this.isLoggedIn = isLoggedIn;
+        }
+      });
+    }
 		/*
 		createPostModal.onDidDismiss(() => {
 			this.getPosts();
 		}); */
-	}
-}
-@Component({
-  template: `
-  <ion-content padding>
-    <p>Sort Posts By:</p>
-    <div style="width: 100%; border-bottom: 1px solid lightgrey"></div>
-    <ion-list>
-      <button (click)="selectSortMethod('hot')" ion-item no-lines>
-        <ion-icon *ngIf="sortMethod == 'hot'" color="someblue" name="flame"></ion-icon>
-        <ion-icon *ngIf="!(sortMethod == 'hot')" color="prettygray" name="flame"></ion-icon>
-        Hot
-      </button>
-      <button (click)="selectSortMethod('new')" ion-item no-lines>
-        <ion-icon *ngIf="sortMethod == 'new'" color="someblue" name="star"></ion-icon>
-        <ion-icon *ngIf="!(sortMethod == 'new')" color="prettygray" name="star"></ion-icon>
-        New
-      </button>
-      <button (click)="selectSortMethod('top')" ion-item no-lines>
-        <ion-icon *ngIf="sortMethod == 'top'" color="someblue" name="podium"></ion-icon>
-        <ion-icon *ngIf="!(sortMethod == 'top')" color="prettygray" name="podium"></ion-icon>
-        Top
-      </button>
-    </ion-list>
-  </ion-content>
-  `
-})
-export class SortByPopover {
-  sortMethod: string;
-  constructor(private events: Events, private viewCtrl: ViewController, private navParams: NavParams) {
-    if (this.navParams.data.sortMethod) {
-      this.sortMethod = navParams.data.sortMethod;
-    }
-    else {
-      this.sortMethod = 'hot';
-    }
-  }
-  /**
-   * sort posts by a sort method
-   * @param sortMethod method to sort by
-   */
-  selectSortMethod(sortMethod: 'hot' | 'new' | 'top') {
-    let icons = { hot: 'flame', new: 'star', top: 'podium' }
-    this.sortMethod = sortMethod;
-    this.viewCtrl.dismiss({ sortMethod: sortMethod, icon: icons[sortMethod] });
   }
 }

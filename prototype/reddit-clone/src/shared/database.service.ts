@@ -180,6 +180,7 @@ export class DatabaseService {
         return new Promise<Subreddit[]>(resolve => {
             var database = firebase.database();
             database.ref('subreddits/' + subreddit_id).once('value').then(subreddit => {
+                console.log(subreddit.val());
                 return resolve(subreddit.val());
             }).catch(err => console.error(err));
         });
