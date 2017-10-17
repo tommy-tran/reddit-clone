@@ -92,6 +92,7 @@ export class HomePage {
     this.setUsername();
     this.getAllSubreddits();
     this.getAllPosts();
+    this.sort("hot");
   }
 
   getAllSubreddits() {
@@ -224,14 +225,21 @@ export class HomePage {
     let popover = this.popoverCtrl.create(SortByPopover, { sortMethod: this.sortMethod });
     popover.present({ ev: ev });
     popover.onWillDismiss(sortMethod => {
-      if (sortMethod != this.sortMethod) {
+      if (sortMethod != this.sortMethod && sortMethod) {
         this.sortMethod = sortMethod.sortMethod;
         this.sortIcon = sortMethod.icon;
-        this.posts = this.dataSharing.sortBy(this.posts, this.sortMethod);
-        //function to resort posts
+        
+        this.sort(this.sortMethod);
       }
       this.showBackgroundDiv = false;
     })
+  }
+  /**
+   * sort the posts
+   * @param sortMethod method to sort posts by
+   */
+  sort(sortMethod: string) {
+    this.posts = this.dataSharing.sortBy(this.posts, sortMethod);
   }
   /**
    * reinitialize the search results on keyup

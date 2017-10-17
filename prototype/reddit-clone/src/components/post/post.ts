@@ -72,7 +72,7 @@ export class PostComponent implements OnInit {
       this.datePosted = minutesDifference + ' minutes ago';
     }
     else {
-      this.datePosted = secondsDifference.toString();
+      this.datePosted = secondsDifference + ' seconds ago';
     }
   }
 
