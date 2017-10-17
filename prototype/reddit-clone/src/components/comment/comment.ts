@@ -21,14 +21,15 @@ export class CommentComponent {
     this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
-
+  ngOnInit() {
+    this.score = this.comment.score;
+  }
   upvote() {
     if (this.isLoggedIn) {
       this.disableInput = true;
       let user = this.authService.getUsername();
       this.databaseService.upvoteComment(user, this.comment, this.postId).then((points) => {
         this.score = this.score + points;
-
         this.databaseService.checkUpvotedComment(user, this.comment, this.postId).then(boolean => {
           this.userUpvoted = boolean;
         });
@@ -98,7 +99,7 @@ export class CommentComponent {
   }
 
   updateComment() {
-    this.databaseService.getComment(this.comment.UID, this.postId).then((comment) => {
+    this.databaseService.getComment(this.postId, this.comment.comment_id).then((comment) => {
       this.comment = comment;
       this.disableInput = false;
     })
