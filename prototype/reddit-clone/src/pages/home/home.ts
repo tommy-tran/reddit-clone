@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, PopoverController, Events, ViewController, NavParams } from 'ionic-angular';
+import { NavController, ModalController, PopoverController, Events } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 
 import { AuthService } from '../../shared/auth.service';

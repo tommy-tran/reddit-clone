@@ -9,7 +9,8 @@
           <a class="subreddit-name" *ngIf="!subreddit" (click)="goToSubreddit()">r/{{post.subreddit}}</a>
           <a class="subreddit-name" *ngIf="subreddit">r/{{post.subreddit}}</a> &bull; {{datePosted}} &bull; u/{{post.user}}
         </div>
-        <div class="post-title" (click)="goToLink()">{{post.title}}</div>
+        <div class="post-title" [style.fontSize]="isCardLayout ? '18px' : '16px'" (click)="goToLink()">{{post.title}}</div>
+        <div *ngIf="post.message" [style.fontSize]="isCardLayout ? '14px' : '12px'" class="post-message" (click)="goToLink()">{{showCommentBtn ? (post.message | slice:0:120) : (post.message)}}</div>
       </div>
 
     </div>
@@ -17,9 +18,10 @@
       <img src="{{post.link}}" alt="post media" (click)="goToLink()">
     </div>
     <div class="post-actions">
-      <div class="comments">
-        <a>
-          <ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments</a>
+      <div class="comments" *ngIf="showCommentBtn">
+        <a (click)="showComments()">
+          <ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments
+        </a>
       </div>
       <div class="voting-box">
         <a>

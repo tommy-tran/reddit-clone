@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../../models/post.model';
 import { DatabaseService } from '../../shared/database.service';
 import { AuthService } from '../../shared/auth.service';
-import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
-import { LoginPage, SubredditPage } from "../../shared/pages";
+import { NavController, AlertController, ModalController } from 'ionic-angular';
+import { LoginPage, SubredditPage, CommentsPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 
 @Component({
@@ -21,13 +21,14 @@ export class PostComponent implements OnInit {
   
   @Input() post: Post;
   @Input() isCardLayout: boolean;
+  @Input() showCommentBtn: boolean;
   @Input() subreddit: Subreddit;
   constructor(private authService: AuthService, 
     private databaseService: DatabaseService, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public modalCtrl: ModalController) {
-
+    
     this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
@@ -197,5 +198,9 @@ export class PostComponent implements OnInit {
         console.log("loggedin: " +this.isLoggedIn);
       }
     });
+  }
+
+  showComments() {
+    this.navCtrl.push(CommentsPage, {post: this.post});
   }
 }

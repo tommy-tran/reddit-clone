@@ -6,22 +6,25 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
 
 import { MyApp } from './app.component';
-import { HomePage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage } from '../shared/pages';
+import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage } from '../shared/pages';
 import { PostComponent } from '../components/post/post';
 import { DataSharingService } from '../shared/data-sharing.service';
 import { AuthService } from '../shared/auth.service';
 import { DatabaseService } from '../shared/database.service';
 import { SortByPopover } from '../components/sortBy/sortBy';
+import { CommentComponent } from '../components/comment/comment';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    HomePage, 
+    CommentsPage,
     SortByPopover,
     LoginPage,
     SubredditPage,
     CreatePostPage,
     CreateSubredditPage,
-    PostComponent
+    PostComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { SortByPopover } from '../components/sortBy/sortBy';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
+    HomePage, 
+    CommentsPage,
     LoginPage,
     SubredditPage,
     CreatePostPage,

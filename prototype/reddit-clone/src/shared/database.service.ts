@@ -20,18 +20,38 @@ export class DatabaseService {
                 if (hasUpvotes && post.val().upvotes[username]) {
                     return resolve(0); // Found in upvotes
                 }
-                if (hasDownvotes && post.val().downvotes[username]) {       
+                if (hasDownvotes && post.val().downvotes[username]) {
                     return resolve(1); // Found in downvotes
-                }   
+                }
                 return resolve(2); // Didn't vote
             }).catch(err => console.error(err));
         });
     }
-/**
- * Check upvoted post
- * @param username 
- * @param post 
- */
+    /**
+     * Check if current user has voted on specified post
+     * @param username 
+     * @param post 
+     */
+    checkVotedComment(username: string, comment: Comment, postId: string) {
+        return new Promise<number>(resolve => {
+            firebase.database().ref("/comment/" + postId + "/" + comment.UID).once('value').then(comment => {
+                let hasUpvotes = comment.val().hasOwnProperty("upvotes");
+                let hasDownvotes = comment.val().hasOwnProperty("downvotes");
+                if (hasUpvotes && comment.val().upvotes[username]) {
+                    return resolve(0); // Found in upvotes
+                }
+                if (hasDownvotes && comment.val().downvotes[username]) {
+                    return resolve(1); // Found in downvotes
+                }
+                return resolve(2); // Didn't vote
+            }).catch(err => console.error(err));
+        });
+    }
+    /**
+     * Check upvoted post
+     * @param username 
+     * @param post 
+     */
     checkUpvoted(username: string, post: Post) {
         return new Promise<boolean>(resolve => {
             firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).once('value').then(post => {
@@ -39,8 +59,8 @@ export class DatabaseService {
                 if (hasUpvotes && post.val().upvotes[username]) {
                     return resolve(true); // Found in upvotes
                 }
-                else{
-                    return resolve(false); 
+                else {
+                    return resolve(false);
                 }
             }).catch(err => console.error(err));
         });
@@ -57,8 +77,44 @@ export class DatabaseService {
                 if (hasDownvotes && post.val().downvotes[username]) {
                     return resolve(true); // Found in upvotes
                 }
-                else{
-                    return resolve(false); 
+                else {
+                    return resolve(false);
+                }
+            }).catch(err => console.error(err));
+        });
+    }
+    /**
+     * Check upvoted comment
+     * @param username 
+     * @param comment 
+     */
+    checkUpvotedComment(username: string, comment: Comment, postId: string) {
+        return new Promise<boolean>(resolve => {
+            firebase.database().ref("/comments/" + postId + "/" + comment.UID).once('value').then(post => {
+                let hasUpvotes = post.val().hasOwnProperty("upvotes");
+                if (hasUpvotes && post.val().upvotes[username]) {
+                    return resolve(true); // Found in upvotes
+                }
+                else {
+                    return resolve(false);
+                }
+            }).catch(err => console.error(err));
+        });
+    }
+    /**
+     * Check downvoted comment
+     * @param username 
+     * @param comment 
+     */
+    checkDownvotedComment(username: string, comment: Comment, postId: string) {
+        return new Promise<boolean>(resolve => {
+            firebase.database().ref("/comments/" + postId + "/" + comment.UID).once('value').then(comment => {
+                let hasDownvotes = comment.val().hasOwnProperty("downvotes");
+                if (hasDownvotes && comment.val().downvotes[username]) {
+                    return resolve(true); // Found in upvotes
+                }
+                else {
+                    return resolve(false);
                 }
             }).catch(err => console.error(err));
         });
@@ -72,7 +128,7 @@ export class DatabaseService {
         return new Promise<number>(resolve => {
             let ref = firebase.database().ref('users/' + user_id + "/karma");
             ref.transaction((karma) => {
-                return (karma || 0) + change;   
+                return (karma || 0) + change;
             })
         });
     }
@@ -86,7 +142,20 @@ export class DatabaseService {
         return new Promise<number>(resolve => {
             let ref = firebase.database().ref('posts/' + post.subreddit_id + "/" + post.post_id + "/score");
             ref.transaction((score) => {
-                return (score || 0) + change;   
+                return (score || 0) + change;
+            })
+        });
+    }
+    /**
+     * Update comment score
+     * @param comment 
+     * @param change 
+     */
+    updateCommentScore(comment: Comment, change: number, postId: string) {
+        return new Promise<number>(resolve => {
+            let ref = firebase.database().ref('comment/' + postId + "/" + comment.UID + "/upvotes");
+            ref.transaction((upvotes) => {
+                return (upvotes || 0) + change;
             })
         });
     }
@@ -96,13 +165,13 @@ export class DatabaseService {
      * @param username 
      * @param post 
      */
-    upvotePost(username : string, post: Post) {
+    upvotePost(username: string, post: Post) {
         return new Promise<number>(resolve => {
             this.checkVotedPost(username, post).then((voted) => {
                 let updates = {};
-                switch(voted) {
+                switch (voted) {
                     case 0: // upvoted --> take away upvote
-                        updates["/upvotes/" + username] = null;                        
+                        updates["/upvotes/" + username] = null;
                         firebase.database().ref("/posts/" + post.subreddit_id + "/" + post.post_id).update(updates);
                         this.updatePostScore(post, - 1);
                         this.userKarmaUpdate(post.user_id, - 1);
@@ -130,11 +199,11 @@ export class DatabaseService {
      * @param username 
      * @param post 
      */
-    downvotePost(username : string, post: Post) {
+    downvotePost(username: string, post: Post) {
         return new Promise<number>(resolve => {
             this.checkVotedPost(username, post).then((voted) => {
                 let updates = {};
-                switch(voted) {
+                switch (voted) {
                     case 0: // upvoted
                         updates["/upvotes/" + username] = null;
                         updates["/downvotes/" + username] = true;
@@ -158,6 +227,73 @@ export class DatabaseService {
             });
         });
     }
+    /**
+     * Upvote a comment
+     * @param username user that upvoted the comment
+     * @param comment comment to be upvoted
+     */
+    upvoteComment(username: string, comment: Comment, postId: string) {
+        return new Promise<number>(resolve => {
+            this.checkVotedComment(username, comment, postId).then((voted) => {
+                let updates = {};
+                switch (voted) {
+                    case 0: // upvoted --> take away upvote
+                        updates["/upvotes/" + username] = null;
+                        firebase.database().ref("/comments/" + postId + "/" + comment.UID).update(updates);
+                        this.updateCommentScore(comment, - 1, postId);
+                        this.userKarmaUpdate(comment.UID, - 1);
+                        return resolve(-1);
+                    case 1: // downvoted
+                        updates["/upvotes/" + username] = true;
+                        updates["/downvotes/" + username] = null;
+                        firebase.database().ref("/comments/" + postId + "/" + comment.UID).update(updates);
+                        this.updateCommentScore(comment, + 2, postId);
+                        this.userKarmaUpdate(comment.UID, + 2);
+                        return resolve(2);
+                    case 2: // no vote
+                        updates["/upvotes/" + username] = true;
+                        firebase.database().ref("/comments/" + postId + "/" + comment.UID).update(updates);
+                        this.updateCommentScore(comment, + 1, postId);
+                        this.userKarmaUpdate(comment.UID, + 1);
+                        return resolve(1);
+                }
+            });
+        });
+    }
+
+    /**
+     * Downvote a post
+     * @param username 
+     * @param post 
+     */
+    downvoteComment(username: string, comment: Comment, postId: string) {
+        return new Promise<number>(resolve => {
+            this.checkVotedComment(username, comment, postId).then((voted) => {
+                let updates = {};
+                switch (voted) {
+                    case 0: // upvoted
+                        updates["/upvotes/" + username] = null;
+                        updates["/downvotes/" + username] = true;
+                        firebase.database().ref("/comments/" +postId+ "/" + comment.UID).update(updates);
+                        this.updateCommentScore(comment, - 2, postId);
+                        this.userKarmaUpdate(comment.UID, - 2);
+                        return resolve(-2);
+                    case 1: // downvoted --> take away downvote
+                        updates["/downvotes/" + username] = null;
+                        firebase.database().ref("/comments/" + postId + "/" + comment.UID).update(updates);
+                        this.updateCommentScore(comment, + 1, postId);
+                        this.userKarmaUpdate(comment.UID, + 1);
+                        return resolve(1);
+                    case 2: // no vote
+                        updates["/downvotes/" + username] = true;
+                        firebase.database().ref("/comments/" + postId + "/" + comment.UID).update(updates);
+                        this.updateCommentScore(comment, - 1, postId);
+                        this.userKarmaUpdate(comment.UID, - 1);
+                        return resolve(-1);
+                }
+            });
+        });
+    }
 
     /**
      * Get a post from specified subreddit
@@ -176,7 +312,7 @@ export class DatabaseService {
      * return a JSON obj of a subreddit
      * @param subreddit_id 
      */
-    getSubreddit(subreddit_id : string) {
+    getSubreddit(subreddit_id: string) {
         return new Promise<Subreddit[]>(resolve => {
             var database = firebase.database();
             database.ref('subreddits/' + subreddit_id).once('value').then(subreddit => {
@@ -225,10 +361,10 @@ export class DatabaseService {
      * @param subredditId id of the subreddit the post is in
      * @param postId id of the post
      */
-    getPostComments(subredditId: string, postId: string) {
+    getPostComments(postId: string) {
         return new Promise<Comment[]>(resolve => {
             var database = firebase.database();
-            database.ref('subreddit-data/' + subredditId + '/comments/' + postId).once('value').then(comments => {
+            database.ref('comments/' + postId).once('value').then(comments => {
                 console.log(comments.val());
                 return resolve(comments.val());
             }).catch(err => console.error(err));
@@ -241,8 +377,8 @@ export class DatabaseService {
      * @param username username of the creator
      * @param user_id user_id of the creator
      */
-    newSubreddit(subredditName: string, subredditDescription: string, username: string, user_id: string ) {
-        return new Promise(resolve =>{
+    newSubreddit(subredditName: string, subredditDescription: string, username: string, user_id: string) {
+        return new Promise(resolve => {
             let key = firebase.database().ref('subreddits').push().key;
             console.log(key);
             let subreddit = new Subreddit(
@@ -282,11 +418,11 @@ export class DatabaseService {
             resolve();
         });
     }
-        /**
-     * Write a post to a subreddit
-     * @param post post to be written
-     * @param subredditId id of the subreddit to write the post
-     */
+    /**
+ * Write a post to a subreddit
+ * @param post post to be written
+ * @param subredditId id of the subreddit to write the post
+ */
     createTextPost(title: string, message: string, subreddit: Subreddit, username: string, user_id: string) {
         return new Promise(resolve => {
             let key = firebase.database().ref('posts/' + subreddit.subreddit_id + '/').push().key;
@@ -320,7 +456,8 @@ export class DatabaseService {
             message: comment.message,
             timestamp: comment.timestamp,
             upvotes: comment.upvotes,
-            user: comment.user
+            user: comment.creator,
+            UID: comment.UID
         });
     }
     /**

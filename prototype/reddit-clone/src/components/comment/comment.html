@@ -1,0 +1,26 @@
+<div class="comment-container">
+    <div class="comment-top-bar">
+        {{comment.creator}} &bull; {{datePosted}}
+    </div>
+    <div class="comment-content">
+        <p>{{comment.message}}</p>
+    </div>
+    <div class="comment-actions">
+        <div class="voting-box">
+            <a>
+                <ion-icon (click)="upvote()" *ngIf="!disableInput && userUpvoted" name="arrow-up" color="secondary"></ion-icon>
+                <ion-icon (click)="upvote()" *ngIf="!disableInput && !userUpvoted" name="arrow-up" color="darkgray"></ion-icon>
+                <!-- Prevent user spamming -->
+                <ion-icon *ngIf="disableInput && userUpvoted" name="arrow-up" color="secondary"></ion-icon>
+                <ion-icon *ngIf="disableInput && !userUpvoted" name="arrow-up" color="darkgray"></ion-icon>
+            </a><span class="comment-score">{{comment.upvotes}}</span>
+            <a>
+                <ion-icon (click)="downvote()" *ngIf="!disableInput && userDownvoted" name="arrow-down" color="secondary"></ion-icon>
+                <ion-icon (click)="downvote()" *ngIf="!disableInput && !userDownvoted" name="arrow-down" color="darkgray"></ion-icon>
+                <!-- Prevent user spamming -->
+                <ion-icon *ngIf="disableInput && userDownvoted" name="arrow-down" color="secondary"></ion-icon>
+                <ion-icon *ngIf="disableInput && !userDownvoted" name="arrow-down" color="darkgray"></ion-icon>
+            </a>
+        </div>
+    </div>
+</div>

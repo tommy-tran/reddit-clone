@@ -28,7 +28,7 @@ import { Component } from "@angular/core";
   })
   export class SortByPopover {
     sortMethod: string;
-    constructor(private events: Events, private viewCtrl: ViewController, private navParams: NavParams) {
+    constructor(private viewCtrl: ViewController, private navParams: NavParams) {
       if (this.navParams.data.sortMethod) {
         this.sortMethod = navParams.data.sortMethod;
       }

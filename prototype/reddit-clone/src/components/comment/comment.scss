@@ -1,0 +1,31 @@
+.comment-container {
+    border-top: 3px solid lightgray;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.comment-content {
+    color: black;
+    padding-bottom: 8px;
+}
+
+.comment-actions {
+        padding: 5px 10px 0px 10px;
+        position: relative;
+
+        .voting-box {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+}
+
+.comment-score {
+    padding: 0 10px;
+    box-sizing: border-box;
+    flex-shrink: 1;
+}
+
+.comment-top-bar {
+
+}
