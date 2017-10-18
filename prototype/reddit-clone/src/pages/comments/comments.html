@@ -11,17 +11,20 @@
   <div class="post-content">
     <post [post]="post" [isCardLayout]="true" [showCommentBtn]="false"></post>
   </div>
-  <div>
-    <form #commentBox="ngForm" (ngSubmit)="addComment(commentBox)">
-      <ion-textarea placeholder="Write comment..." name="commentInput" ngModel></ion-textarea>
-      <button ion-button type="submit">Add Comment</button>
-    </form>
-  </div>
   <div *ngIf="comments" class="post-comments">
-    <ion-icon name="text" padding-right color="darkgray"></ion-icon><span>{{comments.length}}&nbsp;Comment{{comments.length > 1 ? 's' : ''}}</span>
+    <ion-icon name="text" padding-right color="darkgray"></ion-icon><span>{{comments.length}}&nbsp;Comment{{comments.length != 1 ? 's' : ''}}</span>
 
     <div class="comments">
       <comment *ngFor="let comment of comments" [comment]="comment" [postId]="post.post_id"></comment>
     </div>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <form #commentBox="ngForm" (ngSubmit)="submitComment(commentBox)" class="write-comment-box">
+      <textarea #myInput name="commentInput" id="myInput" placeholder="Write comment..." rows="1" maxLength="500" (keyup)="resize()" ngModel></textarea>
+      <button ion-button type="submit" small round><ion-icon name="arrow-up"></ion-icon></button>
+    </form>
+  </ion-toolbar>
+</ion-footer>

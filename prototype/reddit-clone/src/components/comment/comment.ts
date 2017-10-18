@@ -9,6 +9,7 @@ import { LoginPage } from "../../shared/pages";
   templateUrl: 'comment.html'
 })
 export class CommentComponent {
+  datePosted: string;
   userHasAccount: any;
   @Input() comment: Comment;
   @Input() postId: string;
@@ -32,6 +33,7 @@ export class CommentComponent {
     this.databaseService.checkDownvotedComment(user, this.comment, this.postId).then(boolean => {
       this.userDownvoted = boolean;
     });
+    this.calculateDatePosted();
   }
   upvote() {
     if (this.isLoggedIn) {
@@ -127,5 +129,48 @@ export class CommentComponent {
         console.log("loggedin: " + this.isLoggedIn);
       }
     });
+  }
+  calculateDatePosted() {
+    let currentTime = new Date();
+    let difference = currentTime.getTime() - this.comment.timestamp;
+
+    let yearsDifference = Math.floor(difference / 1000 / 60 / 60 / 24 / 365);
+    difference -= yearsDifference * 1000 * 60 * 60 * 24 * 365;
+
+    let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    difference -= daysDifference * 1000 * 60 * 60 * 24
+
+    let hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    difference -= hoursDifference * 1000 * 60 * 60
+
+    let minutesDifference = Math.floor(difference / 1000 / 60);
+    difference -= minutesDifference * 1000 * 60
+
+    let secondsDifference = Math.floor(difference / 1000);
+
+    if (yearsDifference > 1) {
+      this.datePosted = yearsDifference + ' years ago';
+    }
+    else if (yearsDifference == 1) {
+      this.datePosted = '1 year ago';
+    }
+    else if (daysDifference > 1) {
+      this.datePosted = daysDifference + ' days ago';
+    }
+    else if (daysDifference == 1) {
+      this.datePosted = '1 day ago';
+    }
+    else if (hoursDifference > 1 && hoursDifference < 24) {
+      this.datePosted = hoursDifference + ' hours ago';
+    }
+    else if (hoursDifference === 1) {
+      this.datePosted = '1 hour ago';
+    }
+    else if (minutesDifference < 60 && minutesDifference >= 1) {
+      this.datePosted = minutesDifference + ' minutes ago';
+    }
+    else {
+      this.datePosted = secondsDifference + ' seconds ago';
+    }
   }
 }

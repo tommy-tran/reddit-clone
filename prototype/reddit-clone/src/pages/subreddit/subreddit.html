@@ -14,7 +14,7 @@
   <button ion-button clear small (click)="showSortByPopover($event)">
         <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>
   </button>
-  <ion-list inset>
+  <ion-list>
     <button ion-button (click)="createPost()" style="margin-bottom: 20px">Create a post</button>
     <div *ngFor="let post of posts">
       <post [post]="post" [subreddit]="subreddit"></post>

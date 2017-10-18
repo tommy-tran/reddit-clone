@@ -13,6 +13,7 @@ import { AuthService } from '../shared/auth.service';
 import { DatabaseService } from '../shared/database.service';
 import { SortByPopover } from '../components/sortBy/sortBy';
 import { CommentComponent } from '../components/comment/comment';
+import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     MyApp,
@@ -31,7 +32,8 @@ import { CommentComponent } from '../components/comment/comment';
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'sqlite']
-    })
+    }),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

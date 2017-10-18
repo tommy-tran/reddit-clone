@@ -12,6 +12,7 @@ import { Subreddit } from '../../models/subreddit.model';
 })
 export class PostComponent implements OnInit {
   score: number;
+  commentCount: number;
   datePosted: string;
   isLoggedIn: boolean;
   disableInput: boolean;
@@ -28,7 +29,7 @@ export class PostComponent implements OnInit {
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public modalCtrl: ModalController) {
-    
+    this.commentCount = 0;
     this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
@@ -88,6 +89,11 @@ export class PostComponent implements OnInit {
     this.databaseService.checkDownvoted(user, this.post).then(boolean => {
       this.userDownvoted = boolean;
     });
+    // this.databaseService.getPostCommentsLength(this.post.post_id).then(count => {
+    //   for (var key in count) {
+    //     this.commentCount++;
+    //   }
+    // });
   }
 
   goToSubreddit() {
@@ -100,7 +106,7 @@ export class PostComponent implements OnInit {
     if (this.post.link) {
       window.open(this.post.link);
     } else {
-      console.log("TODO: post page");
+      this.showComments();
     }
 
   }

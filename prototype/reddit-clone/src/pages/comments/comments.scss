@@ -2,4 +2,25 @@ page-comments {
     .post-comments > span{
         color: darkgray;
     }
+    #myInput {
+        width: calc(100% - 10px);
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+    .write-comment-box {
+        background-color: white;
+        height: 45px;
+        border-radius: 3px;
+    }
+    .write-comment-box > textarea{
+        padding-right: 65px;
+        user-select: text;
+    }
+    .write-comment-box > button {
+        position: absolute;
+        bottom: calc(100% - 45px);
+        right: 5px;
+        
+    }
 }
