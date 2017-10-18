@@ -23,6 +23,15 @@ export class CommentComponent {
   }
   ngOnInit() {
     this.score = this.comment.score;
+    let user = this.authService.getUsername();
+
+    //initialize posts upvotes and downvotes
+    this.databaseService.checkUpvotedComment(user, this.comment, this.postId).then(boolean => {
+      this.userUpvoted = boolean;
+    });
+    this.databaseService.checkDownvotedComment(user, this.comment, this.postId).then(boolean => {
+      this.userDownvoted = boolean;
+    });
   }
   upvote() {
     if (this.isLoggedIn) {

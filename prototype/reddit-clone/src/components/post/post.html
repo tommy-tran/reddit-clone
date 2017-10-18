@@ -1,6 +1,6 @@
 <div class="post">
   <div class="post-container">
-    <div class="post-content">
+    <div class="post-content" (click)="showComments()">
       <div class="post-link" *ngIf="post.link && !isCardLayout">
         <img src="{{post.link}}" alt="post media" (click)="goToLink()">
       </div>

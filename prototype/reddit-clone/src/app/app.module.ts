@@ -36,7 +36,7 @@ import { CommentComponent } from '../components/comment/comment';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage, 
+    HomePage,    
     CommentsPage,
     LoginPage,
     SubredditPage,

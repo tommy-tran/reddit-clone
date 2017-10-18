@@ -129,7 +129,7 @@ export class DatabaseService {
             let ref = firebase.database().ref('users/' + user_id + "/karma");
             ref.transaction((karma) => {
                 return (karma || 0) + change;
-            })
+            }).catch(err => console.error(err));
         });
     }
 
@@ -143,7 +143,7 @@ export class DatabaseService {
             let ref = firebase.database().ref('posts/' + post.subreddit_id + "/" + post.post_id + "/score");
             ref.transaction((score) => {
                 return (score || 0) + change;
-            })
+            }).catch(err => console.error(err));
         });
     }
     /**
@@ -156,7 +156,7 @@ export class DatabaseService {
             let ref = firebase.database().ref('comments/' + postId + "/" + comment.comment_id + "/score");
             ref.transaction((score) => {
                 return (score || 0) + change;
-            })
+            }).catch(err => console.error(err));
         });
     }
 
@@ -190,7 +190,7 @@ export class DatabaseService {
                         this.userKarmaUpdate(post.user_id, + 1);
                         return resolve(1);
                 }
-            });
+            }).catch(err => console.error(err));
         });
     }
 
@@ -224,7 +224,7 @@ export class DatabaseService {
                         this.userKarmaUpdate(post.user_id, - 1);
                         return resolve(-1);
                 }
-            });
+            }).catch(err => console.error(err));
         });
     }
     /**
@@ -257,8 +257,8 @@ export class DatabaseService {
                         this.userKarmaUpdate(comment.UID, + 1);
                         return resolve(1);
                 }
-            });
-        });
+            }).catch(err => console.error(err));
+        })
     }
 
     /**
@@ -274,7 +274,7 @@ export class DatabaseService {
                     case 0: // upvoted
                         updates["/upvotes/" + username] = null;
                         updates["/downvotes/" + username] = true;
-                        firebase.database().ref("/comments/" +postId+ "/" + comment.comment_id).update(updates);
+                        firebase.database().ref("/comments/" + postId + "/" + comment.comment_id).update(updates);
                         this.updateCommentScore(comment, - 2, postId);
                         this.userKarmaUpdate(comment.UID, - 2);
                         return resolve(-2);
@@ -291,7 +291,7 @@ export class DatabaseService {
                         this.userKarmaUpdate(comment.UID, - 1);
                         return resolve(-1);
                 }
-            });
+            }).catch(err => console.error(err));
         });
     }
 
@@ -366,7 +366,7 @@ export class DatabaseService {
             database.ref('posts/' + subredditId).once('value').then(posts => {
                 return resolve(posts.val());
             }).catch(err => console.error(err));
-        })
+        });
     }
     /**
      * get JSON obj of comments on a post by its id
@@ -380,7 +380,7 @@ export class DatabaseService {
                 console.log(comments.val());
                 return resolve(comments.val());
             }).catch(err => console.error(err));
-        })
+        });
     }
     /**
      * create a new subreddit
@@ -426,7 +426,7 @@ export class DatabaseService {
                 0,
                 0
             );
-            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post);
+            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post).catch(err => console.error(err));
             resolve();
         });
     }
@@ -453,7 +453,7 @@ export class DatabaseService {
                 0
             );
             console.log(post);
-            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post);
+            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post).catch(err => console.error(err));
             resolve();
         });
     }
@@ -461,17 +461,20 @@ export class DatabaseService {
      * write a comment on a post
      * @param comment comment to be written
      * @param postId id of the post the comment is being written to
-     * @param subredditId id of the subreddit the post is in
      */
-    writeComment(comment: Comment, postId: string, subredditId: string) {
-        firebase.database().ref('subreddit-data/' + subredditId + '/comments/' + postId).set({
+    writeComment(commentData: any, postId: string, subredditId: string) {
+        let key = firebase.database().ref('comments/' + postId + '/').push().key;        
+        
+        /*firebase.database().ref('comments/' + postId + '/' + key).set({
+            comment_id: key,
             message: comment.message,
             timestamp: comment.timestamp,
             upvotes: comment.upvotes,
             user: comment.creator,
             UID: comment.UID
-        });
-    }
+        }).catch(err => console.error(err));
+    */
+}
     /**
      * delete a subreddit by its id.
      * @param subredditId id of the subreddit
@@ -499,16 +502,16 @@ export class DatabaseService {
     }
     /**
      * remove a comment
-     * @param subredditId id of the subreddit
      * @param postId id of the post
-     * @param commentIndex id of the
+     * @param comment comment to be deleted
      */
-    deleteComment(subredditId: string, postId: string, commentIndex: string) {
-        firebase.database().ref('subreddit-data/' + subredditId + '/comments/' + postId + '/' + commentIndex)
+    deleteComment(subredditId: string, postId: string, comment: Comment) {
+        firebase.database().ref('comments/' + postId + '/' + comment.comment_id)
             .remove().then(() => {
                 console.log('delete success');
             }).catch(err => console.error(err));
-        firebase.database().ref('subreddit-data/' + subredditId + '/comments/' + postId + '/' + commentIndex)
+        //OR
+        firebase.database().ref('comments/' + postId + '/' + comment.comment_id)
             .set({
                 message: "[removed]",
                 timestamp: null,

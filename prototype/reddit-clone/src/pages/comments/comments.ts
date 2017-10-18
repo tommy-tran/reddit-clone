@@ -4,6 +4,7 @@ import { Post } from '../../models/post.model';
 import { Comment } from '../../models/comment.model';
 import { DatabaseService } from '../../shared/database.service';
 
+import { CreateCommentPage } from "../../shared/pages";
 
 @IonicPage()
 @Component({
