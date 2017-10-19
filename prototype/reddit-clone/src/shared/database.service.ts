@@ -413,23 +413,27 @@ export class DatabaseService {
      * @param post post to be written
      * @param subredditId id of the subreddit to write the post
      */
-    createLinkPost(title: string, link: string, subreddit: Subreddit, username: string, user_id: string) {
+    createLinkPost(postData: any) {
         return new Promise(resolve => {
-            let key = firebase.database().ref('posts/' + subreddit.subreddit_id + '/').push().key;
+            let key = firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/').push().key;
+            console.log(postData);
+            let upvote = {};
+            upvote[postData.username]  = true;
             let post = new Post(
-                title,
-                link,
+                postData.title,
+                postData.link,
                 key,
                 null,
-                subreddit.name,
-                subreddit.subreddit_id,
+                postData.subreddit.name,
+                postData.subreddit.subreddit_id,
                 firebase.database.ServerValue.TIMESTAMP,
-                username,
-                user_id,
-                0,
+                postData.username,
+                postData.user_id,
+                1,
                 0
             );
-            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post).catch(err => console.error(err));
+            post["upvotes"] = upvote;
+            firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/' + key).update(post).catch(err => console.error(err));
             resolve();
         });
     }
@@ -438,25 +442,29 @@ export class DatabaseService {
  * @param post post to be written
  * @param subredditId id of the subreddit to write the post
  */
-    createTextPost(title: string, message: string, subreddit: Subreddit, username: string, user_id: string) {
+    createTextPost(postData: any) {
         return new Promise(resolve => {
-            let key = firebase.database().ref('posts/' + subreddit.subreddit_id + '/').push().key;
+            let key = firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/').push().key;
+            let upvote = {};
+            upvote[postData.username] = true;
             console.log(key);
             let post = new Post(
-                title,
+                postData.title,
                 null,
                 key,
-                message,
-                subreddit.name,
-                subreddit.subreddit_id,
+                postData.message,
+                postData.subreddit.name,
+                postData.subreddit.subreddit_id,
                 firebase.database.ServerValue.TIMESTAMP,
-                username,
-                user_id,
-                0,
+                postData.username,
+                postData.user_id,
+                1,
                 0
             );
+            post["upvotes"] = upvote;
+
             console.log(post);
-            firebase.database().ref('posts/' + subreddit.subreddit_id + '/' + key).update(post).catch(err => console.error(err));
+            firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/' + key).update(post).catch(err => console.error(err));
             resolve();
         });
     }

@@ -40,15 +40,17 @@ export class CreatePostPage {
     let url = form.value.urlInput;
     let text = form.value.textInput;
     let username = this.authService.getUsername();
-    let user_uid = this.authService.getUID();
+    let user_id = this.authService.getUID();
 
     if (title) {
       if (this.isLinkPost && this.isURL(url)) {
-        this.databaseService.createLinkPost(title, url, this.subreddit, username, user_uid).then(() => {
+        let postData = {"title": title, "link": url, "subreddit": this.subreddit, "username": username, "user_id": user_id};
+        this.databaseService.createLinkPost(postData).then(() => {
           this.closeModal();
         });
       } else if (!this.isLinkPost && text) {
-        this.databaseService.createTextPost(title, text, this.subreddit, username, user_uid).then(() => {
+        let postData = {"title": title, "message": text, "subreddit": this.subreddit, "username": username, "user_id": user_id};        
+        this.databaseService.createTextPost(postData).then(() => {
           this.closeModal();
         });
       } else {

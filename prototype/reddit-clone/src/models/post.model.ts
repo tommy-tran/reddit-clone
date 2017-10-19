@@ -6,8 +6,6 @@ export class Post {
     subreddit: string;
     subreddit_id: string;
     timestamp: number;
-    upvotes: {key : boolean};
-    downvotes: {key : boolean};
     score: number;
     user: string;
     user_id: string;
@@ -21,7 +19,7 @@ export class Post {
         subreddit_id: string, 
         timestamp: any,
         user: string,
-        user_id: string, 
+        user_id: string,
         score: number,
         numcomments: number) {
             this.title = title;
