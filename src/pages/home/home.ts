@@ -70,7 +70,7 @@ export class HomePage {
       });
     });
     // When user navigates from subreddits, refresh
-    this.events.subscribe('nav:subreddit', () => {
+    this.events.subscribe('nav', () => {
       this.getAllPosts();
     });
 
@@ -278,7 +278,6 @@ export class HomePage {
    * create a new subreddit
    */
   createSubreddit() {
-
     let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, {});
     console.log("loggedIn: " + this.isLoggedIn);
     if (this.isLoggedIn) {
@@ -292,9 +291,5 @@ export class HomePage {
         }
       });
     }
-		/*
-		createPostModal.onDidDismiss(() => {
-			this.getPosts();
-		}); */
   }
 }

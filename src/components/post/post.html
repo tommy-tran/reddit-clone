@@ -20,7 +20,7 @@
     <div class="post-actions">
       <div class="comments" *ngIf="showCommentBtn">
         <a (click)="showComments()">
-          <ion-icon name="text"></ion-icon>&nbsp;&nbsp; <!--{{post.numcomments}}--> Comments
+          <ion-icon name="text"></ion-icon>&nbsp;&nbsp; {{post.numcomments}} Comments
         </a>
       </div>
       <div class="voting-box">

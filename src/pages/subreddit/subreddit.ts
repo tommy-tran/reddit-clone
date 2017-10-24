@@ -80,7 +80,7 @@ export class SubredditPage implements OnInit {
 	ngOnInit() {
 		// When the back button is pressed
 		this.navBar.backButtonClick = () => {
-			this.events.publish('nav:subreddit');
+			this.events.publish('nav');
 			this.navCtrl.pop();
 		}
 	}

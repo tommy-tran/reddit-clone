@@ -29,7 +29,6 @@ export class PostComponent implements OnInit {
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public modalCtrl: ModalController) {
-    this.commentCount = 0;
     this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }

@@ -473,7 +473,7 @@ export class DatabaseService {
      * @param commentData comment to be written
      * @param postId id of the post the comment is being written to
      */
-    writeComment(commentData: any, postId: string) {
+    writeComment(commentData: any, postId: string, subredditId: string) {
         return new Promise(resolve => {
             let key = firebase.database().ref('comments/' + postId + '/comments/').push().key;
             let comment = new Comment(
@@ -485,6 +485,14 @@ export class DatabaseService {
                 commentData.score
             );
             firebase.database().ref('comments/' + postId + '/comments/' + key).update(comment).catch(err => console.error(err));
+
+            // Increment comment counter in posts
+            let ref = firebase.database().ref('posts/' + subredditId + "/" + postId + "/numcomments");
+            ref.transaction((comments) => {
+                return (comments || 0) + 1;
+            }).catch(err => console.error(err));
+
+
             resolve(comment);
         });
 

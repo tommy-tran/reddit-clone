@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, Navbar, Events } from 'ionic-angular';
 import { Post } from '../../models/post.model';
 import { Comment } from '../../models/comment.model';
 import { DatabaseService } from '../../shared/database.service';
@@ -11,15 +11,25 @@ import { AuthService } from '../../shared/auth.service';
   selector: 'page-comments',
   templateUrl: 'comments.html',
 })
-export class CommentsPage {
+export class CommentsPage implements OnInit{
   post: Post;
   comments: Comment[];
   @ViewChild('myInput') myInput: ElementRef;
-  constructor(private authService: AuthService, public navCtrl: NavController, private databaseService: DatabaseService, public navParams: NavParams) {
+  @ViewChild(Navbar) navBar: Navbar;
+  constructor(private authService: AuthService, public navCtrl: NavController, private databaseService: DatabaseService, public navParams: NavParams, public events: Events) {
     this.post = this.navParams.data.post;
     console.log(this.post);
     this.getPostComments();
   }
+
+	ngOnInit() {
+		// When the back button is pressed
+		this.navBar.backButtonClick = () => {
+			this.events.publish('nav');
+			this.navCtrl.pop();
+		}
+	}
+
   /**
    * for resizing textarea as user types
    */
@@ -38,7 +48,7 @@ export class CommentsPage {
         message: form.value.commentInput.trim(),
         score: 0
       }
-      this.databaseService.writeComment(commentData, this.post.post_id).then((comment: Comment) => {
+      this.databaseService.writeComment(commentData, this.post.post_id, this.post.subreddit_id).then((comment: Comment) => {
         this.comments.push(comment);
       });
 
