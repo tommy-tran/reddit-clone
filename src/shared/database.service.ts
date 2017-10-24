@@ -331,7 +331,6 @@ export class DatabaseService {
         return new Promise<Subreddit[]>(resolve => {
             var database = firebase.database();
             database.ref('subreddits/' + subreddit_id).once('value').then(subreddit => {
-                console.log(subreddit.val());
                 return resolve(subreddit.val());
             }).catch(err => console.error(err));
         });
@@ -380,7 +379,6 @@ export class DatabaseService {
         return new Promise<Comment[]>(resolve => {
             var database = firebase.database();
             database.ref('comments/' + postId + '/comments/').once('value').then(comments => {
-                console.log(comments.val());
                 return resolve(comments.val());
             }).catch(err => console.error(err));
         });
@@ -395,7 +393,6 @@ export class DatabaseService {
     newSubreddit(subredditName: string, subredditDescription: string, username: string, user_id: string) {
         return new Promise(resolve => {
             let key = firebase.database().ref('subreddits').push().key;
-            console.log(key);
             let subreddit = new Subreddit(
                 subredditName,
                 subredditDescription,
@@ -416,7 +413,6 @@ export class DatabaseService {
     createLinkPost(postData: any) {
         return new Promise(resolve => {
             let key = firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/').push().key;
-            console.log(postData);
             let upvote = {};
             upvote[postData.username]  = true;
             let post = new Post(
@@ -447,7 +443,6 @@ export class DatabaseService {
             let key = firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/').push().key;
             let upvote = {};
             upvote[postData.username] = true;
-            console.log(key);
             let post = new Post(
                 postData.title,
                 null,
@@ -463,7 +458,6 @@ export class DatabaseService {
             );
             post["upvotes"] = upvote;
 
-            console.log(post);
             firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/' + key).update(post).catch(err => console.error(err));
             resolve();
         });
@@ -543,12 +537,4 @@ export class DatabaseService {
                 console.log('delete success');
             }).catch(err => console.error(err));
     }
-
-    getPostCommentsLength(postId) {
-        // return new Promise(resolve => {
-        //     this.http.get(`https://reddit-clone-ced0e.firebaseio.com/comments/${postId}?shallow=true`)
-        //         .subscribe(response => resolve(response.json()));
-        // });
-    }
-
 }

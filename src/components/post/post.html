@@ -9,8 +9,14 @@
           <a class="subreddit-name" *ngIf="!subreddit" (click)="goToSubreddit()">r/{{post.subreddit}}</a>
           <a class="subreddit-name" *ngIf="subreddit">r/{{post.subreddit}}</a> &bull; {{datePosted}} &bull; u/{{post.user}}
         </div>
-        <div class="post-title" [style.fontSize]="isCardLayout ? '18px' : '16px'" (click)="showComments()">{{post.title}}</div>
-        <div *ngIf="post.message" [style.fontSize]="isCardLayout ? '14px' : '12px'" class="post-message" (click)="showComments()">{{showCommentBtn ? (post.message | slice:0:120) : (post.message)}}</div>
+        <div *ngIf="!commentPage">
+          <div class="post-title" [style.fontSize]="isCardLayout ? '18px' : '16px'" (click)="showComments()">{{post.title}}</div>
+          <div *ngIf="post.message" [style.fontSize]="isCardLayout ? '14px' : '12px'" class="post-message" (click)="showComments()">{{showCommentBtn ? (post.message | slice:0:120) : (post.message)}}</div>
+        </div>
+        <div *ngIf="commentPage">
+          <div class="post-title" [style.fontSize]="isCardLayout ? '18px' : '16px'">{{post.title}}</div>
+          <div *ngIf="post.message" [style.fontSize]="isCardLayout ? '14px' : '12px'" class="post-message">{{showCommentBtn ? (post.message | slice:0:120) : (post.message)}}</div>
+        </div>
       </div>
 
     </div>

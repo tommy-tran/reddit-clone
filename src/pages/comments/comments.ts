@@ -18,7 +18,6 @@ export class CommentsPage implements OnInit{
   @ViewChild(Navbar) navBar: Navbar;
   constructor(private authService: AuthService, public navCtrl: NavController, private databaseService: DatabaseService, public navParams: NavParams, public events: Events) {
     this.post = this.navParams.data.post;
-    console.log(this.post);
     this.getPostComments();
   }
 

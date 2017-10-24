@@ -34,7 +34,6 @@ export class DataSharingService {
      * @param sortMethod method to sort by
      */
     sortBy(posts: Post[], sortMethod: string) {
-        console.log(sortMethod);
         let currentDate = new Date();
         let currentTime = currentDate.getTime();
         function relativeDiff(A, B) {
@@ -99,7 +98,6 @@ export class DataSharingService {
                 break;
 
         }
-        console.log(posts);
         return posts;
     }
 }

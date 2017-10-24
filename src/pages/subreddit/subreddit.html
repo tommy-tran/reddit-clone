@@ -17,7 +17,7 @@
   <ion-list>
     <button ion-button (click)="createPost()" style="margin-bottom: 20px">Create a post</button>
     <div *ngFor="let post of posts">
-      <post [post]="post" [subreddit]="subreddit"></post>
+      <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false"></post>
     </div>
     <p *ngIf="isEmpty">There are no posts at the moment!</p>
   </ion-list>

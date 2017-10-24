@@ -104,7 +104,6 @@ export class HomePage {
       for (var key in subreddits) {
         this.subreddits.push(subreddits[key]);
       }
-      console.log(this.subreddits);
     }).catch(err => console.error(err));
   }
 

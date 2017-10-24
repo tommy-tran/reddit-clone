@@ -24,6 +24,7 @@ export class PostComponent implements OnInit {
   @Input() isCardLayout: boolean;
   @Input() showCommentBtn: boolean;
   @Input() subreddit: Subreddit;
+  @Input() commentPage: boolean;
   constructor(private authService: AuthService, 
     private databaseService: DatabaseService, 
     public navCtrl: NavController, 
@@ -105,6 +106,7 @@ export class PostComponent implements OnInit {
     if (this.post.link) {
       window.open(this.post.link);
     } else {
+      console.log(this.commentPage);
       this.showComments();
     }
 

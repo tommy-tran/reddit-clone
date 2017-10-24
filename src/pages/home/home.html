@@ -33,7 +33,7 @@
 
   <div>
     <span>Subreddit navigation:</span>
-    <select [(ngModel)]="selectedSubreddit">
+    <select class="subreddit-nav" [(ngModel)]="selectedSubreddit">
       <option *ngFor="let subreddit of subreddits" value="{{subreddit.subreddit_id}}">
         <li>{{subreddit.name}}</li>
       </option>
@@ -46,13 +46,12 @@
   <p><i>A social news aggregator where users have the power to add, rate, and curate content!</i></p>
   <p *ngIf="username">Your username is {{username}}</p>
 
-  <button ion-button (click)="showUserInfo()" style="margin-bottom: 20px;">Show user information</button>
   <!-- create subreddit -->
   <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button>
 
   <!-- display posts -->
   <div class="posts" *ngFor="let post of posts">
-    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [showCommentBtn]="true"></post>
+    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [showCommentBtn]="true" [commentPage]="false"></post>
   </div>
 
 
