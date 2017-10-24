@@ -25,6 +25,7 @@ temp/
 hooks/
 platforms/
 plugins/
+package-lock.json
 plugins/android.json
 plugins/ios.json
 www/
