@@ -1,0 +1,173 @@
+\documentclass[12pt,fleqn]{article}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{vhistory}
+
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+\usepackage{fancyhdr}
+\usepackage{fancyhdr}
+\fancyhead[L]{October 27, 2017}
+\fancyhead[C]{SE 3XA3: Test Plan}
+\fancyhead[R]{AKT}
+\pagestyle{fancy}
+
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Group 29 (AKT)\\ Test Plan}
+\author{
+Alex Trudeau\\
+	\texttt{400030148}
+\and
+Kathryn Kodama\\
+  	\texttt{400013582}
+\and
+Tommy Tran\\
+	\texttt{001150067}
+}
+\date{\today\\Version 1.0}
+\begin{document}
+
+\maketitle
+
+
+
+\pagebreak
+\tableofcontents
+
+\listoftables
+\listoffigures
+
+\begin{table}[ht]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Version} & {\bf Date} & {\bf Notes}\\
+\midrule
+1.0 & 18/10/17 & Created Document\\
+1.1 & 24/10/17 & Updated  content and formatting\\
+1.2 & 26/10/17 & Updated content
+\\
+1.3 & 27/10/17 & Finalized content for rev.0 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+\pagebreak
+
+
+
+\section {General Information}
+
+\subsection {Purpose}
+The purpose of this test plan is to verify that the program works as intended and was implemented correctly with the utmost confidence.
+
+\subsection {Scope}
+This test plan provides the basis for testing the Reddit-Clone program's functionality and that it properly mimics the functionality of the original open source project Reddit.  The program allows for users to post, discuss, and curate user created content.
+
+The testing of Reddit-Clone means to cover static testing and dynamic testing through black box, white box, manual, and automated tests.  This document is an outline of the testing methods including the testing tools to be utilized.
+
+\subsection {Acronyms, Abbreviations, and Symbols}
+
+\begin{table}[ht]
+\caption{\textbf{Table of Abbreviations}} \label{Abbreviations}
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Abbreviation} & \textbf{Definition} \\
+\midrule
+AKT & Alex, Kathryn, Tommy; also the team name (see Definitions table)\\
+PoC & Proof of concept, project as of October 16, 2017\\
+DevPlan & Development Plan document \\
+
+\bottomrule
+\end{tabularx}
+
+\end{table}
+
+\begin{table}[ht]
+\caption{\textbf{Table of Definitions}} \label{Definitions}
+
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+\textbf{Term} & \textbf{Definition}\\
+\midrule
+Reddit & The original Reddit open source projected to be recreated (\url{http://www.reddit.com})\\
+Reddit-Clone & The project being created.\\
+AKT & The developer team for Reddit-Clone\\
+Up Vote & A term for "liking" a post/comment on Reddit-Clone.  \\
+Down Vote & A term for "disliking" a post/comment on Reddit-Clone. \\
+Subreddit & A page containing the posts of a certain topic \\
+GUI & Graphic User Interface \\ 
+Post & A submission by an authenticated user that contains text and/or media attachments \\
+Comment & An authenticated user's text response to another user's post or comment \\
+\bottomrule
+\end{tabularx}
+
+\end{table}	
+
+\pagebreak
+\section {Plan}
+This section provides information on the Reddit-Clone project and the software testing plan. This plan is based off of the main functionality that exists as of the PoC as well as any additional functions outlined in the DevPlan.
+
+\subsection {Software Description}
+Reddit-Clone will allow authenticated users create posts, subreddits and comments as well as curate others' content through up-votes and down-votes.  The program is implemented in JavaScript with Angular 4 and Ionic 2 framework.
+
+\subsection {Test Team}
+The testing team for Reddit-Clone are all members of the AKT Development team: Alex Trudeau, Kathryn Kodama, Tommy Tran.  The lead tester will be Tommy Tran.
+
+\subsection {Tools Used for Testing}
+%% Can someone verify this?
+The dynamic testing will utilize the following tools.  Mocha and Angular 4 testing packages will be used to test the JavaScript functionality of this project.
+
+The static testing will be performed without additional tools.  The HTML/Css testing will be tested through observation on Unix, Windows, iOs, and Android environments.
+
+\subsection {Testing Schedule}
+
+\begin{table}[h]
+\caption{\textbf{Testing Schedule}} \label{Schedule}
+
+\begin{tabularx}{\textwidth}{p{4cm}XX}
+\toprule
+\textbf{Date} & \textbf{Task} & \textbf{Team Member} \\
+\midrule
+30/10/2017 & Create user account and verify & Kathryn Kodama \\
+01/11/2017 &  & \\
+
+\bottomrule
+\end{tabularx}
+
+\end{table}
+
+
+\pagebreak
+\section{System Test Description}
+
+\subsection{Tests for Functional Requirements}
+\subsubsection{User Input}
+\subsubsection{Navigation}
+
+\subsection{Tests for Nonfunctional Requirements}
+\subsubsection{Usability}
+\subsubsection{Performance}
+
+
+\end{document}
