@@ -14,6 +14,7 @@
 \usepackage{paralist}
 \usepackage{amsfonts}
 \usepackage{vhistory}
+\usepackage{tcolorbox}
 
 
 \oddsidemargin 0mm
@@ -43,7 +44,7 @@ Kathryn Kodama\\
 Tommy Tran\\
 	\texttt{001150067}
 }
-\date{\today\\Version 1.0}
+\date{\today\\Version 1.3}
 \begin{document}
 
 \maketitle
@@ -53,8 +54,8 @@ Tommy Tran\\
 \pagebreak
 \tableofcontents
 
+
 \listoftables
-\listoffigures
 
 \begin{table}[ht]
 \caption{\bf Revision History}
@@ -68,7 +69,9 @@ Tommy Tran\\
 1.3 & 27/10/17 & Finalized content for rev.0 \\
 \bottomrule
 \end{tabularx}
+\textbf{*list of figures is not applicable to this document as of version 1.3}
 \end{table}
+
 
 
 \pagebreak
@@ -83,7 +86,7 @@ The purpose of this test plan is to verify that the program works as intended an
 \subsection {Scope}
 This test plan provides the basis for testing the Reddit-Clone program's functionality and that it properly mimics the functionality of the original open source project Reddit.  The program allows for users to post, discuss, and curate user created content.
 
-The testing of Reddit-Clone means to cover static testing and dynamic testing through black box, white box, manual, and automated tests.  This document is an outline of the testing methods including the testing tools to be utilized.
+The testing of Reddit-Clone means to cover Dynamic testing and dynamic testing through black box, white box, manual, and automated tests.  This document is an outline of the testing methods including the testing tools to be utilized.
 
 \subsection {Acronyms, Abbreviations, and Symbols}
 
@@ -97,6 +100,7 @@ The testing of Reddit-Clone means to cover static testing and dynamic testing th
 AKT & Alex, Kathryn, Tommy; also the team name (see Definitions table)\\
 PoC & Proof of concept, project as of October 16, 2017\\
 DevPlan & Development Plan document \\
+UI & User Interaction \\
 
 \bottomrule
 \end{tabularx}
@@ -138,36 +142,390 @@ The testing team for Reddit-Clone are all members of the AKT Development team: A
 %% Can someone verify this?
 The dynamic testing will utilize the following tools.  Mocha and Angular 4 testing packages will be used to test the JavaScript functionality of this project.
 
-The static testing will be performed without additional tools.  The HTML/Css testing will be tested through observation on Unix, Windows, iOs, and Android environments.
+The Dynamic testing will be performed without additional tools.  The HTML/Css testing will be tested through observation on Unix, Windows, iOs, and Android environments.
 
 \subsection {Testing Schedule}
 
-\begin{table}[h]
-\caption{\textbf{Testing Schedule}} \label{Schedule}
+Refer to the \href{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone/blob/master/Documentation/Gantt_27_10_17.pdf}{Gantt Chart} located in the project GitLab for the testing schema.   Testing is divided into the following categories within the Gantt chart: Account Management, Content Management, Navigation Methods.  Each testing category is assigned to a different member of the AKT development team and associated with a start and date time
 
-\begin{tabularx}{\textwidth}{p{4cm}XX}
+\begin{table}[ht]
+\caption{\textbf{Testing Schedule (as outlined in the Gantt Chart)}} \label{Definitions}
+
+\begin{tabularx}{\textwidth}{{2.5cm}p{3.5cm}XX}
 \toprule
-\textbf{Date} & \textbf{Task} & \textbf{Team Member} \\
+\textbf{Category} & \textbf{Group Member} & \textbf{Completion Date}\\
 \midrule
-30/10/2017 & Create user account and verify & Kathryn Kodama \\
-01/11/2017 &  & \\
-
+Account Management & Alex Trudeau & 7/11/2017\\
+Content Management & Tommy Tran & 9/11/2017 \\
+Navigation Methods & Kathryn Kodama & 11/11/2017 \\ 
 \bottomrule
 \end{tabularx}
 
-\end{table}
-
+\end{table}	
 
 \pagebreak
-\section{System Test Description}
+% \subsection{Tests for Functional Requirements}
+% \subsubsection{User Input}
+% \subsubsection{Navigation}
 
+% \subsection{Tests for Nonfunctional Requirements}
+% \subsubsection{Usability}
+% \subsubsection{Performance}
+
+% Authentication Methods, Account Management, Content Management, Navigation Methods, 
+
+\section{System Testing}
 \subsection{Tests for Functional Requirements}
-\subsubsection{User Input}
-\subsubsection{Navigation}
+\subsubsection{Account Management}
+
+\textbf{User account creation (valid inputs)}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT1-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Not authenticated, on home page\\
+\textbf{Input:} Enter valid username, email and password\\
+\textbf{Output:} Email sent to inputted email(user cannot log in yet). \\
+\textbf{How the test will be performed:} Tester will sign up and after successful sign up, check that an email was received. Database will also be verified for successful user creation.
+\end{tcolorbox}
+
+\textbf{\\User account creation (invalid inputs)}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT1-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Not authenticated, on home page\\
+\textbf{Input:} Enter invalid or already registered username/email\\
+\textbf{Output:} Error message shown to user\\
+\textbf{How the test will be performed:} Tester will attempt sign up with an invalid or already used username or email.
+\end{tcolorbox}
+
+\textbf{\\Verify user account}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT1-3\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} After successful user account creation\\
+\textbf{Input:} Open verification link in email \\
+\textbf{Output:} Success message \\
+\textbf{How the test will be performed:} Tester will check account email and open the verification link
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Delete account}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT1-4\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, viewing profile\\
+\textbf{Input:} Select delete account, then confirm\\
+\textbf{Output:} Deleted account success message\\
+\textbf{How the test will be performed:} User will be deleted and then database will be checked and account deletion will be verified
+\end{tcolorbox}
+
+\textbf{\\Log in}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT1-5\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Prompted to log in\\
+\textbf{Input:} Enter user information from previously created account\\
+\textbf{Output:} Successful or failed authentication
+\textbf{How the test will be performed:} Tester will log in with an email not associated with any account (authentication fails) and then with a previously created user account (authentication succeeds).
+\end{tcolorbox}
+
+\textbf{\\Log in (unverified)}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT1-6\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Prompted to log in\\
+\textbf{Input:} Enter user information from previously created account\\
+\textbf{Output:} Error message notifying user to verify by email
+\textbf{How the test will be performed:} Tester will log in with a previously created user account. Authentication succeeds but will prompt the user to check email for verification email.
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Log out}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT1-7\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, viewing homepage\\
+\textbf{Input:} Log out button selected\\
+\textbf{Output:} Log in/Sign Up button shown on homepage\\
+\textbf{How the test will be performed:} Log out and then confirm that authenticated user privileges were lost.
+\end{tcolorbox}
+
+\subsubsection{Content Management}
+
+\textbf{Post creation}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT2-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, create post modal opened\\
+\textbf{Input:} Test post parameters\\
+\textbf{Output:} Check post shows in subreddit\\
+\textbf{How the test will be performed:} Authenticated account will create a test post and verify that a post shows in the posted subreddit afterwards
+\end{tcolorbox}
+
+\textbf{\\Subreddit creation}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT11-1\\ % FR 11 users can create subreddits 
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, create subreddit modal opened\\
+\textbf{Input:} Test subreddit name and description\\
+\textbf{Output:} Subreddit created\\
+\textbf{How the test will be performed:} Authenticated account will create a test subreddit and verify that the subreddit exists and was added to the subreddit navigation list
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Content browsing}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT3-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} View homepage and then select a subreddit\\
+\textbf{Output:} Show posts from a variety of subreddits on homepage, show posts from specific subreddit when selected\\
+\textbf{How the test will be performed:} Tester will manually view and verify that posts from multiple subreddits show on the homepage and when a subreddit is selected, posts from only that specific subreddit is shown
+\end{tcolorbox}
+
+\textbf{\\Edit posts}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT4-1\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send edit test post request to database\\
+\textbf{Output:} Test post is modified\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to edit a post and then verify that the post has been successfully modified.
+\end{tcolorbox}
+
+\textbf{\\Delete posts}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT4-2\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send delete request for test post to database\\
+\textbf{Output:} Test post deleted\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to delete a post and then verify that the post has been successfully deleted.
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Edit comment}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT4-3\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send edit test comment request to database\\
+\textbf{Output:} Test comment is modified\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to edit a comment and then verify that the comment has been successfully modified.
+\end{tcolorbox}
+
+\textbf{\\Delete comment}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT4-4\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send delete request for test comment to database\\
+\textbf{Output:} Test comment deleted\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to delete a comment and then verify that the comment has been successfully deleted.
+\end{tcolorbox}
+
+\textbf{\\Create comment}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT5-1\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to create a test comment to database\\
+\textbf{Output:} Test comment created\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to create a comment and then verify that the comment has been successfully created.
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Up-voting a post}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT6-1\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to upvote test post to database\\
+\textbf{Output:} Test post points increased\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to upvote a post and then verify that the post points has been successfully incremented.
+\end{tcolorbox}
+
+\textbf{\\Down-voting a post}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT6-2\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to downvote a test post to database\\
+\textbf{Output:} Test post points decreased\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to downvote a post and then verify that the post points has been successfully decremented.
+\end{tcolorbox}
+
+\textbf{\\Up-voting a comment}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT6-3\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to upvote test comment to database\\
+\textbf{Output:} Test comment points increased\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to upvote a comment and then verify that the comment points has been successfully incremented.
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Down-voting a comment}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT6-4\\
+\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to downvote a test comment to database\\
+\textbf{Output:} Test comment points decreased\\
+\textbf{How the test will be performed:} Authenticated test account will send a request to downvote a comment and then verify that the comment points has been successfully decremented.
+\end{tcolorbox}
+
+\textbf{\\User karma points}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT6-5\\ % Need to modify FR6(modifications karma to user profile)
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Upvote/downvote a user's post/comment, select the user's name to open user profile  \\
+\textbf{Output:} User profile modal opened(karma points should have changed)\\
+\textbf{How the test will be performed:} Tester will upvote or downvote a user's post or comment and then select the user to view their information. The karma points should then be verified to change according to the upvote or downvote.
+\end{tcolorbox}
+
+\textbf{\\Sorting posts (Home page)}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT7-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, on home page\\
+\textbf{Input:} Select all three different sorting options: Hot, New and Top \\
+\textbf{Output:} All posts sorted according to selection\\
+\textbf{How the test will be performed:} Tester will select different sorting option and verify that sorting works. Hot shows more recently popular posts, New shows newest posts and Top shows posts with highest karma points.
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Sorting posts (Subreddit)}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT7-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, on test subreddit\\
+\textbf{Input:} Select all three different sorting options: Hot, New and Top \\
+\textbf{Output:} All posts sorted according to selection\\
+\textbf{How the test will be performed:} Tester will select different sorting option on the test subreddit and verify that sorting works. Hot shows more recently popular posts, New shows newest posts and Top shows posts with highest karma points.
+\end{tcolorbox}
+
+\subsubsection{Navigation Methods}
+
+\textbf{\\View user profile}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT8-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select user to open user profile  \\
+\textbf{Output:} User profile modal opened\\
+\textbf{How the test will be performed:} Tester will select a user to view their information and verify that all of the information is correct with the database.
+\end{tcolorbox}
+
+\textbf{\\View subreddit}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT9-1\\ % Need to add new functional requirement: allow users to view subreddits
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select a test subreddit or use subreddit navigation \\
+\textbf{Output:} Test subreddit displayed\\
+\textbf{How the test will be performed:} Tester will have the application opened and select a subreddit. The subreddit should then be displayed
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\Search for existing subreddit}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT10-1\\ % Need to add new functional requirement: searching
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Input a subreddit name \\
+\textbf{Output:} Show subreddit (if it exists)\\
+\textbf{How the test will be performed:} Tester will have the application opened and search for a subreddit. Since the subreddit exists, the tester can then verify that the search successfully moves user to specified subreddit.
+\end{tcolorbox}
+
+\textbf{\\Search for non-existing subreddit}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT10-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Input a subreddit name \\
+\textbf{Output:} No subreddit shown\\
+\textbf{How the test will be performed:} Tester will have the application opened and search for a subreddit that does not exist.
+\end{tcolorbox}
 
 \subsection{Tests for Nonfunctional Requirements}
-\subsubsection{Usability}
+
+\subsubsection{Portability}
+		
+\textbf{Open app on multiple operating systems and platforms}
+\begin{tcolorbox}
+\textbf{Test ID:} NFRT1-1\\
+\textbf{Type:} Non-Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application closed, not running \\
+\textbf{Input:} Navigate to website \\
+\textbf{Output:} Page will load, posts will load if connected to internet\\
+\textbf{How the test will be performed:} Tester will navigate to the application from an internet browser. The home page of the application should load with popular posts.
+\end{tcolorbox}
+
 \subsubsection{Performance}
+
+\textbf{Retrieving data within a 5 second response time}
+\begin{tcolorbox}
+\textbf{Test ID:} NFRT2-1\\ 
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select any button on the application or refreshing the page\\
+\textbf{Output:} Page requested loads within 5 seconds. \\
+\textbf{How the test will be performed:} Navigation through various pages of the apps and creating posts, logging in, up voting/down voting comments
+\end {tcolorbox}
+
+\textbf{\\Reliability/Availability: Accessing the application with internet accesss }
+\begin{tcolorbox}
+\textbf{Test ID:} NFRT2-2\\ 
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} In a location with wifi access or data accesss \\
+\textbf{Input:} Visit the correct URL of the project hosted\\
+\textbf{Output:} Application loads on device \\
+\textbf{How the test will be performed:} Tester will be in a location with internet access and try to navigate to the project URL.
+\end {tcolorbox}
+
+
+\subsubsection{Security}
+		
+\textbf{Moderator control}
+\begin{tcolorbox}
+\textbf{Test ID:} NFRT3-1\\
+\textbf{Type:} Non-Functional, Dynamic, Manual\\
+\textbf{Initial State:} Logged on to Firebase on AKT development team account \\
+\textbf{Input:} Navigate to authentication database/posts database \\
+\textbf{Output:} Specified user accounts/comments/posts deleted\\
+\textbf{How the test will be performed:} A member of the AKT development team will access the Firebase databases and remove users or posts/comments/subreddits that contain online harassment or inappropriate content.
+\end{tcolorbox}
+
+\newpage
+
+\textbf{\\User attempts to access another user's account}
+\begin{tcolorbox}
+\textbf{Test ID:} NFRT3-2\\
+\textbf{Type:} Non-Functional, Dynamic, Manual\\
+\textbf{Initial State:} On website, not logged in as user \\
+\textbf{Input:} Enter another user's email and some password \\
+\textbf{Output:} Application shouold present error in credentials message\\
+\textbf{How the test will be performed:} A member of the AKT development team will attempt enter a user's email into the login component and a random password, then attempt to log in.
+\end{tcolorbox}
+
+\section{Comparison to Existing Implementation}
+In order to ensure that the project has at least the core functions of Reddit, all functional types tests that we use can also be applied to the original Reddit application.
+
+\section{Unit Testing Plan}
+\subsection{Unit testing of internal functions}
+The Jasmine test framework will be leveraged in order to unit test the functionality of the components and services. The core functions that will be tested are within the database service (database.service.ts) which handles almost all of the data transfer between the application and Firebase. These tests will mainly consist of structural tests to verify that the application receives proper information from the database. There will be no use of stubs or drivers in unit testing.
+
 
 
 \end{document}
