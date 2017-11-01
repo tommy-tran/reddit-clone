@@ -10,6 +10,25 @@ export class DatabaseService {
     constructor(private http: Http, ) {
 
     }
+
+    checkSubreddit(subredditName: string) {
+        return new Promise<Subreddit>((resolve, reject) => {
+            var database = firebase.database();
+            database.ref('subredditlist/' + subredditName).once('value').then(result => {
+                let subredditID = result.val();
+                console.log(subredditID);
+                if (subredditID) {
+                    this.getSubreddit(subredditID).then(subreddit => {
+                        return resolve(subreddit)
+                    }).catch(err => console.log());
+                } else {
+                    return reject();                    
+                }
+            }).catch((err => console.log(err)));
+            
+        }).catch(err => console.log(err));
+    }
+
     /**
      * Check if current user has voted on specified post
      * @param username 
@@ -328,9 +347,10 @@ export class DatabaseService {
      * @param subreddit_id 
      */
     getSubreddit(subreddit_id: string) {
-        return new Promise<Subreddit[]>(resolve => {
+        return new Promise<Subreddit>(resolve => {
             var database = firebase.database();
             database.ref('subreddits/' + subreddit_id).once('value').then(subreddit => {
+                console.log(subreddit.val());
                 return resolve(subreddit.val());
             }).catch(err => console.error(err));
         });

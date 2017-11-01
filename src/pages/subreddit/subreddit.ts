@@ -93,13 +93,21 @@ export class SubredditPage implements OnInit {
 		}
 
 		// Routing
-		if (this.navParams.data['subredditName']) {
+		let subredditName = this.navParams.data['subredditName']
+		if (subredditName) {
 			this.isLoggedIn = this.authService.isLoggedIn();
-			// Download subreddit
+			// Check subreddit
+			this.databaseService.checkSubreddit(subredditName).then((subreddit) => {
+				if (subreddit) {
+					this.subreddit = subreddit;
+					this.id = this.subreddit.subreddit_id;
+					this.posts = [];
+					this.getPosts();
+				} else {
+					// Invalid subreddit
+				}
 
-			// Set up subreddit
-			// this.subreddit = this.navParams.data;			
-			// this.id = this.subreddit.subreddit_id;
+			})
 		} else {
 			// 404 page or homepage?
 		}
