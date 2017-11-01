@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SubredditPage } from './subreddit';
+import { HomePage } from './home';
+import { PostComponent } from '../../components/post/post';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   declarations: [
-    SubredditPage,
+    HomePage,
   ],
   imports: [
-    IonicPageModule.forChild(SubredditPage),
+    IonicPageModule.forChild(HomePage),
     ComponentsModule
   ],
 })
-export class SubredditPageModule {}
+export class HomePageModule {}

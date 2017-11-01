@@ -8,7 +8,11 @@ import { AuthService } from '../../shared/auth.service';
 import { SortByPopover } from '../../components/sortBy/sortBy';
 import { DataSharingService } from '../../shared/data-sharing.service';
 
-@IonicPage()
+@IonicPage({
+	name: 'subreddit',
+	segment: 'r/:subredditName',
+	defaultHistory: ['homepage']
+})
 @Component({
 	selector: 'page-subreddit',
 	templateUrl: 'subreddit.html',
@@ -62,6 +66,10 @@ export class SubredditPage implements OnInit {
 
 	}
 
+	test() {
+		console.log(this.navParams.data['subredditName']);
+	}
+
 	getPosts() {
 		this.databaseService.getSubredditPosts(this.id).then(posts => {
 			if (posts) {
@@ -83,6 +91,19 @@ export class SubredditPage implements OnInit {
 			this.events.publish('nav');
 			this.navCtrl.pop();
 		}
+
+		// Routing
+		if (this.navParams.data['subredditName']) {
+			this.isLoggedIn = this.authService.isLoggedIn();
+			// Download subreddit
+
+			// Set up subreddit
+			// this.subreddit = this.navParams.data;			
+			// this.id = this.subreddit.subreddit_id;
+		} else {
+			// 404 page or homepage?
+		}
+	
 	}
 
 	createPost() {

@@ -14,26 +14,35 @@ import { DatabaseService } from '../shared/database.service';
 import { SortByPopover } from '../components/sortBy/sortBy';
 import { CommentComponent } from '../components/comment/comment';
 import { HttpModule } from '@angular/http';
+import { deepLinkConfig } from './deeplink.config';
+import { HomePageModule } from '../pages/home/home.module';
+import { SubredditPageModule } from '../pages/subreddit/subreddit.module';
+import { ComponentsModule } from '../components/components.module';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage, 
+    // HomePage, 
     CommentsPage,
     SortByPopover,
     LoginPage,
-    SubredditPage,
+    // SubredditPage,
     CreatePostPage,
     CreateSubredditPage,
-    PostComponent,
-    CommentComponent
+    // PostComponent,
+    // CommentComponent
   ],
   imports: [
     BrowserModule,
+    // IonicModule.forRoot(MyApp, {}, deepLinkConfig),
     IonicModule.forRoot(MyApp),
+    
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'sqlite']
     }),
-    HttpModule
+    HttpModule,
+    HomePageModule,
+    SubredditPageModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

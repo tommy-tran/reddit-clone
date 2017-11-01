@@ -6,7 +6,9 @@ import { DatabaseService } from '../../shared/database.service';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../shared/auth.service';
 
-@IonicPage()
+@IonicPage({
+  name: 'commentpage'
+})
 @Component({
   selector: 'page-comments',
   templateUrl: 'comments.html',
