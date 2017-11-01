@@ -16,7 +16,6 @@
   </button>
   <ion-list>
     <button ion-button (click)="createPost()" style="margin-top: 10px 0">Create a post</button>
-    <button ion-button (click)="test()" style="margin: 10px 0">Test</button>      
     <div *ngFor="let post of posts">
       <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false"></post>
     </div>

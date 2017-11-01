@@ -57,10 +57,6 @@ export class SubredditPage implements OnInit {
 
 	}
 
-	test() {
-		console.log(this.navParams.data['name']);
-	}
-
 	getPosts() {
 		this.databaseService.getSubredditPosts(this.id).then(posts => {
 			if (posts) {
