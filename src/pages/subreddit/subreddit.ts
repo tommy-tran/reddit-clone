@@ -98,7 +98,7 @@ export class SubredditPage implements OnInit {
 			if (subredditName) {
 				this.isLoggedIn = this.authService.isLoggedIn();
 				// Check subreddit
-				this.databaseService.checkSubreddit(subredditName).then((subreddit) => {
+				this.databaseService.checkGetSubreddit(subredditName).then((subreddit) => {
 					if (subreddit) {
 						this.subreddit = subreddit;
 						this.setUp();

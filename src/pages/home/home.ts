@@ -266,7 +266,6 @@ export class HomePage {
    */
   goToSubreddit(subreddit_id: string) {
     this.databaseService.getSubreddit(subreddit_id).then((subreddit) => {
-      console.log(subreddit);
       if (subreddit) {
         this.navCtrl.push('subreddit', subreddit);
       }

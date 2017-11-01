@@ -11,7 +11,7 @@ export class DatabaseService {
 
     }
 
-    checkSubreddit(subredditName: string) {
+    checkGetSubreddit(subredditName: string) {
         return new Promise<Subreddit>((resolve, reject) => {
             var database = firebase.database();
             database.ref('subredditlist/' + subredditName).once('value').then(result => {
@@ -24,6 +24,19 @@ export class DatabaseService {
                     return reject();                    
                 }
             }).catch((err => console.log(err)));
+        }).catch(err => console.log(err));
+    }
+
+    checkValidSubreddit(subredditName: string) {
+        return new Promise<boolean>((resolve, reject) => {
+            var database = firebase.database();
+            database.ref('subredditlist/' + subredditName).once('value').then(result => {
+                if (result.val()) {
+                    resolve(false);                    
+                } else {
+                    resolve(true);
+                }
+            });
         }).catch(err => console.log(err));
     }
 
