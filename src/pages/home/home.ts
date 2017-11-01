@@ -10,10 +10,6 @@ import { Post } from '../../models/post.model';
 import { DataSharingService } from '../../shared/data-sharing.service';
 import { SortByPopover } from '../../components/sortBy/sortBy';
 
-@IonicPage({
-  name: 'homepage',
-  segment: ''
-})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

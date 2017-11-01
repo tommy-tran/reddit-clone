@@ -1,15 +1,15 @@
 <ion-header no-border>
 
   <ion-navbar transparent>
-    <ion-title>/r/{{subreddit.name}}</ion-title>
+    <ion-title *ngIf="subreddit">/r/{{subreddit.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h3>Welcome to /r/{{subreddit.name}}</h3>
-  <p>{{subreddit.description}}</p>
+  <h3 *ngIf="subreddit">Welcome to /r/{{subreddit.name}}</h3>
+  <p *ngIf="subreddit">{{subreddit.description}}</p>
   <p>Scroll through the posts below or click "Create a post" to add your own content.</p>
   <button ion-button clear small (click)="showSortByPopover($event)">
         <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>

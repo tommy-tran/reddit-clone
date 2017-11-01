@@ -14,7 +14,6 @@ import { DatabaseService } from '../shared/database.service';
 import { SortByPopover } from '../components/sortBy/sortBy';
 import { CommentComponent } from '../components/comment/comment';
 import { HttpModule } from '@angular/http';
-import { deepLinkConfig } from './deeplink.config';
 import { HomePageModule } from '../pages/home/home.module';
 import { SubredditPageModule } from '../pages/subreddit/subreddit.module';
 import { ComponentsModule } from '../components/components.module';
@@ -34,8 +33,13 @@ import { ComponentsModule } from '../components/components.module';
   imports: [
     BrowserModule,
     // IonicModule.forRoot(MyApp, {}, deepLinkConfig),
-    IonicModule.forRoot(MyApp),
-    
+    IonicModule.forRoot(MyApp, {}, {
+      links: [
+        { component: HomePage, name: 'home', segment: '' },
+        { component: SubredditPage, name: 'subreddit', segment: 'r/:name', defaultHistory: ['home'] }
+        // { component: UsersPage, name: 'Users', segment: 'users' },
+        // { component: TrophiesPage, name: 'Trophies', segment: 'trophies' }
+      ]}),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'sqlite']
     }),

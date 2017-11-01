@@ -16,7 +16,6 @@ export class DatabaseService {
             var database = firebase.database();
             database.ref('subredditlist/' + subredditName).once('value').then(result => {
                 let subredditID = result.val();
-                console.log(subredditID);
                 if (subredditID) {
                     this.getSubreddit(subredditID).then(subreddit => {
                         return resolve(subreddit)
@@ -25,7 +24,6 @@ export class DatabaseService {
                     return reject();                    
                 }
             }).catch((err => console.log(err)));
-            
         }).catch(err => console.log(err));
     }
 
@@ -350,7 +348,6 @@ export class DatabaseService {
         return new Promise<Subreddit>(resolve => {
             var database = firebase.database();
             database.ref('subreddits/' + subreddit_id).once('value').then(subreddit => {
-                console.log(subreddit.val());
                 return resolve(subreddit.val());
             }).catch(err => console.error(err));
         });

@@ -8,11 +8,6 @@ import { AuthService } from '../../shared/auth.service';
 import { SortByPopover } from '../../components/sortBy/sortBy';
 import { DataSharingService } from '../../shared/data-sharing.service';
 
-@IonicPage({
-	name: 'subreddit',
-	segment: 'r/:name',
-	defaultHistory: ['homepage']
-})
 @Component({
 	selector: 'page-subreddit',
 	templateUrl: 'subreddit.html',
@@ -29,7 +24,7 @@ export class SubredditPage implements OnInit {
 	isLoggedIn: boolean;
 	isEmpty: boolean;
 
-	// TODO: Description, possibly creator privileges, goToPost, voting
+	// TODO: Description, possibly creator privileges
 
 	constructor(
 		private databaseService: DatabaseService,    
@@ -43,11 +38,7 @@ export class SubredditPage implements OnInit {
 		//initial sort by method and icon
 		this.sortIcon = 'flame';
 		this.sortMethod = 'hot';
-		this.isLoggedIn = this.authService.isLoggedIn();
-		this.subreddit = this.navParams.data;
-		this.id = this.subreddit.subreddit_id;
-		this.posts = [];
-		this.getPosts();
+
 
 		this.events.subscribe('user:loggedin', () => {
 			this.authService.updateAuthState().then(() => {
@@ -85,6 +76,12 @@ export class SubredditPage implements OnInit {
 		});
 	}
 
+	setUp() {
+		this.id = this.subreddit.subreddit_id;
+		this.posts = [];
+		this.getPosts();
+	}
+
 	ngOnInit() {
 		// When the back button is pressed
 		this.navBar.backButtonClick = () => {
@@ -93,24 +90,29 @@ export class SubredditPage implements OnInit {
 		}
 
 		// Routing
-		let subredditName = this.navParams.data['name']
-		if (subredditName) {
-			this.isLoggedIn = this.authService.isLoggedIn();
-			// Check subreddit
-			this.databaseService.checkSubreddit(subredditName).then((subreddit) => {
-				if (subreddit) {
-					this.subreddit = subreddit;
-					this.id = this.subreddit.subreddit_id;
-					this.posts = [];
-					this.getPosts();
-				} else {
-					// Invalid subreddit
-				}
-
-			})
+		if (this.navParams.data['UID']) {
+			this.subreddit = this.navParams.data;
+			this.setUp();
 		} else {
-			// 404 page or homepage?
+			let subredditName = this.navParams.data['name']
+			if (subredditName) {
+				this.isLoggedIn = this.authService.isLoggedIn();
+				// Check subreddit
+				this.databaseService.checkSubreddit(subredditName).then((subreddit) => {
+					if (subreddit) {
+						this.subreddit = subreddit;
+						this.setUp();
+					} else {
+						// Invalid subreddit
+					}
+				}).catch(() => {
+					console.log("Subreddit not found");
+				})
+			} else {
+				// 404 page or homepage?
+			}
 		}
+
 	
 	}
 
