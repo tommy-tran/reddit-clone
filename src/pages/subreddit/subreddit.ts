@@ -10,7 +10,7 @@ import { DataSharingService } from '../../shared/data-sharing.service';
 
 @IonicPage({
 	name: 'subreddit',
-	segment: 'r/:subredditName',
+	segment: 'r/:name',
 	defaultHistory: ['homepage']
 })
 @Component({
@@ -67,7 +67,7 @@ export class SubredditPage implements OnInit {
 	}
 
 	test() {
-		console.log(this.navParams.data['subredditName']);
+		console.log(this.navParams.data['name']);
 	}
 
 	getPosts() {
@@ -93,7 +93,7 @@ export class SubredditPage implements OnInit {
 		}
 
 		// Routing
-		let subredditName = this.navParams.data['subredditName']
+		let subredditName = this.navParams.data['name']
 		if (subredditName) {
 			this.isLoggedIn = this.authService.isLoggedIn();
 			// Check subreddit
