@@ -15,7 +15,7 @@
         <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>
   </button>
   <ion-list>
-    <button ion-button (click)="createPost()" style="margin-top: 10px 0">Create a post</button>
+    <button ion-button (click)="createPost()" style="margin: 10px 0 20px 0">Create a post</button>
     <div *ngFor="let post of posts">
       <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false"></post>
     </div>

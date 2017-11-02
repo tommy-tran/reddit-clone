@@ -39,14 +39,6 @@ export class SubredditPage implements OnInit {
 		this.sortIcon = 'flame';
 		this.sortMethod = 'hot';
 
-
-		this.events.subscribe('user:loggedin', () => {
-			this.authService.updateAuthState().then(() => {
-				this.posts = []; // Clear posts
-				this.getPosts(); // Get votable posts
-			});
-		});
-
 		this.events.subscribe('user:loggedin', () => {
 			this.authService.updateAuthState().then(() => {
 				this.posts = []; // Clear posts
@@ -73,6 +65,11 @@ export class SubredditPage implements OnInit {
 	}
 
 	setUp() {
+		this.authService.updateAuthState().then(() => {
+			this.posts = []; // Clear posts
+			this.getPosts(); // Get votable posts
+			this.isLoggedIn = true;
+		});
 		this.id = this.subreddit.subreddit_id;
 		this.posts = [];
 		this.getPosts();
@@ -85,6 +82,8 @@ export class SubredditPage implements OnInit {
 			this.navCtrl.pop();
 		}
 
+		this.isLoggedIn = this.authService.isLoggedIn();
+		
 		// Routing
 		if (this.navParams.data['UID']) {
 			this.subreddit = this.navParams.data;
@@ -92,7 +91,6 @@ export class SubredditPage implements OnInit {
 		} else {
 			let subredditName = this.navParams.data['name']
 			if (subredditName) {
-				this.isLoggedIn = this.authService.isLoggedIn();
 				// Check subreddit
 				this.databaseService.checkGetSubreddit(subredditName).then((subreddit) => {
 					if (subreddit) {
