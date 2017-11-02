@@ -431,6 +431,7 @@ export class DatabaseService {
                 key
             );
             firebase.database().ref('subreddits/' + key).update(subreddit);
+            firebase.database().ref('subredditlist/' + subredditName).update(key);
             resolve();
         });
 
