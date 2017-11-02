@@ -7,12 +7,10 @@ import { IonicStorageModule } from "@ionic/storage";
 
 import { MyApp } from './app.component';
 import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage } from '../shared/pages';
-import { PostComponent } from '../components/post/post';
 import { DataSharingService } from '../shared/data-sharing.service';
 import { AuthService } from '../shared/auth.service';
 import { DatabaseService } from '../shared/database.service';
 import { SortByPopover } from '../components/sortBy/sortBy';
-import { CommentComponent } from '../components/comment/comment';
 import { HttpModule } from '@angular/http';
 import { HomePageModule } from '../pages/home/home.module';
 import { SubredditPageModule } from '../pages/subreddit/subreddit.module';
@@ -20,25 +18,18 @@ import { ComponentsModule } from '../components/components.module';
 @NgModule({
   declarations: [
     MyApp,
-    // HomePage, 
     CommentsPage,
     SortByPopover,
     LoginPage,
-    // SubredditPage,
     CreatePostPage,
     CreateSubredditPage,
-    // PostComponent,
-    // CommentComponent
   ],
   imports: [
     BrowserModule,
-    // IonicModule.forRoot(MyApp, {}, deepLinkConfig),
-    IonicModule.forRoot(MyApp, {}, {
+    IonicModule.forRoot(MyApp, {locationStrategy: 'path'}, {
       links: [
         { component: HomePage, name: 'home', segment: '' },
         { component: SubredditPage, name: 'subreddit', segment: 'r/:name', defaultHistory: ['home'] }
-        // { component: UsersPage, name: 'Users', segment: 'users' },
-        // { component: TrophiesPage, name: 'Trophies', segment: 'trophies' }
       ]}),
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'websql', 'sqlite']

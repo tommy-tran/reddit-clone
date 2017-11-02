@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
-import { PostComponent } from '../../components/post/post';
 import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({

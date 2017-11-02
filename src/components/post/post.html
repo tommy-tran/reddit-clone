@@ -1,7 +1,7 @@
 <div class="post">
   <div class="post-container">
     <div class="post-content">
-      <div class="post-link" *ngIf="post.link && !isCardLayout">
+      <div class="post-link link" *ngIf="post.link && !isCardLayout">
         <img src="{{post.link}}" alt="post media" (click)="goToLink()">
       </div>
       <div class="post-info">
@@ -10,18 +10,18 @@
           <a class="subreddit-name" *ngIf="subreddit">r/{{post.subreddit}}</a> &bull; {{datePosted}} &bull; u/{{post.user}}
         </div>
         <div *ngIf="!commentPage">
-          <div class="post-title" [style.fontSize]="isCardLayout ? '18px' : '16px'" (click)="showComments()">{{post.title}}</div>
+          <div class="post-title link" [style.fontSize]="isCardLayout ? '18px' : '16px'" (click)="showComments()">{{post.title}}</div>
           <div *ngIf="post.message" [style.fontSize]="isCardLayout ? '14px' : '12px'" class="post-message" (click)="showComments()">{{showCommentBtn ? (post.message | slice:0:120) : (post.message)}}</div>
         </div>
         <div *ngIf="commentPage">
           <div class="post-title" [style.fontSize]="isCardLayout ? '18px' : '16px'">{{post.title}}</div>
-          <div *ngIf="post.message" [style.fontSize]="isCardLayout ? '14px' : '12px'" class="post-message">{{showCommentBtn ? (post.message | slice:0:120) : (post.message)}}</div>
+          <div *ngIf="post.message" [style.fontSize]="isCardLayout ? '14px' : '12px'" class="post-message">{{post.message}}</div>
         </div>
       </div>
 
     </div>
     <div text-center style="width: 50%" *ngIf="post.link && isCardLayout">
-      <img src="{{post.link}}" alt="post media" (click)="goToLink()">
+      <img class="link" src="{{post.link}}" alt="post media" (click)="goToLink()">
     </div>
     <div class="post-actions">
       <div class="comments" *ngIf="showCommentBtn">

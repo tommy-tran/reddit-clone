@@ -1,4 +1,8 @@
 .post {
+    .link {
+        cursor: pointer;
+    }
+
     .subreddit-name {
         color: #24a0ed;
     }
@@ -63,6 +67,10 @@
     hr {
         margin-bottom: 10px;
         height: 1px;
+    }
+
+    a {
+        cursor: pointer;
     }
     
 }

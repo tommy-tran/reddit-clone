@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar, Events, ModalController, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, Navbar, Events, ModalController, PopoverController } from 'ionic-angular';
 import { Subreddit } from '../../models/subreddit.model';
 import { CreatePostPage, LoginPage } from "../../shared/pages";
 import { Post } from '../../models/post.model';
@@ -24,7 +24,7 @@ export class SubredditPage implements OnInit {
 	isLoggedIn: boolean;
 	isEmpty: boolean;
 
-	// TODO: Description, possibly creator privileges
+	// TODO: Description, Moderator/creator privileges
 
 	constructor(
 		private databaseService: DatabaseService,    

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, PopoverController, Events, IonicPage } from 'ionic-angular';
+import { NavController, ModalController, PopoverController, Events } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
-import { LoginPage, SubredditPage, CreateSubredditPage } from "../../shared/pages";
+import { LoginPage, CreateSubredditPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 import { Post } from '../../models/post.model';
 import { DataSharingService } from '../../shared/data-sharing.service';
