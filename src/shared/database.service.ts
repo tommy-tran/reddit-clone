@@ -430,8 +430,11 @@ export class DatabaseService {
                 username,
                 key
             );
-            firebase.database().ref('subreddits/' + key).update(subreddit);
-            firebase.database().ref('subredditlist/' + subredditName).update(key);
+
+            let updates = {};
+            updates['subreddits/' + key] = subreddit;
+            updates['subredditlist/' + subredditName] = key
+            firebase.database().ref().update(updates);
             resolve();
         });
 
