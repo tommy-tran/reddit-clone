@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Navbar, Events, ModalController, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, Navbar, Events, ModalController, PopoverController } from 'ionic-angular';
 import { Subreddit } from '../../models/subreddit.model';
 import { CreatePostPage, LoginPage } from "../../shared/pages";
 import { Post } from '../../models/post.model';
@@ -8,7 +8,6 @@ import { AuthService } from '../../shared/auth.service';
 import { SortByPopover } from '../../components/sortBy/sortBy';
 import { DataSharingService } from '../../shared/data-sharing.service';
 
-@IonicPage()
 @Component({
 	selector: 'page-subreddit',
 	templateUrl: 'subreddit.html',
@@ -25,7 +24,7 @@ export class SubredditPage implements OnInit {
 	isLoggedIn: boolean;
 	isEmpty: boolean;
 
-	// TODO: Description, possibly creator privileges, goToPost, voting
+	// TODO: Description, Moderator/creator privileges
 
 	constructor(
 		private databaseService: DatabaseService,    
@@ -39,18 +38,6 @@ export class SubredditPage implements OnInit {
 		//initial sort by method and icon
 		this.sortIcon = 'flame';
 		this.sortMethod = 'hot';
-		this.isLoggedIn = this.authService.isLoggedIn();
-		this.subreddit = this.navParams.data;
-		this.id = this.subreddit.subreddit_id;
-		this.posts = [];
-		this.getPosts();
-
-		this.events.subscribe('user:loggedin', () => {
-			this.authService.updateAuthState().then(() => {
-				this.posts = []; // Clear posts
-				this.getPosts(); // Get votable posts
-			});
-		});
 
 		this.events.subscribe('user:loggedin', () => {
 			this.authService.updateAuthState().then(() => {
@@ -77,12 +64,50 @@ export class SubredditPage implements OnInit {
 		});
 	}
 
+	setUp() {
+		this.authService.updateAuthState().then(() => {
+			this.posts = []; // Clear posts
+			this.getPosts(); // Get votable posts
+			this.isLoggedIn = true;
+		});
+		this.id = this.subreddit.subreddit_id;
+		this.posts = [];
+		this.getPosts();
+	}
+
 	ngOnInit() {
 		// When the back button is pressed
 		this.navBar.backButtonClick = () => {
 			this.events.publish('nav');
 			this.navCtrl.pop();
 		}
+
+		this.isLoggedIn = this.authService.isLoggedIn();
+		
+		// Routing
+		if (this.navParams.data['UID']) {
+			this.subreddit = this.navParams.data;
+			this.setUp();
+		} else {
+			let subredditName = this.navParams.data['name']
+			if (subredditName) {
+				// Check subreddit
+				this.databaseService.checkGetSubreddit(subredditName).then((subreddit) => {
+					if (subreddit) {
+						this.subreddit = subreddit;
+						this.setUp();
+					} else {
+						// Invalid subreddit
+					}
+				}).catch(() => {
+					console.log("Subreddit not found");
+				})
+			} else {
+				// 404 page or homepage?
+			}
+		}
+
+	
 	}
 
 	createPost() {

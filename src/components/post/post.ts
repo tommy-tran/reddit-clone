@@ -98,7 +98,7 @@ export class PostComponent implements OnInit {
 
   goToSubreddit() {
     this.databaseService.getSubreddit(this.post.subreddit_id).then((subreddit) => {
-      this.navCtrl.push(SubredditPage, subreddit);
+      this.navCtrl.push('subreddit', subreddit);
     });
   }
 

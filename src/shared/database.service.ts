@@ -24,6 +24,34 @@ export class DatabaseService {
         }); 
     }
 
+    checkGetSubreddit(subredditName: string) {
+        return new Promise<Subreddit>((resolve, reject) => {
+            var database = firebase.database();
+            database.ref('subredditlist/' + subredditName).once('value').then(result => {
+                let subredditID = result.val();
+                if (subredditID) {
+                    this.getSubreddit(subredditID).then(subreddit => {
+                        return resolve(subreddit)
+                    }).catch(err => console.log());
+                } else {
+                    return reject();                    
+                }
+            }).catch((err => console.log(err)));
+        }).catch(err => console.log(err));
+    }
+
+    checkValidSubreddit(subredditName: string) {
+        return new Promise<boolean>((resolve, reject) => {
+            var database = firebase.database();
+            database.ref('subredditlist/' + subredditName).once('value').then(result => {
+                if (result.val()) {
+                    resolve(false);                    
+                } else {
+                    resolve(true);
+                }
+            });
+        }).catch(err => console.log(err));
+    }
 
     /**
      * Check if current user has voted on specified post
@@ -343,7 +371,7 @@ export class DatabaseService {
      * @param subreddit_id 
      */
     getSubreddit(subreddit_id: string) {
-        return new Promise<Subreddit[]>(resolve => {
+        return new Promise<Subreddit>(resolve => {
             var database = firebase.database();
             database.ref('subreddits/' + subreddit_id).once('value').then(subreddit => {
                 return resolve(subreddit.val());
@@ -415,7 +443,11 @@ export class DatabaseService {
                 username,
                 key
             );
-            firebase.database().ref('subreddits/' + key).update(subreddit);
+
+            let updates = {};
+            updates['subreddits/' + key] = subreddit;
+            updates['subredditlist/' + subredditName] = key
+            firebase.database().ref().update(updates);
             resolve();
         });
 

@@ -30,20 +30,26 @@ export class CreateSubredditPage {
   }
 
   submitSubreddit(form: NgForm) {
-    let title = form.value.titleInput;
+    let title = form.value.titleInput.toLowerCase(); // No white space, only lower case
     let text = form.value.textInput;
     let username = this.authService.getUsername();
     let user_uid = this.authService.getUID();
 
-    if (title) {
-      if (title && text){
-        this.databaseService.newSubreddit(title, text, username, user_uid);
-        this.closeModal();        
-      }
-      } else { 
+    if (title && text && (title.indexOf(' ') < 0)){
+      this.databaseService.checkValidSubreddit(title).then((valid) => {
+        if (valid) {
+          this.databaseService.newSubreddit(title, text, username, user_uid);
+          this.closeModal();
+        } else {
+          // Show error message
+          console.log("Subreddit already exists");
+        }
+      }) 
+    } else { 
         console.log("Invalid fields");
-      }   
     }
+  }
+
   }
 
 
