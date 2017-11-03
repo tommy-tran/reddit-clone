@@ -8,6 +8,8 @@ export class AuthService {
     private email: string;    
     private password: string;
     private loggedIn: boolean;
+    private karma: string;
+    private created: string;
 
     constructor() {
         this.firebaseSetup();
@@ -66,6 +68,15 @@ export class AuthService {
      */
     getUsername() {
         return this.username;
+    }
+
+    /**
+     * Get creation time
+     */
+    getMemberSince(){
+        var user = firebase.auth().currentUser;
+        this.created = user.metadata.creationTime;
+        return this.created;
     }
 
     /**

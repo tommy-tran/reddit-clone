@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
 
 import { MyApp } from './app.component';
-import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage } from '../shared/pages';
+import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage, ProfilePage} from '../shared/pages';
 import { PostComponent } from '../components/post/post';
 import { DataSharingService } from '../shared/data-sharing.service';
 import { AuthService } from '../shared/auth.service';
@@ -25,6 +25,7 @@ import { HttpModule } from '@angular/http';
     CreatePostPage,
     CreateSubredditPage,
     PostComponent,
+    ProfilePage,
     CommentComponent
   ],
   imports: [
@@ -44,6 +45,7 @@ import { HttpModule } from '@angular/http';
     SubredditPage,
     CreatePostPage,
     CreateSubredditPage,
+    ProfilePage,
     SortByPopover
   ],
   providers: [

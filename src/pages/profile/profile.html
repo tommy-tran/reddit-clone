@@ -1,0 +1,34 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+
+  <ion-navbar>
+    <ion-title float-left>User Profile</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closeModal()">
+        <ion-icon id="close-icon" float-right name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content fixed class="no-scroll">
+  <div class="authcard-container">
+    <h3 text-center>u/{{username}}</h3>
+      <p> Username: <font color="#55acee">{{username}}</font></p>
+      <p> Email: <font color="#55acee">{{email}}</font></p>
+      <p> Karma Points: <font color="#55acee">{{karma}}</font></p>
+      <p> Member Since: <font color="#55acee">{{memberSince}}</font></p>
+  </div>
+  <button [style.marginTop]="screenY/24+'px'" ion-button (click)="showUserInfo()">Show User Info</button>
+ 
+  
+
+</ion-content>

@@ -4,3 +4,4 @@ export * from '../pages/subreddit/subreddit';
 export * from '../pages/createpost/createpost';
 export * from '../pages/createsubreddit/createsubreddit';
 export * from '../pages/comments/comments';
+export * from '../pages/profile/profile';

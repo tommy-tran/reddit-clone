@@ -10,6 +10,21 @@ export class DatabaseService {
     constructor(private http: Http, ) {
 
     }
+
+    /**
+     * Get user karma points
+     * @param user_id
+     */
+    getKarma(user_id: string){
+        return new Promise<string>(resolve => {
+            firebase.database().ref('users/' + user_id + "/karma").once('value').then(karma => {
+                console.log(karma.val());
+                return resolve(karma.val());
+            }).catch(err => console.error(err));
+        }); 
+    }
+
+
     /**
      * Check if current user has voted on specified post
      * @param username 
@@ -491,6 +506,7 @@ export class DatabaseService {
         });
 
     }
+    
     /**
      * delete a subreddit by its id.
      * @param subredditId id of the subreddit

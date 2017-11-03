@@ -4,7 +4,7 @@ import { Storage } from "@ionic/storage";
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
-import { LoginPage, SubredditPage, CreateSubredditPage } from "../../shared/pages";
+import { LoginPage, SubredditPage, CreateSubredditPage, ProfilePage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 import { Post } from '../../models/post.model';
 import { DataSharingService } from '../../shared/data-sharing.service';
@@ -56,7 +56,8 @@ export class HomePage {
     this.menuOptions = [
       { icon: 'contact', title: 'Log In / Sign Up', action: 'openAuth' },
       { icon: 'menu', title: 'Card View', action: 'toggleLayout' },
-      { icon: 'contrast', title: 'Night Theme', action: 'toggleTheme' }
+      { icon: 'contrast', title: 'Night Theme', action: 'toggleTheme' },
+      { icon: 'person', title: 'Profile', action:'openProfile'}
     ];
     this.isCardLayout = false;
     this.closeAllOverlays();
@@ -156,6 +157,15 @@ export class HomePage {
         console.log("loggedin: " + this.isLoggedIn);
       }
     });
+  }
+
+  /**
+   * open the user profile page
+   */
+  openProfile(){
+    let param = { userHasAccount: this.userHasAccount};
+    let profModal = this.modalCtrl.create(ProfilePage, param);
+    profModal.present();
   }
 
   showUserInfo() {

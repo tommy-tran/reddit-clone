@@ -1,0 +1,19 @@
+page-profile {
+    .scroll-content{
+        padding-bottom: 0 !important;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .authcard-container {
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #close-icon {
+        font-size: 2em;
+        padding: 0 12px;
+    }
+}
