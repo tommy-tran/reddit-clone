@@ -3,11 +3,10 @@ import { Post } from "../models/post.model";
 import { Comment } from "../models/comment.model";
 import * as firebase from 'firebase';
 import { Subreddit } from "../models/subreddit.model";
-import { Http } from "@angular/http";
 
 @Injectable()
 export class DatabaseService {
-    constructor(private http: Http, ) {
+    constructor() {
 
     }
 
@@ -15,13 +14,13 @@ export class DatabaseService {
      * Get user karma points
      * @param user_id
      */
-    getKarma(user_id: string){
+    getKarma(user_id: string) {
         return new Promise<string>(resolve => {
             firebase.database().ref('users/' + user_id + "/karma").once('value').then(karma => {
                 console.log(karma.val());
                 return resolve(karma.val());
             }).catch(err => console.error(err));
-        }); 
+        });
     }
 
     checkGetSubreddit(subredditName: string) {
@@ -34,7 +33,7 @@ export class DatabaseService {
                         return resolve(subreddit)
                     }).catch(err => console.log());
                 } else {
-                    return reject();                    
+                    return reject();
                 }
             }).catch((err => console.log(err)));
         }).catch(err => console.log(err));
@@ -45,7 +44,7 @@ export class DatabaseService {
             var database = firebase.database();
             database.ref('subredditlist/' + subredditName).once('value').then(result => {
                 if (result.val()) {
-                    resolve(false);                    
+                    resolve(false);
                 } else {
                     resolve(true);
                 }
@@ -461,7 +460,7 @@ export class DatabaseService {
         return new Promise(resolve => {
             let key = firebase.database().ref('posts/' + postData.subreddit.subreddit_id + '/').push().key;
             let upvote = {};
-            upvote[postData.username]  = true;
+            upvote[postData.username] = true;
             let post = new Post(
                 postData.title,
                 postData.link,
@@ -538,7 +537,7 @@ export class DatabaseService {
         });
 
     }
-    
+
     /**
      * delete a subreddit by its id.
      * @param subredditId id of the subreddit
@@ -584,5 +583,44 @@ export class DatabaseService {
             }).then(() => {
                 console.log('delete success');
             }).catch(err => console.error(err));
+    }
+    /**
+     * subscribe a user to a subreddit
+     * @param user_id id of the user
+     * @param subreddit_name name of the subreddit
+     * @param subreddit_id id of the subreddit
+     */
+    subscribeSubreddit(user_id: string, subreddit_name: string, subreddit_id: string) {
+        return new Promise(resolve => {
+            firebase.database().ref(`users/${user_id}/subscribed/${subreddit_id}`)
+                .update({ subreddit_name: subreddit_name, subreddit_id: subreddit_id })
+                .catch(err => console.error(err));
+            resolve();
+        });
+    }
+    /**
+     * unsubscribe a user from a subreddit
+     * @param user_id id of the user
+     * @param subreddit_id id of the subreddit
+     */
+    unsubscribeSubreddit(user_id: string, subreddit_id: string) {
+        return new Promise(resolve => {
+            firebase.database().ref(`users/${user_id}/subscribed/${subreddit_id}`)
+                .remove()
+                .catch(err => console.error(err));
+            resolve();
+        });
+    }
+    /**
+     * get a users subscribed subreddits
+     * @param user_id id of user
+     */
+    getSubscribedSubreddits(user_id: string) {
+        return new Promise(resolve => {
+            firebase.database().ref(`users/${user_id}/subscribed`).once('value').then(subreddits => {
+                console.log(subreddits.val());
+                return resolve(subreddits.val());
+            }).catch(err => console.error(err));
+        });
     }
 }

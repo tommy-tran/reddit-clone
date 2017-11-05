@@ -13,7 +13,8 @@ $app-direction: ltr;
 
 
 @import "ionic.globals";
-
+@import "theme.light.scss";
+@import "theme.dark.scss";
 
 // Shared Variables
 // --------------------------------------------------
@@ -38,7 +39,7 @@ $colors: (
   secondary:  #24a0ed,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222,
+  dark:       #090f2f,
   someblue: #24A0ED,
   prettygray: lightgrey,
   darkgray: darkgray

@@ -2,16 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController, ViewController, Events } from 'ionic-angular';
 import { Storage } from "@ionic/storage";
 
-import { DataSharingService } from '../../shared/data-sharing.service';
-import { NgForm } from '@angular/forms';
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DataSharingService } from '../../shared/data-sharing.service';
+import { NgForm } from '@angular/forms';
+import { SettingsProvider } from '../../shared/theming.service';
+
 
 @IonicPage()
 @Component({
@@ -27,29 +23,34 @@ export class ProfilePage {
   uid: string;
   memberSince: string;
 
+  selectedTheme: String;
+
 
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
     private dataSharing: DataSharingService,
     private databaseService: DatabaseService,
+    public events: Events,
     private loadingCtrl: LoadingController,
     public navCtrl: NavController,
     public navParams: NavParams,
+    platform: Platform,
     private storage: Storage,
-    public viewController: ViewController,
-    public events: Events,
-    platform: Platform) {
-      this.isLoggedIn = this.authService.isLoggedIn();
-      if (this.isLoggedIn){
-        this.username = this.authService.getUsername();
-        this.email = this.authService.getEmail();
-        this.uid = this.authService.getUID();
-        this.memberSince = this.authService.getMemberSince();
-        this.databaseService.getKarma(this.uid).then(karma =>{
-          this.karma = karma;
-        });
-      }
+    private theming: SettingsProvider,
+    public viewController: ViewController) {
+    this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+    if (this.isLoggedIn) {
+      this.username = this.authService.getUsername();
+      this.email = this.authService.getEmail();
+      this.uid = this.authService.getUID();
+      this.memberSince = this.authService.getMemberSince();
+      this.databaseService.getKarma(this.uid).then(karma => {
+        this.karma = karma;
+      });
+    }
   }
 
   ionViewDidLoad() {

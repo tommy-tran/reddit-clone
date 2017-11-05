@@ -4,21 +4,25 @@ import { Storage } from "@ionic/storage";
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
-import { LoginPage, SubredditPage, CreateSubredditPage, ProfilePage } from "../../shared/pages";
-import { Subreddit } from '../../models/subreddit.model';
-import { Post } from '../../models/post.model';
 import { DataSharingService } from '../../shared/data-sharing.service';
+import { LoginPage, CreateSubredditPage, ProfilePage } from "../../shared/pages";
+import { Post } from '../../models/post.model';
+import { SettingsProvider } from "../../shared/theming.service";
 import { SortByPopover } from '../../components/sortBy/sortBy';
+import { Subreddit } from '../../models/subreddit.model';
+import { StorageService } from '../../shared/storage.service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  showSubscribedSubreddits: boolean;
+  menuIconColor: string;
   posts: Post[];
   isCardLayout: boolean;
   isLoggedIn: boolean;
-  menuOptions: { icon: string, title: string, action: string }[];
+  menuColor: string;
   showBackgroundDiv: boolean;
   showMenu: boolean;
   sortMethod: string;
@@ -30,6 +34,9 @@ export class HomePage {
   username: string;
   userHasAccount: boolean;
   selectedSubreddit: string;
+  selectedTheme: String;
+  subscribedSubreddits: any;
+  user_id: string;
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
     private dataSharing: DataSharingService,
@@ -37,10 +44,33 @@ export class HomePage {
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     private popoverCtrl: PopoverController,
-    private storage: Storage) {
+    private theming: SettingsProvider,
+    private storage: Storage,
+    private storageService: StorageService) {
+
+    this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
+    this.menuIconColor = 'secondary';
     this.isLoggedIn = this.authService.isLoggedIn();
     this.storage.get("userHasAccount").then(val => {
       this.userHasAccount = val;
+    });
+    this.user_id = this.authService.getUID();
+    this.showSubscribedSubreddits = true;
+    //initialize subscribed subreddits
+    this.storageService.getSubscribedSubreddits().then(subscribedSubreddits => {
+      if (!subscribedSubreddits) {
+        this.databaseService.getSubscribedSubreddits(this.user_id).then(subreddits => {
+          this.subscribedSubreddits = subreddits;
+          let subscribed = [];
+          for (var key in subreddits) {
+            subscribed.push(subreddits[key]);
+          }
+          this.storageService.setSubscribedSubreddits(subscribed);
+        });
+      }
+      else {
+        this.subscribedSubreddits = subscribedSubreddits;
+      }
     });
     this.posts = [];
 
@@ -52,13 +82,7 @@ export class HomePage {
     //   this.subreddits = subreddits;
     //   this.subredditDisplay = [];
     // });
-    //menu display
-    this.menuOptions = [
-      { icon: 'contact', title: 'Log In / Sign Up', action: 'openAuth' },
-      { icon: 'menu', title: 'Card View', action: 'toggleLayout' },
-      { icon: 'contrast', title: 'Night Theme', action: 'toggleTheme' },
-      { icon: 'person', title: 'Profile', action:'openProfile'}
-    ];
+
     this.isCardLayout = false;
     this.closeAllOverlays();
 
@@ -81,11 +105,6 @@ export class HomePage {
       this.isLoggedIn = this.authService.isLoggedIn();
     });
   }
-  /**
-   * used for dynamic 'click' events for menuOptions and ngFor in template
-   */
-  get self() { return this; }
-
   /** 
    * Set up environment
    */
@@ -137,10 +156,12 @@ export class HomePage {
   logout() {
     this.authService.logout().then(() => {
       this.username = "";
+      this.isLoggedIn = false;
+      this.closeAllOverlays();
       this.authService.updateAuthState().then(() => {
         this.posts = [];
         this.getAllPosts();
-      })
+      });
     });
   }
   /**
@@ -154,6 +175,7 @@ export class HomePage {
       if (isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
         this.userHasAccount = true;
+        this.closeAllOverlays();
         console.log("loggedin: " + this.isLoggedIn);
       }
     });
@@ -162,10 +184,16 @@ export class HomePage {
   /**
    * open the user profile page
    */
-  openProfile(){
-    let param = { userHasAccount: this.userHasAccount};
-    let profModal = this.modalCtrl.create(ProfilePage, param);
-    profModal.present();
+  openProfile() {
+    if (this.isLoggedIn) {
+      let param = { userHasAccount: this.userHasAccount, username: this.username };
+      // let profModal = this.modalCtrl.create(ProfilePage, param);
+      // profModal.present();
+      this.navCtrl.push('profile', param);
+    }
+    else {
+      this.openAuth();
+    }
   }
 
   showUserInfo() {
@@ -223,7 +251,15 @@ export class HomePage {
    * switch between dark and light themes
    */
   toggleTheme() {
-    //look into theming
+    if (this.selectedTheme === 'dark-theme') {
+      this.theming.setActiveTheme('light-theme');
+      this.menuColor = 'light';
+      this.menuIconColor = 'secondary';
+    } else {
+      this.theming.setActiveTheme('dark-theme');
+      this.menuColor = 'dark';
+      this.menuIconColor = 'primary';
+    }
   }
   /**
    * show a popover with options to sort posts by
@@ -237,7 +273,7 @@ export class HomePage {
       if (sortMethod != this.sortMethod && sortMethod) {
         this.sortMethod = sortMethod.sortMethod;
         this.sortIcon = sortMethod.icon;
-        
+
         this.sort(this.sortMethod);
       }
       this.showBackgroundDiv = false;
@@ -264,11 +300,18 @@ export class HomePage {
     this.initializeSearch();
     let val = event.target.value;
     if (val && val.trim() != '') {
+      this.showSubscribedSubreddits = false;
       this.subredditDisplay = this.subreddits.filter((subreddit) => {
         return subreddit.name.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1;
       });
     }
-    console.log(this.subredditDisplay);
+  }
+  /**
+   * 
+   * @param event click event fired by user's input
+   */
+  onCancel(event) {
+    this.showSubscribedSubreddits = true;
   }
   /**
    * navigate to a subreddit's page

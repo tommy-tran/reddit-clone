@@ -171,24 +171,27 @@ export class LoginPage {
    * @param password user's password
    */
   signInUser(email: string, password: string) {
-    let loading = this.loadingCtrl.create({
-      content: 'Loading...',
-      enableBackdropDismiss: false
-    });
-    loading.present();
-    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-      // TODO: Replace setEmail and setPswd with setUserInfo()
-      this.authService.setEmail(email);
-      this.authService.setPswd(password);
-      this.needsVerification = false;
-      loading.dismiss();
-    }).then(() => {
-      this.storage.set('isLoggedIn', true).then(() => {
-        this.isLoggedIn = true;
-        this.viewController.dismiss(this.isLoggedIn);
-        this.events.publish('user:loggedin');            
-      }
-    );
+    //SSO, permanently signed in until explicit sign out
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
+
+      let loading = this.loadingCtrl.create({
+        content: 'Loading...',
+        enableBackdropDismiss: false
+      });
+      loading.present();
+      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+        // TODO: Replace setEmail and setPswd with setUserInfo()
+        this.authService.setEmail(email);
+        this.authService.setPswd(password);
+        this.needsVerification = false;
+        loading.dismiss();
+      }).then(() => {
+        this.storage.set('userHasAccount', true);
+        this.storage.set('isLoggedIn', true).then(() => {
+          this.isLoggedIn = true;
+          this.viewController.dismiss(this.isLoggedIn);
+          this.events.publish('user:loggedin');            
+        });
     }).catch(err => {
       loading.dismiss();
       console.log(err);
@@ -202,6 +205,7 @@ export class LoginPage {
         ]
       }).present();
     });
+  }).catch(err => console.error(err));
   }
   /**
    * switch between login and sign up forms

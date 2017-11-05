@@ -6,16 +6,19 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from "@ionic/storage";
 
 import { MyApp } from './app.component';
-import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage, ProfilePage} from '../shared/pages';
-import { PostComponent } from '../components/post/post';
-import { DataSharingService } from '../shared/data-sharing.service';
 import { AuthService } from '../shared/auth.service';
-import { DatabaseService } from '../shared/database.service';
-import { SortByPopover } from '../components/sortBy/sortBy';
-import { HttpModule } from '@angular/http';
-import { HomePageModule } from '../pages/home/home.module';
-import { SubredditPageModule } from '../pages/subreddit/subreddit.module';
 import { ComponentsModule } from '../components/components.module';
+import { DatabaseService } from '../shared/database.service';
+import { DataSharingService } from '../shared/data-sharing.service';
+import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage, ProfilePage} from '../shared/pages';
+import { HomePageModule } from '../pages/home/home.module';
+import { HttpModule } from '@angular/http';
+import { PostComponent } from '../components/post/post';
+import { SettingsProvider } from '../shared/theming.service';
+import { SortByPopover } from '../components/sortBy/sortBy';
+import { StorageService } from "../shared/storage.service";
+import { SubredditPageModule } from '../pages/subreddit/subreddit.module';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -24,7 +27,6 @@ import { ComponentsModule } from '../components/components.module';
     LoginPage,
     CreatePostPage,
     CreateSubredditPage,
-    PostComponent,
     ProfilePage
   ],
   imports: [
@@ -32,9 +34,11 @@ import { ComponentsModule } from '../components/components.module';
     IonicModule.forRoot(MyApp, {locationStrategy: 'path'}, {
       links: [
         { component: HomePage, name: 'home', segment: '' },
-        { component: SubredditPage, name: 'subreddit', segment: 'r/:name', defaultHistory: ['home'] }
+        { component: SubredditPage, name: 'subreddit', segment: 'r/:name', defaultHistory: ['home'] },
+        { component: ProfilePage, name: 'profile', segment: 'u/:username', defaultHistory: ['home'] },
       ]}),
     IonicStorageModule.forRoot({
+      name: '_redditclonedb',
       driverOrder: ['indexeddb', 'websql', 'sqlite']
     }),
     HttpModule,
@@ -55,7 +59,7 @@ import { ComponentsModule } from '../components/components.module';
     SortByPopover
   ],
   providers: [
-    StatusBar,
+    StatusBar, SettingsProvider,StorageService,
     SplashScreen, DataSharingService, AuthService, DatabaseService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

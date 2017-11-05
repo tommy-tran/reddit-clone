@@ -4,31 +4,42 @@
       Home
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="toggleNewPostBox()"><ion-icon name="create"></ion-icon></button>
-      <button ion-button icon-only (click)="toggleSearchbar()"><ion-icon name="search"></ion-icon></button>
-      <button ion-button icon-only (click)="toggleMenu()"><ion-icon name="menu"></ion-icon></button>
+      <button ion-button icon-only (click)="toggleNewPostBox()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="toggleSearchbar()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="toggleMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <!-- -->
   <!-- search results overlay -->
   <div id="searchbar" *ngIf="showSearchbar">
-    <ion-toolbar color="secondary">
-      <ion-searchbar (ionInput)="onInput($event)" showCancelButton="true" placeholder="Search for Subreddits..."
+    <ion-toolbar [color]="menuIconColor">
+      <ion-searchbar (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" showCancelButton="true" placeholder="Search for Subreddits..."
         type="text"></ion-searchbar>
     </ion-toolbar>
-    <ion-list inset padding-left padding-right>
+    <ion-list inset padding-left padding-right *ngIf="!showSubscribedSubreddits">
       <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
+    </ion-list>
+    <ion-list inset padding-left padding-right *ngIf="showSubscribedSubreddits">
+      <div id="list-label">Subscribed Subreddits</div>
+      <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subscribedSubreddits">r/{{subreddit.subreddit_name}}</button>
     </ion-list>
   </div>
   <!-- sort by tab -->
   <div id="sort-and-login">
     <button ion-button clear small (click)="showSortByPopover($event)">
-      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;<ion-icon name="arrow-down"></ion-icon>
+      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
+      <ion-icon name="arrow-down"></ion-icon>
     </button>
-    <a text-right *ngIf="!username" (click)="openAuth()">Log In / Register</a>
-    <a text-right *ngIf="username" (click)="logout()">Sign Out</a>
+    <a text-right (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
   </div>
 
   <div>
@@ -43,7 +54,9 @@
 
 
   <h2>Welcome to Reddit Clone</h2>
-  <p><i>A social news aggregator where users have the power to add, rate, and curate content!</i></p>
+  <p>
+    <i>A social news aggregator where users have the power to add, rate, and curate content!</i>
+  </p>
   <p *ngIf="username">Your username is {{username}}</p>
 
   <!-- create subreddit -->
@@ -57,8 +70,21 @@
 
   <!-- menu overlay -->
   <div id="menu" *ngIf="showMenu">
-    <button ion-item text-right no-lines *ngFor="let option of menuOptions" (click)="self[option.action]()">
-      <ion-icon color="secondary" name="{{option.icon}}"></ion-icon>&nbsp;&nbsp;&nbsp;{{option.title}}
+    <button [color]="menuColor" ion-item text-right no-lines (click)="!isLoggedIn ? openAuth() : logout()">
+      <ion-icon [color]="menuIconColor" name="contact"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span>{{!isLoggedIn ? 'Log In / Sign Up' : 'Log Out'}}</span>
+    </button>
+    <button [color]="menuColor" ion-item text-right no-lines (click)="toggleLayout()">
+      <ion-icon [color]="menuIconColor" name="menu"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span>{{isCardLayout ? 'Compact View' : 'Card View'}}</span>
+    </button>
+    <button [color]="menuColor" ion-item text-right no-lines (click)="toggleTheme()">
+      <ion-icon [color]="menuIconColor" name="contrast"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span>{{selectedTheme == 'dark-theme' ? 'Light Theme' : 'Dark Theme'}}</span>
+    </button>
+    <button [color]="menuColor" ion-item text-right no-lines (click)="openProfile()">
+      <ion-icon [color]="menuIconColor" name="person"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span>Profile</span>
     </button>
   </div>
 
