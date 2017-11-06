@@ -1,10 +1,12 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Navbar, Events } from 'ionic-angular';
-import { Post } from '../../models/post.model';
+import { NgForm } from '@angular/forms';
+
+import { AuthService } from '../../shared/auth.service';
 import { Comment } from '../../models/comment.model';
 import { DatabaseService } from '../../shared/database.service';
-import { NgForm } from '@angular/forms';
-import { AuthService } from '../../shared/auth.service';
+import { Post } from '../../models/post.model';
+import { SettingsProvider } from '../../shared/theming.service';
 
 @IonicPage({
   name: 'commentpage'
@@ -13,23 +15,39 @@ import { AuthService } from '../../shared/auth.service';
   selector: 'page-comments',
   templateUrl: 'comments.html',
 })
-export class CommentsPage implements OnInit{
+export class CommentsPage implements OnInit {
   post: Post;
   comments: Comment[];
+  itemColor: string;
+  textColor: string;
   @ViewChild('myInput') myInput: ElementRef;
   @ViewChild(Navbar) navBar: Navbar;
-  constructor(private authService: AuthService, public navCtrl: NavController, private databaseService: DatabaseService, public navParams: NavParams, public events: Events) {
+  constructor(private authService: AuthService,
+    private databaseService: DatabaseService,
+    public events: Events,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private theming: SettingsProvider) {
+    //theming
+    let theme;
+    this.theming.getActiveTheme().subscribe(val => {
+      theme = val.valueOf();
+      console.log(theme)
+      this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+      this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
+    });
+    
     this.post = this.navParams.data.post;
     this.getPostComments();
   }
 
-	ngOnInit() {
-		// When the back button is pressed
-		this.navBar.backButtonClick = () => {
-			this.events.publish('nav');
-			this.navCtrl.pop();
-		}
-	}
+  ngOnInit() {
+    // When the back button is pressed
+    this.navBar.backButtonClick = () => {
+      this.events.publish('nav');
+      this.navCtrl.pop();
+    }
+  }
 
   /**
    * for resizing textarea as user types

@@ -9,6 +9,7 @@ import { Post } from '../../models/post.model';
 import { SortByPopover } from '../../components/sortBy/sortBy';
 import { Subreddit } from '../../models/subreddit.model';
 import { StorageService } from "../../shared/storage.service";
+import { SettingsProvider } from '../../shared/theming.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class SubredditPage implements OnInit {
 	isSubscribed: boolean;
 	@ViewChild(Navbar) navBar: Navbar;
 	posts: Post[];
+	selectedTheme: String;
 	showBackgroundDiv: boolean;
 	sortIcon: string;
 	sortMethod: string;
@@ -40,11 +42,15 @@ export class SubredditPage implements OnInit {
 		public events: Events,
 		public modalCtrl: ModalController,
 		private popoverCtrl: PopoverController,
+		private theming: SettingsProvider,
 		private storageService: StorageService) {
 
 		//initial sort by method and icon
 		this.sortIcon = 'flame';
 		this.sortMethod = 'hot';
+
+		//theme to pass to create post
+		this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
 
 		this.events.subscribe('user:loggedin', () => {
 			this.authService.updateAuthState().then(() => {
@@ -122,7 +128,7 @@ export class SubredditPage implements OnInit {
 	}
 
 	createPost() {
-		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit });
+		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit, theme: this.selectedTheme.valueOf() }, {cssClass: this.selectedTheme.valueOf()});
 		if (this.isLoggedIn) {
 			createPostModal.present();
 		} else {
@@ -170,7 +176,7 @@ export class SubredditPage implements OnInit {
 				if (!subreddits) {
 					subreddits = [];
 				}
-				subreddits.push({subreddit_id: subreddit_id, subreddit_name: subreddit_name});
+				subreddits.push({ subreddit_id: subreddit_id, subreddit_name: subreddit_name });
 				this.storageService.setSubscribedSubreddits(subreddits);
 				console.log('subscribe success');
 			});

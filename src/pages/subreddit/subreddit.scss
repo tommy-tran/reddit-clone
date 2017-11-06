@@ -1,3 +1,8 @@
 page-subreddit {
-    
+    #sortby > span {
+        font-size: 12px;
+    }
+    #sortby {
+        border-bottom: 1px solid lightgray;
+    }
 }

@@ -29,17 +29,17 @@
             </p>
           </div>
 
-          <ion-item>
-            <ion-input name="usernameInput" placeholder="Enter a username (between 3 and 16 characters)" [(ngModel)]="usernameText"  (keyup)="checkUsername(usernameText)"></ion-input>
+          <ion-item [style.backgroundColor]="itemColor">
+            <ion-input [style.color]="textColor" name="usernameInput" placeholder="Enter a username (between 3 and 16 characters)" [(ngModel)]="usernameText"  (keyup)="checkUsername(usernameText)"></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-input name="emailInput" placeholder="Enter Email" ngModel></ion-input>
+          <ion-item [style.backgroundColor]="itemColor">
+            <ion-input [style.color]="textColor" name="emailInput" placeholder="Enter Email" ngModel></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-input name="password" type="password" placeholder="Enter Password" ngModel></ion-input>
+          <ion-item [style.backgroundColor]="itemColor">
+            <ion-input [style.color]="textColor" name="password" type="password" placeholder="Enter Password" ngModel></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-input name="confirmPassword" type="password" placeholder="Confirm Password" ngModel></ion-input>
+          <ion-item [style.backgroundColor]="itemColor">
+            <ion-input [style.color]="textColor" name="confirmPassword" type="password" placeholder="Confirm Password" ngModel></ion-input>
           </ion-item>
           <button [style.marginTop]="screenY/24+'px'" ion-button type="submit" [disabled]="!validUsername || !usernameText">Submit</button>
         </form>
@@ -47,11 +47,11 @@
       <!-- form for an existing user -->
       <div *ngIf="userHasAccount && !needsVerification" text-center>
         <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
-          <ion-item>
-            <ion-input name="emailInput" placeholder="Enter Email" ngModel></ion-input>
+          <ion-item [style.backgroundColor]="itemColor">
+            <ion-input [style.color]="textColor" name="emailInput" placeholder="Enter Email" ngModel></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-input name="password" type="password" placeholder="Enter Password" ngModel></ion-input>
+          <ion-item [style.backgroundColor]="itemColor">
+            <ion-input [style.color]="textColor" name="password" type="password" placeholder="Enter Password" ngModel></ion-input>
           </ion-item>
           <button [style.marginTop]="screenY/24+'px'" ion-button type="submit">Submit</button>
         </form>

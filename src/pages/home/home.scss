@@ -29,18 +29,22 @@ page-home {
     #sort-and-login {
         width: 100%;
         position: relative;
+        border-bottom: 1px solid lightgray;
     }
     #sort-and-login > a {
         position: absolute;
         right: 0;
+    }
+    #sort-and-login > span {
+        font-size: 12px;
     }
 
     .subreddit-nav {
         border: 1px solid #24a0ed;
     }
     #list-label {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
         color: #fa794a;
         border-bottom: 1px solid lightgray;
         font-size: 13px;

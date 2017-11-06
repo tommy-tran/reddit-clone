@@ -47,9 +47,24 @@ export class HomePage {
     private theming: SettingsProvider,
     private storage: Storage,
     private storageService: StorageService) {
-
-    this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
+    //set up theme, event emitted in theme service
+    this.events.subscribe('theme:retrieved', () => {
+      this.theming.getActiveTheme().subscribe(val => {
+        this.selectedTheme = val
+        switch (val) {
+          case 'light-theme':
+            this.menuColor = 'light';
+            this.menuIconColor = 'secondary';
+            break;
+          case 'dark-theme':
+            this.menuColor = 'dark';
+            this.menuIconColor = 'primary';
+            break;
+        }
+      });
+    });
     this.menuIconColor = 'secondary';
+
     this.isLoggedIn = this.authService.isLoggedIn();
     this.storage.get("userHasAccount").then(val => {
       this.userHasAccount = val;
@@ -168,8 +183,10 @@ export class HomePage {
    * open the login/signup page
    */
   openAuth() {
-    let param = { userHasAccount: this.userHasAccount };
-    let authModal = this.modalCtrl.create(LoginPage, param);
+    let param = { theme: this.selectedTheme };
+    let authModal = this.modalCtrl.create(LoginPage, param, {
+      cssClass: this.selectedTheme.valueOf()
+    });
     authModal.present();
     authModal.onWillDismiss((isLoggedIn: boolean) => {
       if (isLoggedIn) {
@@ -186,10 +203,12 @@ export class HomePage {
    */
   openProfile() {
     if (this.isLoggedIn) {
-      let param = { userHasAccount: this.userHasAccount, username: this.username };
-      // let profModal = this.modalCtrl.create(ProfilePage, param);
-      // profModal.present();
-      this.navCtrl.push('profile', param);
+      let param = { userHasAccount: this.userHasAccount, username: this.username, theme: this.selectedTheme };
+      let profModal = this.modalCtrl.create(ProfilePage, param, {
+        cssClass: this.selectedTheme.valueOf()
+      });
+      profModal.present();
+      // this.navCtrl.push('profile', param);
     }
     else {
       this.openAuth();
@@ -329,12 +348,14 @@ export class HomePage {
    * create a new subreddit
    */
   createSubreddit() {
-    let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, {});
+    let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { theme: this.selectedTheme.valueOf() }, {
+      cssClass: this.selectedTheme.valueOf()
+    });
     console.log("loggedIn: " + this.isLoggedIn);
     if (this.isLoggedIn) {
       createSubredditModal.present();
     } else {
-      let authModal = this.modalCtrl.create(LoginPage);
+      let authModal = this.modalCtrl.create(LoginPage, { theme: this.selectedTheme }, { cssClass: this.selectedTheme.valueOf() });
       authModal.present();
       authModal.onWillDismiss((isLoggedIn) => {
         if (isLoggedIn) {

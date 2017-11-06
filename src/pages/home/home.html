@@ -4,9 +4,9 @@
       Home
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="toggleNewPostBox()">
+      <!-- <button ion-button icon-only (click)="toggleNewPostBox()">
         <ion-icon name="create"></ion-icon>
-      </button>
+      </button> -->
       <button ion-button icon-only (click)="toggleSearchbar()">
         <ion-icon name="search"></ion-icon>
       </button>
@@ -18,7 +18,6 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- -->
   <!-- search results overlay -->
   <div id="searchbar" *ngIf="showSearchbar">
     <ion-toolbar [color]="menuIconColor">
@@ -34,15 +33,11 @@
     </ion-list>
   </div>
   <!-- sort by tab -->
-  <div id="sort-and-login">
-    <button ion-button clear small (click)="showSortByPopover($event)">
-      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
-      <ion-icon name="arrow-down"></ion-icon>
-    </button>
-    <a text-right (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
+  <div style="width: 100%" text-right>
+    <a (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
   </div>
 
-  <div>
+  <!-- <div>
     <span>Subreddit navigation:</span>
     <select class="subreddit-nav" [(ngModel)]="selectedSubreddit">
       <option *ngFor="let subreddit of subreddits" value="{{subreddit.subreddit_id}}">
@@ -50,7 +45,7 @@
       </option>
     </select>
     <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
-  </div>
+  </div> -->
 
 
   <h2>Welcome to Reddit Clone</h2>
@@ -58,10 +53,18 @@
     <i>A social news aggregator where users have the power to add, rate, and curate content!</i>
   </p>
   <p *ngIf="username">Your username is {{username}}</p>
-
+  <br>
   <!-- create subreddit -->
-  <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button>
-
+  <!-- <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button> -->
+  <!-- sort posts -->
+  <div id="sort-and-login">
+    <span>Sort Subreddits By</span><br>
+    <button ion-button clear small (click)="showSortByPopover($event)">
+      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
+      <ion-icon name="arrow-down"></ion-icon>
+    </button>
+  </div>
+  <br>
   <!-- display posts -->
   <div class="posts" *ngFor="let post of posts">
     <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [showCommentBtn]="true" [commentPage]="false"></post>
@@ -73,6 +76,10 @@
     <button [color]="menuColor" ion-item text-right no-lines (click)="!isLoggedIn ? openAuth() : logout()">
       <ion-icon [color]="menuIconColor" name="contact"></ion-icon>&nbsp;&nbsp;&nbsp;
       <span>{{!isLoggedIn ? 'Log In / Sign Up' : 'Log Out'}}</span>
+    </button>
+    <button [color]="menuColor" ion-item text-right no-lines (click)="createSubreddit()">
+      <ion-icon [color]="menuIconColor" name="create"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span>Create a Subreddit</span>
     </button>
     <button [color]="menuColor" ion-item text-right no-lines (click)="toggleLayout()">
       <ion-icon [color]="menuIconColor" name="menu"></ion-icon>&nbsp;&nbsp;&nbsp;

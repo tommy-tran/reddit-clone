@@ -13,6 +13,7 @@ export class CommentComponent {
   userHasAccount: any;
   @Input() comment: Comment;
   @Input() postId: string;
+  @Input() color: string;
   disableInput: boolean;
   isLoggedIn: boolean;
   score: number;

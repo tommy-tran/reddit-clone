@@ -7,14 +7,14 @@
     <div class="container">
      
       <form #createSubredditForm="ngForm" (ngSubmit)="submitSubreddit(createSubredditForm)">
-        <div class="input-box" ion-item>
+        <div [style.backgroundColor]="itemColor" class="input-box" ion-item>
           <ion-label floating>Title</ion-label>
-          <ion-input type="text" name="titleInput" ngModel></ion-input>
+          <ion-input [style.color]="textColor" type="text" name="titleInput" ngModel></ion-input>
         </div>
        
-        <div class="input-box" ion-item *ngIf="!isLinkPost">
+        <div [style.backgroundColor]="itemColor" class="input-box" ion-item *ngIf="!isLinkPost">
           <ion-label floating>Description</ion-label>
-          <ion-textarea [attr.rows]="10" name="textInput" ngModel></ion-textarea>
+          <ion-textarea [style.color]="textColor" [attr.rows]="10" name="textInput" ngModel></ion-textarea>
         </div>
         <div class="actions">
           <button ion-button large type="submit" [disabled]="">Submit</button>

@@ -3,7 +3,7 @@
         {{comment.creator}} &bull; {{datePosted}}
     </div>
     <div class="comment-content">
-        <p>{{comment.message}}</p>
+        <p [style.color]="color">{{comment.message}}</p>
     </div>
     <div class="comment-actions">
         <div class="voting-box">

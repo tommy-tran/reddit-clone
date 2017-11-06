@@ -15,12 +15,18 @@
       <ion-icon name="add"></ion-icon>&nbsp;&nbsp;Subscribe</button>
   </div>
   <p>Scroll through the posts below or click "Create a post" to add your own content.</p>
-  <button ion-button clear small (click)="showSortByPopover($event)">
-    <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
-    <ion-icon name="arrow-down"></ion-icon>
-  </button>
+  <button ion-button (click)="createPost()" style="margin: 10px 0 20px 0">Create a post</button>
+  <br>
+  <div id="sortby">
+    <span>Sort Subreddits By</span>
+    <br>
+    <button ion-button clear small (click)="showSortByPopover($event)">
+      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
+      <ion-icon name="arrow-down"></ion-icon>
+    </button>
+  </div>
+  <br>
   <ion-list>
-    <button ion-button (click)="createPost()" style="margin: 10px 0 20px 0">Create a post</button>
     <div *ngFor="let post of posts">
       <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false"></post>
     </div>

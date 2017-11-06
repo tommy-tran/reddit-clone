@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
 import { NgForm } from '@angular/forms';
-/**
- * Generated class for the CreatesubredditPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,13 +10,17 @@ import { NgForm } from '@angular/forms';
   templateUrl: 'createsubreddit.html',
 })
 export class CreateSubredditPage {
+  itemColor: string;
+  textColor: string;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     private authService: AuthService, 
     private databaseService: DatabaseService) {
-
+      let theme = this.navParams.data.theme;
+      this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+      this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
   }
 
   closeModal() {

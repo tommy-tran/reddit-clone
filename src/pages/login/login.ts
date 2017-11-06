@@ -13,17 +13,18 @@ import * as firebase from 'firebase';
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  isLoggedIn: boolean;
+  isMobile: boolean;
+  itemColor: string;
   needsVerification: boolean;
-  showPasswordsErr: boolean;
-  showIncompleteFormErr: boolean;
   screenX: number;
   screenY: number;
-  isMobile: boolean;
-  isLoggedIn: boolean;
+  showIncompleteFormErr: boolean;
+  showPasswordsErr: boolean;
+  textColor: string;
   userHasAccount: boolean;
-  validUsername: boolean;
   usernameText: string;
-
+  validUsername: boolean;
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -37,7 +38,9 @@ export class LoginPage {
     platform: Platform) {
 		// Initialize
 		this.usernameText = "";
-
+    let theme = this.navParams.data.theme;
+    this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+    this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
 		this.screenX = this.dataSharing.getScreenX();
 		this.screenY = this.dataSharing.getScreenY();
 		this.isMobile = this.dataSharing.getIsMobile();

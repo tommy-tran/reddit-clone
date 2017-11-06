@@ -12,8 +12,9 @@ import { NgForm } from '@angular/forms';
 })
 export class CreatePostPage {
   isLinkPost: boolean;
+  itemColor: string;
   subreddit: Subreddit;
-
+  textColor: string;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -21,6 +22,10 @@ export class CreatePostPage {
     private databaseService: DatabaseService) {
     this.isLinkPost = true;
     this.subreddit = navParams.data.subreddit;
+    //theme
+    let theme = this.navParams.data.theme;
+    this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+    this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
   }
 
   linkPost() {
