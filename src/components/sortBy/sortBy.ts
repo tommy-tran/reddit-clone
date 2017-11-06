@@ -1,4 +1,4 @@
-import { Events, ViewController, NavParams } from "ionic-angular";
+import { ViewController, NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
 
 @Component({

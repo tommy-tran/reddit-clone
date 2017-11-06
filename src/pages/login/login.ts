@@ -39,7 +39,7 @@ export class LoginPage {
 		// Initialize
 		this.usernameText = "";
     let theme = this.navParams.data.theme;
-    this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+    this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
     this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
 		this.screenX = this.dataSharing.getScreenX();
 		this.screenY = this.dataSharing.getScreenY();

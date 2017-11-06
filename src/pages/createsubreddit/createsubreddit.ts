@@ -19,7 +19,7 @@ export class CreateSubredditPage {
     private authService: AuthService, 
     private databaseService: DatabaseService) {
       let theme = this.navParams.data.theme;
-      this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+      this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
       this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
   }
 

@@ -13,7 +13,6 @@ import { DataSharingService } from '../shared/data-sharing.service';
 import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage, ProfilePage} from '../shared/pages';
 import { HomePageModule } from '../pages/home/home.module';
 import { HttpModule } from '@angular/http';
-import { PostComponent } from '../components/post/post';
 import { SettingsProvider } from '../shared/theming.service';
 import { SortByPopover } from '../components/sortBy/sortBy';
 import { StorageService } from "../shared/storage.service";

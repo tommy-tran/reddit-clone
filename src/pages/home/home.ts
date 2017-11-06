@@ -50,16 +50,23 @@ export class HomePage {
     //set up theme, event emitted in theme service
     this.events.subscribe('theme:retrieved', () => {
       this.theming.getActiveTheme().subscribe(val => {
-        this.selectedTheme = val
-        switch (val) {
-          case 'light-theme':
+        if (val) {
+          this.selectedTheme = val;
+          switch (val.valueOf()) {
+            case 'light-theme':
             this.menuColor = 'light';
             this.menuIconColor = 'secondary';
             break;
-          case 'dark-theme':
+            case 'dark-theme':
             this.menuColor = 'dark';
             this.menuIconColor = 'primary';
             break;
+          }
+        }
+        else {
+          this.selectedTheme = 'light-theme';
+          this.menuColor = 'light';
+          this.menuIconColor = 'secondary';
         }
       });
     });
@@ -272,10 +279,12 @@ export class HomePage {
   toggleTheme() {
     if (this.selectedTheme === 'dark-theme') {
       this.theming.setActiveTheme('light-theme');
+      this.selectedTheme = 'light-theme';
       this.menuColor = 'light';
       this.menuIconColor = 'secondary';
     } else {
       this.theming.setActiveTheme('dark-theme');
+      this.selectedTheme = 'dark-theme';
       this.menuColor = 'dark';
       this.menuIconColor = 'primary';
     }

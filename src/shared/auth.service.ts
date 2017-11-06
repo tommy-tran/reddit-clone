@@ -8,7 +8,6 @@ export class AuthService {
     private email: string;    
     private password: string;
     private loggedIn: boolean;
-    private karma: string;
     private created: string;
 
     constructor() {

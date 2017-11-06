@@ -3,7 +3,7 @@ import { Post } from '../../models/post.model';
 import { DatabaseService } from '../../shared/database.service';
 import { AuthService } from '../../shared/auth.service';
 import { NavController, AlertController, ModalController } from 'ionic-angular';
-import { LoginPage, SubredditPage, CommentsPage } from "../../shared/pages";
+import { LoginPage, CommentsPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 
 @Component({

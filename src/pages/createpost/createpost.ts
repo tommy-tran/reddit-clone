@@ -24,7 +24,7 @@ export class CreatePostPage {
     this.subreddit = navParams.data.subreddit;
     //theme
     let theme = this.navParams.data.theme;
-    this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+    this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
     this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
   }
 

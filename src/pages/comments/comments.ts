@@ -33,7 +33,7 @@ export class CommentsPage implements OnInit {
     this.theming.getActiveTheme().subscribe(val => {
       theme = val.valueOf();
       console.log(theme)
-      this.itemColor = theme == 'dark-theme' ? '#090f2f' : '#fff';
+      this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
       this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
     });
     

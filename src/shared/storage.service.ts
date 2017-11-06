@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import { Subreddit } from "../models/subreddit.model";
+
 @Injectable()
 export class StorageService {
     subreddits: any[]

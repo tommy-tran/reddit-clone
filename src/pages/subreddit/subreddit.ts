@@ -50,8 +50,9 @@ export class SubredditPage implements OnInit {
 		this.sortMethod = 'hot';
 
 		//theme to pass to create post
-		this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
-
+		this.events.subscribe('theme:retrieved', () => {
+			this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
+		});
 		this.events.subscribe('user:loggedin', () => {
 			this.authService.updateAuthState().then(() => {
 				this.posts = []; // Clear posts
@@ -128,7 +129,7 @@ export class SubredditPage implements OnInit {
 	}
 
 	createPost() {
-		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit, theme: this.selectedTheme.valueOf() }, {cssClass: this.selectedTheme.valueOf()});
+		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit, theme: this.selectedTheme.valueOf() }, { cssClass: this.selectedTheme.valueOf() });
 		if (this.isLoggedIn) {
 			createPostModal.present();
 		} else {

@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, AlertController, LoadingController, ViewController, Events } from 'ionic-angular';
-import { Storage } from "@ionic/storage";
+import { IonicPage, NavController, NavParams, Platform, ViewController, Events } from 'ionic-angular';
 
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
-import { DataSharingService } from '../../shared/data-sharing.service';
-import { NgForm } from '@angular/forms';
 import { SettingsProvider } from '../../shared/theming.service';
 
 
@@ -27,16 +24,12 @@ export class ProfilePage {
 
 
   constructor(
-    private alertCtrl: AlertController,
     private authService: AuthService,
-    private dataSharing: DataSharingService,
     private databaseService: DatabaseService,
     public events: Events,
-    private loadingCtrl: LoadingController,
     public navCtrl: NavController,
     public navParams: NavParams,
     platform: Platform,
-    private storage: Storage,
     private theming: SettingsProvider,
     public viewController: ViewController) {
     this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
