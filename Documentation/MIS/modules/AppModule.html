@@ -1,0 +1,857 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>reddit-clone documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	    <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">reddit-clone documentation</a>
+            <button type="button" class="btn btn-default btn-menu fa fa-bars" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+            <div id="book-search-input" role="search">
+                <input type="text" placeholder="Type to search">
+            </div>
+            <nav>
+            
+                <ul class="list">
+            
+                    <li class="title">
+                        <a href="../index.html">reddit-clone documentation</a>
+                    </li>
+            
+                    <li class="divider"></li>
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../index.html"><span class="fa fa-home"></span>Getting started</a>
+                        <ul class="links">
+                                <li class="link">
+                                    <a 
+                                        
+                                         href="../overview.html" 
+                                         href="../overview.html" 
+                                        >
+                                        <span class="fa fa-th"></span>Overview
+                                    </a>
+                                </li>
+                                <li class="link">
+                                  <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../modules.html" >
+                            <div class="menu-toggler linked" data-toggle="collapse"
+                                    data-target="#xs-modules-links"
+                            >
+                                <span class="fa fa-archive"></span>
+                                <span class="link-name">Modules</span>
+                                <span class="fa fa-angle-down"></span>
+                            </div>
+                        </a>
+                        <ul class="links collapse "
+                                id="xs-modules-links"
+                            >
+                                <li class="link">
+                                    <a href="../modules/AppModule.html"  data-type="entity-link" class="active" >AppModule</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../modules/ComponentsModule.html" >ComponentsModule</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../modules/HomePageModule.html" >HomePageModule</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../modules/SubredditPageModule.html" >SubredditPageModule</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-components-links"
+                            >
+                            <span class="fa fa-cogs"></span>
+                            <span>Components</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-components-links"
+                            >
+                                <li class="link">
+                                    <a href="../components/CommentComponent.html" >CommentComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/CommentsPage.html" >CommentsPage</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/CommentsPage.html" >CommentsPage</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/CreatePostPage.html" >CreatePostPage</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/CreateSubredditPage.html" >CreateSubredditPage</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/HomePage.html" >HomePage</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/LoginPage.html" >LoginPage</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/MyApp.html" >MyApp</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/PostComponent.html" >PostComponent</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/ProfilePage.html" >ProfilePage</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/SortByPopover.html" >SortByPopover</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../components/SubredditPage.html" >SubredditPage</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-classes-links"
+                            >
+                            <span class="fa fa-file-code-o"></span>
+                            <span>Classes</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-classes-links"
+                            >
+                                <li class="link">
+                                    <a href="../classes/Comment.html" >Comment</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/Post.html" >Post</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../classes/Subreddit.html" >Subreddit</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-injectables-links"
+                            >
+                            <span class="fa fa-long-arrow-down"></span>
+                            <span>Injectables</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-injectables-links"
+                            >
+                                <li class="link">
+                                    <a href="../injectables/AuthService.html" >AuthService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/DataSharingService.html" >DataSharingService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/DatabaseService.html" >DatabaseService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/SettingsProvider.html" >SettingsProvider</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../injectables/StorageService.html" >StorageService</a>
+                                </li>
+                        </ul>
+                    </li>
+            
+            
+            
+            
+            
+            
+                    <li class="chapter">
+                        <a data-type="chapter-link" href="../coverage.html" ><span class="fa fa-tasks"></span>Documentation coverage</a>
+                    </li>
+            
+                    <li class="divider"></li>
+                    <li class="copyright">
+                            Documentation generated using <a href="https://compodoc.github.io/website/" target="_blank">
+                                        <img src="..//images/compodoc-vectorise.svg" class="img-responsive">
+                            </a>
+                    </li>
+            
+                </ul>
+            
+            </nav>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <nav>
+                   
+                       <ul class="list">
+                   
+                           <li class="title">
+                               <a href="../index.html">reddit-clone documentation</a>
+                           </li>
+                   
+                           <li class="divider"></li>
+                   
+                               <div id="book-search-input" role="search">
+                                   <input type="text" placeholder="Type to search">
+                               </div>
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../index.html"><span class="fa fa-home"></span>Getting started</a>
+                               <ul class="links">
+                                       <li class="link">
+                                           <a 
+                                               
+                                                href="../overview.html" 
+                                                href="../overview.html" 
+                                               >
+                                               <span class="fa fa-th"></span>Overview
+                                           </a>
+                                       </li>
+                                       <li class="link">
+                                         <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../modules.html" >
+                                   <div class="menu-toggler linked" data-toggle="collapse"
+                                           data-target="#modules-links"
+                                   >
+                                       <span class="fa fa-archive"></span>
+                                       <span class="link-name">Modules</span>
+                                       <span class="fa fa-angle-down"></span>
+                                   </div>
+                               </a>
+                               <ul class="links collapse "
+                                       id="modules-links"
+                   >
+                                       <li class="link">
+                                           <a href="../modules/AppModule.html"  data-type="entity-link" class="active" >AppModule</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../modules/ComponentsModule.html" >ComponentsModule</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../modules/HomePageModule.html" >HomePageModule</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../modules/SubredditPageModule.html" >SubredditPageModule</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#components-links"
+                   >
+                                   <span class="fa fa-cogs"></span>
+                                   <span>Components</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="components-links"
+                   >
+                                       <li class="link">
+                                           <a href="../components/CommentComponent.html" >CommentComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/CommentsPage.html" >CommentsPage</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/CommentsPage.html" >CommentsPage</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/CreatePostPage.html" >CreatePostPage</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/CreateSubredditPage.html" >CreateSubredditPage</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/HomePage.html" >HomePage</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/LoginPage.html" >LoginPage</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/MyApp.html" >MyApp</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/PostComponent.html" >PostComponent</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/ProfilePage.html" >ProfilePage</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/SortByPopover.html" >SortByPopover</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../components/SubredditPage.html" >SubredditPage</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#classes-links"
+                   >
+                                   <span class="fa fa-file-code-o"></span>
+                                   <span>Classes</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="classes-links"
+                   >
+                                       <li class="link">
+                                           <a href="../classes/Comment.html" >Comment</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/Post.html" >Post</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../classes/Subreddit.html" >Subreddit</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#injectables-links"
+                   >
+                                   <span class="fa fa-long-arrow-down"></span>
+                                   <span>Injectables</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="injectables-links"
+                   >
+                                       <li class="link">
+                                           <a href="../injectables/AuthService.html" >AuthService</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/DataSharingService.html" >DataSharingService</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/DatabaseService.html" >DatabaseService</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/SettingsProvider.html" >SettingsProvider</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../injectables/StorageService.html" >StorageService</a>
+                                       </li>
+                               </ul>
+                           </li>
+                   
+                   
+                   
+                   
+                   
+                   
+                           <li class="chapter">
+                               <a data-type="chapter-link" href="../coverage.html" ><span class="fa fa-tasks"></span>Documentation coverage</a>
+                           </li>
+                   
+                           <li class="divider"></li>
+                           <li class="copyright">
+                                   Documentation generated using <a href="https://compodoc.github.io/website/" target="_blank">
+                                               <img src="..//images/compodoc-vectorise.svg" class="img-responsive">
+                                   </a>
+                           </li>
+                   
+                       </ul>
+                   
+                   </nav>
+               </div>
+               <div class="content module">
+                   <div class="content-data">
+
+
+
+<ol class="breadcrumb">
+  <li>Modules</li>
+  <li>AppModule</li>
+</ol>
+
+      <div class="text-center module-graph-container">
+          <div id="module-graph-svg">
+              <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: dependencies Pages: 1 -->
+<svg width="1962pt" height="284pt"
+ viewBox="0.00 0.00 1962.00 284.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 280)">
+<title>dependencies</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-280 1958,-280 1958,4 -4,4"/>
+<text text-anchor="start" x="956.0091" y="-42.4" font-family="sans-serif" font-weight="bold" font-size="14.00" fill="#000000">Legend</text>
+<polygon fill="#ffffb3" stroke="transparent" points="743,-10 743,-30 763,-30 763,-10 743,-10"/>
+<text text-anchor="start" x="766.629" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Declarations</text>
+<polygon fill="#8dd3c7" stroke="transparent" points="856,-10 856,-30 876,-30 876,-10 856,-10"/>
+<text text-anchor="start" x="879.7251" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Module</text>
+<polygon fill="#80b1d3" stroke="transparent" points="942,-10 942,-30 962,-30 962,-10 942,-10"/>
+<text text-anchor="start" x="965.7812" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Bootstrap</text>
+<polygon fill="#fdb462" stroke="transparent" points="1039,-10 1039,-30 1059,-30 1059,-10 1039,-10"/>
+<text text-anchor="start" x="1062.6732" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Providers</text>
+<polygon fill="#fb8072" stroke="transparent" points="1135,-10 1135,-30 1155,-30 1155,-10 1135,-10"/>
+<text text-anchor="start" x="1158.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
+<g id="clust1" class="cluster">
+<title>cluster_AppModule</title>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="8,-70 8,-268 1946,-268 1946,-70 8,-70"/>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_AppModule_declarations</title>
+<polygon fill="none" stroke="#000000" points="1152,-78 1152,-130 1938,-130 1938,-78 1152,-78"/>
+</g>
+<g id="clust10" class="cluster">
+<title>cluster_AppModule_imports</title>
+<polygon fill="none" stroke="#000000" points="848,-78 848,-130 1144,-130 1144,-78 848,-78"/>
+</g>
+<g id="clust12" class="cluster">
+<title>cluster_AppModule_bootstrap</title>
+<polygon fill="none" stroke="#000000" points="1094,-208 1094,-260 1182,-260 1182,-208 1094,-208"/>
+</g>
+<g id="clust13" class="cluster">
+<title>cluster_AppModule_providers</title>
+<polygon fill="none" stroke="#000000" points="16,-78 16,-130 840,-130 840,-78 16,-78"/>
+</g>
+<!-- MyApp -->
+<g id="node1" class="node">
+<title>MyApp</title>
+<polygon fill="#ffffb3" stroke="#000000" points="1929.5529,-122 1870.4471,-122 1870.4471,-86 1929.5529,-86 1929.5529,-122"/>
+<text text-anchor="middle" x="1900" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">MyApp</text>
+</g>
+<!-- AppModule -->
+<g id="node8" class="node">
+<title>AppModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="1179.6571,-187 1176.6571,-191 1155.6571,-191 1152.6571,-187 1096.3429,-187 1096.3429,-151 1179.6571,-151 1179.6571,-187"/>
+<text text-anchor="middle" x="1138" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">AppModule</text>
+</g>
+<!-- MyApp&#45;&gt;AppModule -->
+<g id="edge1" class="edge">
+<title>MyApp&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1900,-122.0908C1900,-145.1328 1900,-182 1900,-182 1900,-182 1189.7813,-182 1189.7813,-182"/>
+<polygon fill="#000000" stroke="#000000" points="1189.7813,-178.5001 1179.7813,-182 1189.7813,-185.5001 1189.7813,-178.5001"/>
+</g>
+<!-- CommentsPage -->
+<g id="node2" class="node">
+<title>CommentsPage</title>
+<polygon fill="#ffffb3" stroke="#000000" points="1851.8795,-122 1748.1205,-122 1748.1205,-86 1851.8795,-86 1851.8795,-122"/>
+<text text-anchor="middle" x="1800" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">CommentsPage</text>
+</g>
+<!-- CommentsPage&#45;&gt;AppModule -->
+<g id="edge2" class="edge">
+<title>CommentsPage&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1800,-122.0449C1800,-143.6623 1800,-177 1800,-177 1800,-177 1189.6618,-177 1189.6618,-177"/>
+<polygon fill="#000000" stroke="#000000" points="1189.6619,-173.5001 1179.6618,-177 1189.6618,-180.5001 1189.6619,-173.5001"/>
+</g>
+<!-- SortByPopover -->
+<g id="node3" class="node">
+<title>SortByPopover</title>
+<polygon fill="#ffffb3" stroke="#000000" points="1730.3287,-122 1627.6713,-122 1627.6713,-86 1730.3287,-86 1730.3287,-122"/>
+<text text-anchor="middle" x="1679" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">SortByPopover</text>
+</g>
+<!-- SortByPopover&#45;&gt;AppModule -->
+<g id="edge3" class="edge">
+<title>SortByPopover&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1679,-122.2228C1679,-142.3652 1679,-172 1679,-172 1679,-172 1190.0012,-172 1190.0012,-172"/>
+<polygon fill="#000000" stroke="#000000" points="1190.0012,-168.5001 1180.0012,-172 1190.0012,-175.5001 1190.0012,-168.5001"/>
+</g>
+<!-- LoginPage -->
+<g id="node4" class="node">
+<title>LoginPage</title>
+<polygon fill="#ffffb3" stroke="#000000" points="1610.1558,-122 1533.8442,-122 1533.8442,-86 1610.1558,-86 1610.1558,-122"/>
+<text text-anchor="middle" x="1572" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">LoginPage</text>
+</g>
+<!-- LoginPage&#45;&gt;AppModule -->
+<g id="edge4" class="edge">
+<title>LoginPage&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1572,-122.2222C1572,-140.8285 1572,-167 1572,-167 1572,-167 1190.0081,-167 1190.0081,-167"/>
+<polygon fill="#000000" stroke="#000000" points="1190.0081,-163.5001 1180.0081,-167 1190.0081,-170.5001 1190.0081,-163.5001"/>
+</g>
+<!-- CreatePostPage -->
+<g id="node5" class="node">
+<title>CreatePostPage</title>
+<polygon fill="#ffffb3" stroke="#000000" points="1515.8613,-122 1412.1387,-122 1412.1387,-86 1515.8613,-86 1515.8613,-122"/>
+<text text-anchor="middle" x="1464" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">CreatePostPage</text>
+</g>
+<!-- CreatePostPage&#45;&gt;AppModule -->
+<g id="edge5" class="edge">
+<title>CreatePostPage&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1464,-122.0336C1464,-139.0597 1464,-162 1464,-162 1464,-162 1189.9514,-162 1189.9514,-162"/>
+<polygon fill="#000000" stroke="#000000" points="1189.9514,-158.5001 1179.9514,-162 1189.9514,-165.5001 1189.9514,-158.5001"/>
+</g>
+<!-- CreateSubredditPage -->
+<g id="node6" class="node">
+<title>CreateSubredditPage</title>
+<polygon fill="#ffffb3" stroke="#000000" points="1394.1825,-122 1259.8175,-122 1259.8175,-86 1394.1825,-86 1394.1825,-122"/>
+<text text-anchor="middle" x="1327" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">CreateSubredditPage</text>
+</g>
+<!-- CreateSubredditPage&#45;&gt;AppModule -->
+<g id="edge6" class="edge">
+<title>CreateSubredditPage&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1327,-122.2396C1327,-137.5706 1327,-157 1327,-157 1327,-157 1189.9452,-157 1189.9452,-157"/>
+<polygon fill="#000000" stroke="#000000" points="1189.9453,-153.5001 1179.9452,-157 1189.9452,-160.5001 1189.9453,-153.5001"/>
+</g>
+<!-- ProfilePage -->
+<g id="node7" class="node">
+<title>ProfilePage</title>
+<polygon fill="#ffffb3" stroke="#000000" points="1241.812,-122 1160.188,-122 1160.188,-86 1241.812,-86 1241.812,-122"/>
+<text text-anchor="middle" x="1201" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">ProfilePage</text>
+</g>
+<!-- ProfilePage&#45;&gt;AppModule -->
+<g id="edge7" class="edge">
+<title>ProfilePage&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1170.0862,-122.1061C1170.0862,-122.1061 1170.0862,-140.991 1170.0862,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="1166.5863,-140.9909 1170.0862,-150.991 1173.5863,-140.991 1166.5863,-140.9909"/>
+</g>
+<!-- IonicApp  -->
+<g id="node11" class="node">
+<title>IonicApp </title>
+<polygon fill="#80b1d3" stroke="#000000" points="1174.3734,-252 1101.6266,-252 1101.6266,-216 1174.3734,-216 1174.3734,-252"/>
+<text text-anchor="middle" x="1138" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">IonicApp </text>
+</g>
+<!-- AppModule&#45;&gt;IonicApp  -->
+<g id="edge10" class="edge">
+<title>AppModule&#45;&gt;IonicApp </title>
+<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M1138,-187.1061C1138,-187.1061 1138,-205.991 1138,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="1134.5001,-205.9909 1138,-215.991 1141.5001,-205.991 1134.5001,-205.9909"/>
+</g>
+<!-- HomePageModule -->
+<g id="node9" class="node">
+<title>HomePageModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="1136.4734,-122 1133.4734,-126 1112.4734,-126 1109.4734,-122 1015.5266,-122 1015.5266,-86 1136.4734,-86 1136.4734,-122"/>
+<text text-anchor="middle" x="1076" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">HomePageModule</text>
+</g>
+<!-- HomePageModule&#45;&gt;AppModule -->
+<g id="edge8" class="edge">
+<title>HomePageModule&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M1116.3293,-122.1061C1116.3293,-122.1061 1116.3293,-140.991 1116.3293,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="1112.8293,-140.9909 1116.3293,-150.991 1119.8293,-140.991 1112.8293,-140.9909"/>
+</g>
+<!-- SubredditPageModule -->
+<g id="node10" class="node">
+<title>SubredditPageModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="997.7007,-122 994.7007,-126 973.7007,-126 970.7007,-122 856.2993,-122 856.2993,-86 997.7007,-86 997.7007,-122"/>
+<text text-anchor="middle" x="927" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">SubredditPageModule</text>
+</g>
+<!-- SubredditPageModule&#45;&gt;AppModule -->
+<g id="edge9" class="edge">
+<title>SubredditPageModule&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M927,-122.2396C927,-137.5706 927,-157 927,-157 927,-157 1086.3132,-157 1086.3132,-157"/>
+<polygon fill="#000000" stroke="#000000" points="1086.3132,-160.5001 1096.3132,-157 1086.3132,-153.5001 1086.3132,-160.5001"/>
+</g>
+<!-- SettingsProvider -->
+<g id="node12" class="node">
+<title>SettingsProvider</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="757" cy="-104" rx="75.3176" ry="18"/>
+<text text-anchor="middle" x="757" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">SettingsProvider</text>
+</g>
+<!-- SettingsProvider&#45;&gt;AppModule -->
+<g id="edge11" class="edge">
+<title>SettingsProvider&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M757,-122.0336C757,-139.0597 757,-162 757,-162 757,-162 1086.1365,-162 1086.1365,-162"/>
+<polygon fill="#000000" stroke="#000000" points="1086.1365,-165.5001 1096.1365,-162 1086.1364,-158.5001 1086.1365,-165.5001"/>
+</g>
+<!-- StorageService -->
+<g id="node13" class="node">
+<title>StorageService</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="594" cy="-104" rx="69.4781" ry="18"/>
+<text text-anchor="middle" x="594" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">StorageService</text>
+</g>
+<!-- StorageService&#45;&gt;AppModule -->
+<g id="edge12" class="edge">
+<title>StorageService&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M594,-122.2222C594,-140.8285 594,-167 594,-167 594,-167 1086.2165,-167 1086.2165,-167"/>
+<polygon fill="#000000" stroke="#000000" points="1086.2166,-170.5001 1096.2165,-167 1086.2165,-163.5001 1086.2166,-170.5001"/>
+</g>
+<!-- DataSharingService -->
+<g id="node14" class="node">
+<title>DataSharingService</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="418" cy="-104" rx="88.0191" ry="18"/>
+<text text-anchor="middle" x="418" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">DataSharingService</text>
+</g>
+<!-- DataSharingService&#45;&gt;AppModule -->
+<g id="edge13" class="edge">
+<title>DataSharingService&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M418,-122.2228C418,-142.3652 418,-172 418,-172 418,-172 1086.1777,-172 1086.1777,-172"/>
+<polygon fill="#000000" stroke="#000000" points="1086.1777,-175.5001 1096.1777,-172 1086.1776,-168.5001 1086.1777,-175.5001"/>
+</g>
+<!-- AuthService -->
+<g id="node15" class="node">
+<title>AuthService</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="252" cy="-104" rx="59.1083" ry="18"/>
+<text text-anchor="middle" x="252" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">AuthService</text>
+</g>
+<!-- AuthService&#45;&gt;AppModule -->
+<g id="edge14" class="edge">
+<title>AuthService&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M252,-122.0449C252,-143.6623 252,-177 252,-177 252,-177 1086.1591,-177 1086.1591,-177"/>
+<polygon fill="#000000" stroke="#000000" points="1086.1591,-180.5001 1096.1591,-177 1086.159,-173.5001 1086.1591,-180.5001"/>
+</g>
+<!-- DatabaseService -->
+<g id="node16" class="node">
+<title>DatabaseService</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="99" cy="-104" rx="75.2559" ry="18"/>
+<text text-anchor="middle" x="99" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">DatabaseService</text>
+</g>
+<!-- DatabaseService&#45;&gt;AppModule -->
+<g id="edge15" class="edge">
+<title>DatabaseService&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M99,-122.0908C99,-145.1328 99,-182 99,-182 99,-182 1086.3065,-182 1086.3065,-182"/>
+<polygon fill="#000000" stroke="#000000" points="1086.3066,-185.5001 1096.3065,-182 1086.3065,-178.5001 1086.3066,-185.5001"/>
+</g>
+</g>
+</svg>
+
+          </div>
+          <i id="fullscreen" class="fa fa-expand module-graph-fullscreen-btn" aria-hidden="true"></i>
+          <div class="btn-group">
+              <button id="zoom-in" class="btn btn-default btn-sm">Zoom in</button>
+              <button id="reset" class="btn btn-default btn-sm">Reset</button>
+              <button id="zoom-out" class="btn btn-default btn-sm">Zoom out</button>
+          </div>
+      </div>
+      <script src="../js/libs/svg-pan-zoom.min.js"></script>
+      <script src="../js/svg-pan-zoom.controls.js"></script>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#info" id="info-tab" role="tab" data-toggle="tab" data-link="info">Info</a>
+    </li>
+
+
+    <li>
+        <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/app.module.ts</code>
+        </p>
+
+
+        <div class="container-fluid module">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3>Declarations<a href="https://angular.io/api/core/NgModule#declarations" target="_blank" title="Official documentation about module declarations"><span class="fa fa-info-circle"></span></a></h3>
+                    <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="../components/MyApp.html">MyApp</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="../s/CommentsPage.html">CommentsPage</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="../s/SortByPopover.html">SortByPopover</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="../s/LoginPage.html">LoginPage</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="../s/CreatePostPage.html">CreatePostPage</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="../s/CreateSubredditPage.html">CreateSubredditPage</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="../s/ProfilePage.html">ProfilePage</a>
+                            </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Providers<a href="https://angular.io/api/core/NgModule#providers" target="_blank" title="Official documentation about module providers"><span class="fa fa-info-circle"></a></h3>
+                    <ul class="list-group">
+                            <li class="list-group-item">
+                                     <a href="../injectables/SettingsProvider.html" >SettingsProvider</a>
+                            </li>
+                            <li class="list-group-item">
+                                     <a href="../injectables/StorageService.html" >StorageService</a>
+                            </li>
+                            <li class="list-group-item">
+                                     <a href="../injectables/DataSharingService.html" >DataSharingService</a>
+                            </li>
+                            <li class="list-group-item">
+                                     <a href="../injectables/AuthService.html" >AuthService</a>
+                            </li>
+                            <li class="list-group-item">
+                                     <a href="../injectables/DatabaseService.html" >DatabaseService</a>
+                            </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Imports<a href="https://angular.io/api/core/NgModule#imports" target="_blank" title="Official documentation about module imports"><span class="fa fa-info-circle"></a></h3>
+                    <ul class="list-group">
+                            <li class="list-group-item">
+                                    <a href="../modules/HomePageModule.html" >HomePageModule</a>
+                            </li>
+                            <li class="list-group-item">
+                                    <a href="../modules/SubredditPageModule.html" >SubredditPageModule</a>
+                            </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h3>Bootstrap<a href="https://angular.io/docs/ts/latest/api/core/index/NgModule-interface.html#!#bootstrap-anchor" target="_blank"><span class="fa fa-info-circle"></a></h3>
+                    <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="../s/IonicApp.html" >IonicApp</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tab-pane fade tab-source-code" id="source">
+        <pre class="line-numbers"><code class="language-typescript">import { BrowserModule } from &#x27;@angular/platform-browser&#x27;;
+import { ErrorHandler, NgModule } from &#x27;@angular/core&#x27;;
+import { IonicApp, IonicErrorHandler, IonicModule } from &#x27;ionic-angular&#x27;;
+import { SplashScreen } from &#x27;@ionic-native/splash-screen&#x27;;
+import { StatusBar } from &#x27;@ionic-native/status-bar&#x27;;
+import { IonicStorageModule } from &quot;@ionic/storage&quot;;
+
+import { MyApp } from &#x27;./app.component&#x27;;
+import { AuthService } from &#x27;../shared/auth.service&#x27;;
+import { ComponentsModule } from &#x27;../components/components.module&#x27;;
+import { DatabaseService } from &#x27;../shared/database.service&#x27;;
+import { DataSharingService } from &#x27;../shared/data-sharing.service&#x27;;
+import { HomePage, CommentsPage, LoginPage, SubredditPage, CreatePostPage, CreateSubredditPage, ProfilePage} from &#x27;../shared/pages&#x27;;
+import { HomePageModule } from &#x27;../pages/home/home.module&#x27;;
+import { HttpModule } from &#x27;@angular/http&#x27;;
+import { SettingsProvider } from &#x27;../shared/theming.service&#x27;;
+import { SortByPopover } from &#x27;../components/sortBy/sortBy&#x27;;
+import { StorageService } from &quot;../shared/storage.service&quot;;
+import { SubredditPageModule } from &#x27;../pages/subreddit/subreddit.module&#x27;;
+
+@NgModule({
+  declarations: [
+    MyApp,
+    CommentsPage,
+    SortByPopover,
+    LoginPage,
+    CreatePostPage,
+    CreateSubredditPage,
+    ProfilePage
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp, {locationStrategy: &#x27;path&#x27;}, {
+      links: [
+        { component: HomePage, name: &#x27;home&#x27;, segment: &#x27;&#x27; },
+        { component: SubredditPage, name: &#x27;subreddit&#x27;, segment: &#x27;r/:name&#x27;, defaultHistory: [&#x27;home&#x27;] },
+        { component: ProfilePage, name: &#x27;profile&#x27;, segment: &#x27;u/:username&#x27;, defaultHistory: [&#x27;home&#x27;] },
+      ]}),
+    IonicStorageModule.forRoot({
+      name: &#x27;_redditclonedb&#x27;,
+      driverOrder: [&#x27;indexeddb&#x27;, &#x27;websql&#x27;, &#x27;sqlite&#x27;]
+    }),
+    HttpModule,
+    HomePageModule,
+    SubredditPageModule,
+    ComponentsModule
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    HomePage,    
+    CommentsPage,
+    LoginPage,
+    SubredditPage,
+    CreatePostPage,
+    CreateSubredditPage,
+    ProfilePage,
+    SortByPopover
+  ],
+  providers: [
+    StatusBar, SettingsProvider,StorageService,
+    SplashScreen, DataSharingService, AuthService, DatabaseService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
+  ]
+})
+export class AppModule { }
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+           </div>
+       </div>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script>var COMPODOC_CURRENT_PAGE_DEPTH = 1;</script>
+
+       <script src="../js/search/search.js"></script>
+       <script src="../js/search/lunr.min.js"></script>
+       <script src="../js/search/search-lunr.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+       <script src="../js/search/search_index.js"></script>
+
+    </body>
+</html>
