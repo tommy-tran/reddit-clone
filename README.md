@@ -14,3 +14,11 @@ The goal of this project is to redevelop Reddit with all  of it's core functiona
 2. Clone or download this repository
 3. Run `npm install` to install project dependencies
 4. Use the command `ionic serve` to run the app in your local browser
+
+# Major Revision History for MIS Documentation
+
+1. 1.0 MIS created on November 7, 2017
+2. 1.1 MIS updated on November 9, 2017
+3. 1.2 MIS updated on November 10, 2017
+
+Current version: 1.2
