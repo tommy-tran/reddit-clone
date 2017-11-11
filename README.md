@@ -16,6 +16,7 @@ The goal of this project is to redevelop Reddit with all  of it's core functiona
 4. Use the command `ionic serve` to run the app in your local browser
 
 # Major Revision History for MIS Documentation
+MIS documentation generated with Compodoc and can be viewed under Documentation --> MIS --> index.html
 
 1. 1.0 MIS created on November 7, 2017
 2. 1.1 MIS updated on November 9, 2017
