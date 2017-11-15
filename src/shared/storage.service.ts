@@ -3,7 +3,8 @@ import { Storage } from "@ionic/storage";
 
 @Injectable()
 export class StorageService {
-    subreddits: any[]
+    subreddits: any[];
+    initSubreddits: any[];
     constructor(private storage: Storage) { }
     /**
      * set the user's subscribed subreddits
@@ -56,5 +57,13 @@ export class StorageService {
             }
             return false;
         }
+    }
+
+    setInitSubreddits(subreddits: any[]) {
+        this.initSubreddits = subreddits;
+    }
+
+    getInitSubreddits() {
+        return this.initSubreddits;
     }
 }

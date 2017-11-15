@@ -2,13 +2,20 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Storage } from "@ionic/storage";
 import { Events } from 'ionic-angular';
- 
+
 @Injectable()
 export class SettingsProvider {
- 
+
     private theme: BehaviorSubject<String>;
- 
+
     constructor(private storage: Storage, private events: Events) {
+        this.getTheme();
+        console.log('k')
+        this.events.subscribe('platform:ready', () => {
+            this.getTheme();
+        });
+    }
+    private getTheme() {
         this.storage.get('app-theme').then(theme => {
             if (theme) {
                 this.theme = new BehaviorSubject(theme);
@@ -32,5 +39,9 @@ export class SettingsProvider {
      */
     getActiveTheme() {
         return this.theme.asObservable();
+    }
+
+    getThemeAsString(): string {
+        return this.theme.value.valueOf();
     }
 }

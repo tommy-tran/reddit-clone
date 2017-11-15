@@ -51,6 +51,7 @@ export class SubredditPage implements OnInit {
 
 		//theme to pass to create post
 		this.events.subscribe('theme:retrieved', () => {
+			console.log('ok');
 			this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
 		});
 		this.events.subscribe('user:loggedin', () => {
@@ -129,7 +130,8 @@ export class SubredditPage implements OnInit {
 	}
 
 	createPost() {
-		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit, theme: this.selectedTheme.valueOf() }, { cssClass: this.selectedTheme.valueOf() });
+		let theme = this.theming.getThemeAsString()
+		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit, theme: theme }, { cssClass: theme });
 		if (this.isLoggedIn) {
 			createPostModal.present();
 		} else {

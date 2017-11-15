@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { SettingsProvider } from '../shared/theming.service';
+import { StorageService } from "../shared/storage.service";
+import { DatabaseService } from '../shared/database.service';
 @Component({
   templateUrl: 'app.html'
 })
@@ -12,17 +14,24 @@ export class MyApp {
   rootPage: any = HomePage;
   selectedTheme: String;
 
-  constructor(private events: Events, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private theming: SettingsProvider) {
+  constructor(private events: Events, private databaseService: DatabaseService,
+    platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public storageService: StorageService, private theming: SettingsProvider) {
     //set up theme, event emitted in theme service
     this.events.subscribe('theme:retrieved', () => {
       this.getTheme();
     });
     platform.ready().then(() => {
-
+      this.events.publish('platform:ready');
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      //initialize subscribed subreddits
+      this.storageService.getSubscribedSubreddits().then(subscribedSubreddits => {
+        this.storageService.setInitSubreddits(subscribedSubreddits);
+      });
+
     });
   }
   /**

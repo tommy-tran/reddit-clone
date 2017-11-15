@@ -54,13 +54,13 @@ export class HomePage {
           this.selectedTheme = val;
           switch (val.valueOf()) {
             case 'light-theme':
-            this.menuColor = 'light';
-            this.menuIconColor = 'secondary';
-            break;
+              this.menuColor = 'light';
+              this.menuIconColor = 'secondary';
+              break;
             case 'dark-theme':
-            this.menuColor = 'dark';
-            this.menuIconColor = 'primary';
-            break;
+              this.menuColor = 'dark';
+              this.menuIconColor = 'primary';
+              break;
           }
         }
         else {
@@ -78,22 +78,8 @@ export class HomePage {
     });
     this.user_id = this.authService.getUID();
     this.showSubscribedSubreddits = true;
-    //initialize subscribed subreddits
-    this.storageService.getSubscribedSubreddits().then(subscribedSubreddits => {
-      if (!subscribedSubreddits) {
-        this.databaseService.getSubscribedSubreddits(this.user_id).then(subreddits => {
-          this.subscribedSubreddits = subreddits;
-          let subscribed = [];
-          for (var key in subreddits) {
-            subscribed.push(subreddits[key]);
-          }
-          this.storageService.setSubscribedSubreddits(subscribed);
-        });
-      }
-      else {
-        this.subscribedSubreddits = subscribedSubreddits;
-      }
-    });
+
+
     this.posts = [];
 
     //initial sort by method and icon
@@ -134,7 +120,27 @@ export class HomePage {
     this.setUsername();
     this.getAllSubreddits();
     this.getAllPosts();
+    this.getSubscribed();
     this.sort("hot");
+  }
+
+  getSubscribed() {
+    //initialize subscribed subreddits
+    let subscribedSubreddits = this.storageService.getInitSubreddits()
+    console.log(subscribedSubreddits)
+    if (!subscribedSubreddits) {
+      this.databaseService.getSubscribedSubreddits(this.user_id).then(subreddits => {
+        this.subscribedSubreddits = subreddits;
+        let subscribed = [];
+        for (var key in subreddits) {
+          subscribed.push(subreddits[key]);
+        }
+        this.storageService.setSubscribedSubreddits(subscribed);
+      });
+    }
+    else {
+      this.subscribedSubreddits = subscribedSubreddits;
+    }
   }
 
   getAllSubreddits() {
