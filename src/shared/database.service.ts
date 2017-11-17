@@ -22,7 +22,10 @@ export class DatabaseService {
             }).catch(err => console.error(err));
         });
     }
-
+    /**
+     * check if a subreddit exists by name
+     * @param subredditName name of the subredddit
+     */
     checkGetSubreddit(subredditName: string) {
         return new Promise<Subreddit>((resolve, reject) => {
             var database = firebase.database();
