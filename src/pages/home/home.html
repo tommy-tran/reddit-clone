@@ -15,19 +15,19 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+  <ion-toolbar *ngIf="showSearchbar" [color]="menuIconColor">
+    <ion-searchbar (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" showCancelButton="true" placeholder="Search for Subreddits..."
+      type="text"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <!-- search results overlay -->
-  <div id="searchbar" *ngIf="showSearchbar">
-    <ion-toolbar [color]="menuIconColor">
-      <ion-searchbar (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" showCancelButton="true" placeholder="Search for Subreddits..."
-        type="text"></ion-searchbar>
-    </ion-toolbar>
+  <div id="searchbar-results" *ngIf="showSearchbar">
     <ion-list inset padding-left padding-right *ngIf="!showSubscribedSubreddits">
       <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
     </ion-list>
-    <ion-list inset padding-left padding-right *ngIf="showSubscribedSubreddits">
+    <ion-list inset padding-left padding-right *ngIf="showSubscribedSubreddits && isLoggedIn">
       <div id="list-label">Subscribed Subreddits</div>
       <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subscribedSubreddits">r/{{subreddit.subreddit_name}}</button>
     </ion-list>
@@ -67,7 +67,7 @@
   <br>
   <!-- display posts -->
   <div class="posts" *ngFor="let post of posts">
-    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [showCommentBtn]="true" [commentPage]="false"></post>
+    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [isMobile]="isMobile" [showCommentBtn]="true" [commentPage]="false"></post>
   </div>
 
 

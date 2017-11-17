@@ -22,7 +22,7 @@
 			</div>
 			<div [style.backgroundColor]="itemColor" class="input-box" ion-item *ngIf="!isLinkPost">
 				<ion-label floating>Text</ion-label>
-				<ion-textarea [style.color]="textColor" [attr.rows]="10" name="textInput" ngModel></ion-textarea>
+				<ion-textarea [style.backgroundColor]="itemColor" [style.color]="textColor" [attr.rows]="10" name="textInput" ngModel></ion-textarea>
 			</div>
 			<div [style.backgroundColor]="itemColor" class="actions">
 				<button ion-button large type="submit" [disabled]="">Submit</button>

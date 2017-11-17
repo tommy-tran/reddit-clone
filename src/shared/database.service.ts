@@ -617,7 +617,12 @@ export class DatabaseService {
      */
     getSubscribedSubreddits(user_id: string) {
         return new Promise(resolve => {
-            firebase.database().ref(`users/${user_id}/subscribed`).once('value').then(subreddits => {
+
+            let x = firebase.database().ref(`users/${user_id}/subscribed`).toJSON();
+            console.log(x);
+            
+                firebase.database().ref(`users/${user_id}/subscribed`).once('value').then(subreddits => {
+                console.log(subreddits);
                 console.log(subreddits.val());
                 return resolve(subreddits.val());
             }).catch(err => console.error(err));

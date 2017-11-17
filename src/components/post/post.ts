@@ -22,6 +22,7 @@ export class PostComponent implements OnInit {
   
   @Input() post: Post;
   @Input() isCardLayout: boolean;
+  @Input() isMobile: boolean;
   @Input() showCommentBtn: boolean;
   @Input() subreddit: Subreddit;
   @Input() commentPage: boolean;

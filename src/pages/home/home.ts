@@ -22,6 +22,7 @@ export class HomePage {
   posts: Post[];
   isCardLayout: boolean;
   isLoggedIn: boolean;
+  isMobile: boolean;
   menuColor: string;
   showBackgroundDiv: boolean;
   showMenu: boolean;
@@ -47,6 +48,12 @@ export class HomePage {
     private theming: SettingsProvider,
     private storage: Storage,
     private storageService: StorageService) {
+    // Update authservice variables when still logged in
+    this.authService.updateAuthState().then(() => {
+      this.setUp();
+      this.isLoggedIn = this.authService.isLoggedIn();
+      this.user_id = this.authService.getUID();
+    });
     //set up theme, event emitted in theme service
     this.events.subscribe('theme:retrieved', () => {
       this.theming.getActiveTheme().subscribe(val => {
@@ -70,6 +77,10 @@ export class HomePage {
         }
       });
     });
+    //fires when the user id is set in authService
+    this.events.subscribe('user:loggedin&set', () => {
+      this.getSubscribed();
+    })
     this.menuIconColor = 'secondary';
 
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -106,12 +117,6 @@ export class HomePage {
     this.events.subscribe('nav', () => {
       this.getAllPosts();
     });
-
-    // Update authservice variables when still logged in
-    this.authService.updateAuthState().then(() => {
-      this.setUp();
-      this.isLoggedIn = this.authService.isLoggedIn();
-    });
   }
   /** 
    * Set up environment
@@ -120,21 +125,22 @@ export class HomePage {
     this.setUsername();
     this.getAllSubreddits();
     this.getAllPosts();
-    this.getSubscribed();
+    this.isMobile = this.dataSharing.getIsMobile();
     this.sort("hot");
   }
 
   getSubscribed() {
     //initialize subscribed subreddits
-    let subscribedSubreddits = this.storageService.getInitSubreddits()
-    console.log(subscribedSubreddits)
-    if (!subscribedSubreddits) {
-      this.databaseService.getSubscribedSubreddits(this.user_id).then(subreddits => {
+    let subscribedSubreddits = this.storageService.getInitSubreddits();
+    if (!subscribedSubreddits || subscribedSubreddits.length == 0) {
+      this.databaseService.getSubscribedSubreddits(this.authService.getUID()).then(subreddits => {
+        console.log(subreddits);
         this.subscribedSubreddits = subreddits;
         let subscribed = [];
         for (var key in subreddits) {
           subscribed.push(subreddits[key]);
         }
+        this.subscribedSubreddits = subscribed;
         this.storageService.setSubscribedSubreddits(subscribed);
       });
     }
@@ -186,9 +192,11 @@ export class HomePage {
       this.username = "";
       this.isLoggedIn = false;
       this.closeAllOverlays();
+      this.subscribedSubreddits = [];
       this.authService.updateAuthState().then(() => {
         this.posts = [];
         this.getAllPosts();
+
       });
     });
   }
@@ -205,6 +213,7 @@ export class HomePage {
       if (isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
         this.userHasAccount = true;
+        this.getSubscribed();
         this.closeAllOverlays();
         console.log("loggedin: " + this.isLoggedIn);
       }
@@ -247,12 +256,14 @@ export class HomePage {
    * toggle the display of the menu
    */
   toggleMenu() {
+    this.showSearchbar = false;
     this.showMenu = !this.showMenu;
   }
   /**
    * toggle the display of the searchbar
    */
   toggleSearchbar() {
+    this.showMenu = false;
     this.showSearchbar = !this.showSearchbar;
   }
 
@@ -375,6 +386,7 @@ export class HomePage {
       authModal.onWillDismiss((isLoggedIn) => {
         if (isLoggedIn) {
           this.isLoggedIn = isLoggedIn;
+          this.getSubscribed();
         }
       });
     }

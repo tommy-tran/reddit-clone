@@ -20,7 +20,7 @@
       </div>
 
     </div>
-    <div text-center style="width: 50%" *ngIf="post.link && isCardLayout">
+    <div text-center [style.width]="isMobile ? '100%' : '50%'" *ngIf="post.link && isCardLayout">
       <img class="link" src="{{post.link}}" alt="post media" (click)="goToLink()">
     </div>
     <div class="post-actions">

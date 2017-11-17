@@ -83,7 +83,7 @@ export class SubredditPage implements OnInit {
 		this.authService.updateAuthState().then(() => {
 			this.posts = []; // Clear posts
 			this.getPosts(); // Get votable posts
-			this.isLoggedIn = true;
+			this.isLoggedIn = this.authService.isLoggedIn();
 		});
 		this.id = this.subreddit.subreddit_id;
 		this.user_id = this.authService.getUID();
@@ -135,7 +135,7 @@ export class SubredditPage implements OnInit {
 		if (this.isLoggedIn) {
 			createPostModal.present();
 		} else {
-			let authModal = this.modalCtrl.create(LoginPage);
+			let authModal = this.modalCtrl.create(LoginPage, { theme: theme }, { cssClass: theme });
 			authModal.present();
 			authModal.onWillDismiss((isLoggedIn) => {
 				if (isLoggedIn) {

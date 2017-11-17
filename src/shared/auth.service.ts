@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as firebase from 'firebase';
+import { Events } from "ionic-angular";
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,7 @@ export class AuthService {
     private loggedIn: boolean;
     private created: string;
 
-    constructor() {
+    constructor(private events: Events) {
         this.firebaseSetup();
     }
 
@@ -37,6 +38,7 @@ export class AuthService {
                     this.loggedIn = true;
                     this.uid = user.uid;
                     this.email = user.email;
+                    this.events.publish('user:loggedin&set');
                     this.setUsername().then(() => {
                         return resolve();
                     });
