@@ -12,10 +12,29 @@
 <ion-content fixed class="no-scroll">
   <div class="authcard-container">
     <h3 text-center>u/{{username}}</h3>
-      <p> Username: <font color="#55acee">{{username}}</font></p>
-      <p> Email: <font color="#55acee">{{email}}</font></p>
-      <p> Karma Points: <font color="#55acee">{{karma}}</font></p>
-      <p> Member Since: <font color="#55acee">{{memberSince}}</font></p>
+    <ion-list>
+      <ion-item>
+          <p> Username: <font color="#55acee">{{username}}</font></p>          
+      </ion-item>
+      <ion-item>
+          <p> Email: <font color="#55acee">{{email}}</font></p>          
+      </ion-item>
+      <ion-item>
+          <p> Karma Points: <font color="#55acee">{{karma}}</font></p>          
+      </ion-item>
+      <ion-item>
+          <p> Member Since: <font color="#55acee">{{memberSince}}</font></p>          
+      </ion-item>
+      <form  [style.backgroundColor]="itemColor" #profile="ngForm" (ngSubmit)="setPhoto(profile)" class="update-profile">
+          <ion-item>
+              <ion-label color="primary">Photo URL</ion-label>
+              <ion-input placeholder="Text Input" type="url" name="photoURL" id="photo" ngModel></ion-input>
+          </ion-item>
+      </form>
+      
+    </ion-list>
+    <p>Photo: {{photo}}</p>
+     <button ion-button (click)="getPhotoURL()">Test</button>
   </div>
   <button [style.marginTop]="screenY/24+'px'" ion-button (click)="showUserInfo()">Show User Info</button>
 </ion-content>
