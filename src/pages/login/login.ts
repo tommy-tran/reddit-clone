@@ -216,7 +216,9 @@ export class LoginPage {
   switchForms() {
     this.userHasAccount = !this.userHasAccount;
   }
-
+  /**
+   * close the login modal
+   */
   closeModal() {
     this.viewController.dismiss(this.isLoggedIn);
   }

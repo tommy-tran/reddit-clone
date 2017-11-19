@@ -40,7 +40,9 @@ export class SettingsProvider {
     getActiveTheme() {
         return this.theme.asObservable();
     }
-
+    /**
+     * get the theme as a string
+     */
     getThemeAsString(): string {
         return this.theme.value.valueOf();
     }

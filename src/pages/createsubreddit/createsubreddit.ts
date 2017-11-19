@@ -14,26 +14,31 @@ export class CreateSubredditPage {
   textColor: string;
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private authService: AuthService, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private authService: AuthService,
     private databaseService: DatabaseService) {
-      let theme = this.navParams.data.theme;
-      this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
-      this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
+    let theme = this.navParams.data.theme;
+    this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
+    this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
   }
-
+  /**
+   * close the create subreddit modal
+   */
   closeModal() {
     this.navCtrl.pop();
   }
-
+  /**
+   * send a new subreddit to the database
+   * @param form form with subreddit data
+   */
   submitSubreddit(form: NgForm) {
     let title = form.value.titleInput.toLowerCase(); // No white space, only lower case
     let text = form.value.textInput;
     let username = this.authService.getUsername();
     let user_uid = this.authService.getUID();
 
-    if (title && text && (title.indexOf(' ') < 0)){
+    if (title && text && (title.indexOf(' ') < 0)) {
       this.databaseService.checkValidSubreddit(title).then((valid) => {
         if (valid) {
           this.databaseService.newSubreddit(title, text, username, user_uid);
@@ -42,12 +47,12 @@ export class CreateSubredditPage {
           // Show error message
           console.log("Subreddit already exists");
         }
-      }) 
-    } else { 
-        console.log("Invalid fields");
+      })
+    } else {
+      console.log("Invalid fields");
     }
   }
 
-  }
+}
 
 

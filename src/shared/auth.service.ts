@@ -29,7 +29,9 @@ export class AuthService {
           };
           firebase.initializeApp(config);
     }
-
+    /**
+     * updates the user authentication state, determines if user is logge din or not
+     */
     updateAuthState() {
         return new Promise((resolve, reject) => {
             firebase.auth().onAuthStateChanged((user) => {

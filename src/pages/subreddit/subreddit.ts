@@ -63,7 +63,9 @@ export class SubredditPage implements OnInit {
 		});
 
 	}
-
+	/**
+	 * get posts for the current subreddit
+	 */
 	getPosts() {
 		this.databaseService.getSubredditPosts(this.id).then(posts => {
 			if (posts) {
@@ -78,7 +80,9 @@ export class SubredditPage implements OnInit {
 			}
 		});
 	}
-
+	/**
+	 * initialize page state and content
+	 */
 	setUp() {
 		this.authService.updateAuthState().then(() => {
 			this.posts = []; // Clear posts
@@ -92,7 +96,9 @@ export class SubredditPage implements OnInit {
 		console.log(this.isSubscribed);
 		this.getPosts();
 	}
-
+	/**
+	 * initialize current subreddit
+	 */
 	ngOnInit() {
 		// When the back button is pressed
 		this.navBar.backButtonClick = () => {
@@ -125,10 +131,10 @@ export class SubredditPage implements OnInit {
 				// 404 page or homepage?
 			}
 		}
-
-
 	}
-
+	/**
+	 * add a new post to the current subreddit
+	 */
 	createPost() {
 		let theme = this.theming.getThemeAsString()
 		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit, theme: theme }, { cssClass: theme });
