@@ -9,9 +9,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content fixed class="no-scroll">
+<ion-content>
   <div class="authcard-container">
     <h3 text-center>u/{{username}}</h3>
+    <div style="text-align: center;">
+    <img src="{{photo}}" alt="profile pic unavailable">
+  </div>
     <ion-list>
       <ion-item>
           <p> Username: <font color="#55acee">{{username}}</font></p>          
@@ -25,16 +28,15 @@
       <ion-item>
           <p> Member Since: <font color="#55acee">{{memberSince}}</font></p>          
       </ion-item>
-      <form  [style.backgroundColor]="itemColor" #profile="ngForm" (ngSubmit)="setPhoto(profile)" class="update-profile">
+      <form  *ngIf="changePhoto" [style.backgroundColor]="itemColor" #profile="ngForm" class="update-profile">
           <ion-item>
               <ion-label color="primary">Photo URL</ion-label>
               <ion-input placeholder="Text Input" type="url" name="photoURL" id="photo" ngModel></ion-input>
           </ion-item>
-      </form>
-      
+          <button ion-button (click)="setPhoto(profile)" class="uploadButton">Submit</button>
+        </form>
     </ion-list>
-    <p>Photo: {{photo}}</p>
-     <button ion-button (click)="getPhotoURL()">Test</button>
+    <button ion-button *ngIf="!changePhoto" (click)="showPhotoLink()" class="uploadButton">Update display photo</button>
   </div>
-  <button [style.marginTop]="screenY/24+'px'" ion-button (click)="showUserInfo()">Show User Info</button>
+  <!-- <button [style.marginTop]="screenY/24+'px'" ion-button (click)="showUserInfo()">Show User Info</button> -->
 </ion-content>

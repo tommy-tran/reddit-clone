@@ -36,6 +36,8 @@ export class AuthService {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     // User is signed in.
+                    console.log(user.photoURL);
+                    this.setPhoto("https://www.stockvault.net/data/2009/10/05/110974/thumb16.jpg");
                     this.loggedIn = true;
                     this.uid = user.uid;
                     this.email = user.email;
