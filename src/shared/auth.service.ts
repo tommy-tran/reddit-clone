@@ -32,7 +32,7 @@ export class AuthService {
     }
 
     updateAuthState() {
-        return new Promise((resolve, reject) => {
+        return new Promise<boolean>((resolve, reject) => {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     // User is signed in.
@@ -45,11 +45,11 @@ export class AuthService {
                     this.email = user.email;
                     this.events.publish('user:loggedin&set');
                     this.setUsername().then(() => {
-                        return resolve();
+                        return resolve(true);
                     });
                 } else {
                     // No user is signed in
-                    return reject();                    
+                    return reject(false);                    
                 }
             });
         }).catch(err => console.log(err));
