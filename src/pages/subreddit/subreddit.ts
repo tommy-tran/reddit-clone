@@ -189,7 +189,9 @@ export class SubredditPage implements OnInit {
 				this.storageService.setSubscribedSubreddits(subreddits);
 				console.log('subscribe success');
 				//emit to home page to refresh subscribed
-				this.events.publish('refresh:subscribed');
+				this.navCtrl.viewDidLeave.subscribe(() => {
+					this.events.publish('refresh:subscribed');
+				});
 			});
 		}).catch(err => console.error(err));
 	}
@@ -211,7 +213,9 @@ export class SubredditPage implements OnInit {
 				this.storageService.setSubscribedSubreddits(subreddits);
 				console.log('unsubscribe success');
 				//emit to home page to refresh subscribed
-				this.events.publish('refresh:subscribed');
+				this.navCtrl.viewWillLeave.subscribe(() => {
+					this.events.publish('refresh:subscribed');
+				});
 			});
 		}).catch(err => console.error(err));
 	}

@@ -120,8 +120,11 @@ export class HomePage {
 
     //refresh subscribed when user subscribes/unsubscribes
     this.events.subscribe('refresh:subscribed', () => {
-      
-    })
+      this.storageService.getSubscribedSubreddits().then(subscribed => {
+        console.log('refresh');
+        this.subscribedSubreddits = subscribed;
+      });
+    });
   }
   /** 
    * Set up environment
