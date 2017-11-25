@@ -59,28 +59,25 @@ describe('DataSharingService test suite', () => {
             3,
             1);
         let posts = [post1, post2, post3];
-        console.log(posts);
         //1,3,2
         let sortedByNew = service.sortBy(posts, 'new');
-        console.log(sortedByNew);
-        //2,3,1
-        // let sortedByTop = service.sortBy(posts, 'top');
-        // console.log(sortedByTop);
-        // //3,2,1
-        // let sortedByHot = service.sortBy(posts, 'hot');
+        //3,2,1
+        let sortedByTop = service.sortBy(posts, 'top');
+        //3,2,1
+        let sortedByHot = service.sortBy(posts, 'hot');
         // console.log(sortedByHot);
-
-        expect(sortedByNew[0].timestamp).toBe(1508247774339);
-        expect(sortedByNew[1].timestamp).toBe(1508248671996);
-        expect(sortedByNew[2].timestamp).toBe(1508247809376);
         
-        // expect(sortedByTop[0].timestamp).toBe(1508247809376);
-        // expect(sortedByTop[1].timestamp).toBe(1508248671996);
-        // expect(sortedByTop[2].timestamp).toBe(1508247774339);
+        expect(sortedByNew[0].timestamp).toBe(1508248671996);
+        expect(sortedByNew[1].timestamp).toBe(1508247809376);
+        expect(sortedByNew[2].timestamp).toBe(1508247774339);
         
-        // expect(sortedByHot[0].timestamp).toBe(1508248671996);
-        // expect(sortedByHot[1].timestamp).toBe(1508247809376);
-        // expect(sortedByHot[2].timestamp).toBe(1508247774339);
+        expect(sortedByTop[0].timestamp).toBe(1508248671996);
+        expect(sortedByTop[1].timestamp).toBe(1508247809376);
+        expect(sortedByTop[2].timestamp).toBe(1508247774339);
+        
+        expect(sortedByHot[0].timestamp).toBe(1508248671996);
+        expect(sortedByHot[1].timestamp).toBe(1508247809376);
+        expect(sortedByHot[2].timestamp).toBe(1508247774339);
     });
 
 
