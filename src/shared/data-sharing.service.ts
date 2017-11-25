@@ -68,6 +68,7 @@ export class DataSharingService {
                 //Insert the copied number at the correct position
                 //in sorted part. 
                 posts[j + 1] = tmp;
+                console.log(posts);
             }
         }
         //insertion sort for popular posts
@@ -98,6 +99,7 @@ export class DataSharingService {
                 break;
 
         }
+        console.log(posts);
         return posts;
     }
 }
