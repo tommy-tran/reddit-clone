@@ -10,6 +10,7 @@ export class AuthService {
     private password: string;
     private loggedIn: boolean;
     private created: string;
+    private photoURL: string;
 
     constructor(private events: Events) {
         this.firebaseSetup();
@@ -37,6 +38,10 @@ export class AuthService {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     // User is signed in.
+                    console.log(user.photoURL);
+                    if (user.photoURL == null){
+                        this.setPhoto("https://www.stockvault.net/data/2009/10/05/110974/thumb16.jpg");
+                    }
                     this.loggedIn = true;
                     this.uid = user.uid;
                     this.email = user.email;
@@ -77,9 +82,32 @@ export class AuthService {
      * Get creation time
      */
     getMemberSince(){
-        var user = firebase.auth().currentUser;
-        this.created = user.metadata.creationTime;
+        this.created = firebase.auth().currentUser.metadata.creationTime;
         return this.created;
+    }
+
+    /**
+     * Set profile photo
+     */
+    setPhoto(photo){
+        var user = firebase.auth().currentUser;
+        user.updateProfile({
+            displayName: user.displayName,
+            photoURL: photo
+        }).then(function(){
+            console.log("update successful")
+        }).catch(function(error){
+            console.log("error")
+        });
+    }
+
+    /**
+     * Get profile photo
+     */
+    getPhoto(){
+        var user = firebase.auth().currentUser;
+        this.photoURL = user.photoURL;
+        return user.photoURL;
     }
 
     /**
