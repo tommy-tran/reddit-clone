@@ -30,6 +30,7 @@ export class SubredditPage implements OnInit {
 	subreddit: Subreddit;
 	times: string[];
 	user_id: string;
+	username: string;
 
 	// TODO: Description, Moderator/creator privileges
 
@@ -48,7 +49,8 @@ export class SubredditPage implements OnInit {
 		//initial sort by method and icon
 		this.sortIcon = 'flame';
 		this.sortMethod = 'hot';
-
+		this.username = this.authService.getUsername();
+		
 		//theme to pass to create post
 		this.events.subscribe('theme:retrieved', () => {
 			console.log('ok');

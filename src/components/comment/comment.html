@@ -1,6 +1,7 @@
 <div class="comment-container">
     <div class="comment-top-bar">
-        {{comment.creator}} &bull; {{datePosted}}
+        <span>{{comment.creator}} &bull; {{datePosted}}</span>
+        <ion-icon *ngIf="showDeleteBtn" name="trash" (click)="deleteComment"></ion-icon>
     </div>
     <div class="comment-content">
         <p [style.color]="color">{{comment.message}}</p>
@@ -13,7 +14,8 @@
                 <!-- Prevent user spamming -->
                 <ion-icon *ngIf="disableInput && userUpvoted" name="arrow-up" color="secondary"></ion-icon>
                 <ion-icon *ngIf="disableInput && !userUpvoted" name="arrow-up" color="darkgray"></ion-icon>
-            </a><span class="comment-score">{{score}}</span>
+            </a>
+            <span class="comment-score">{{score}}</span>
             <a>
                 <ion-icon (click)="downvote()" *ngIf="!disableInput && userDownvoted" name="arrow-down" color="secondary"></ion-icon>
                 <ion-icon (click)="downvote()" *ngIf="!disableInput && !userDownvoted" name="arrow-down" color="darkgray"></ion-icon>

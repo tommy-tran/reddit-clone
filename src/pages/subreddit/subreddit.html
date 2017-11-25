@@ -28,7 +28,7 @@
   <br>
   <ion-list>
     <div *ngFor="let post of posts">
-      <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false"></post>
+      <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false" [showDeleteBtn]="post.user == username"></post>
     </div>
     <p *ngIf="isEmpty">There are no posts at the moment!</p>
   </ion-list>

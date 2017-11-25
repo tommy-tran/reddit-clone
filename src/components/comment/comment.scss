@@ -28,4 +28,12 @@
 
 .comment-top-bar {
     color: rgb(167, 167, 167);
+    width: 100%;
+    position: relative;
+}
+
+.comment-top-bar > ion-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
