@@ -117,6 +117,11 @@ export class HomePage {
     this.events.subscribe('nav', () => {
       this.getAllPosts();
     });
+
+    //refresh subscribed when user subscribes/unsubscribes
+    this.events.subscribe('refresh:subscribed', () => {
+      
+    })
   }
   /** 
    * Set up environment
