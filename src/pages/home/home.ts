@@ -142,7 +142,7 @@ export class HomePage {
   getSubscribed() {
     //initialize subscribed subreddits
     let subscribedSubreddits = this.storageService.getInitSubreddits();
-    if (!subscribedSubreddits || subscribedSubreddits.length == 0) {
+    // if (!subscribedSubreddits || subscribedSubreddits.length == 0) {
       this.databaseService.getSubscribedSubreddits(this.authService.getUID()).then(subreddits => {
         console.log(subreddits);
         this.subscribedSubreddits = subreddits;
@@ -153,10 +153,10 @@ export class HomePage {
         this.subscribedSubreddits = subscribed;
         this.storageService.setSubscribedSubreddits(subscribed);
       });
-    }
-    else {
-      this.subscribedSubreddits = subscribedSubreddits;
-    }
+    // }
+    // else {
+    //   this.subscribedSubreddits = subscribedSubreddits;
+    // }
   }
   /**
    * get a list of all subreddits
