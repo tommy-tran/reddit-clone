@@ -30,7 +30,13 @@
     }
 
     .post-info {
+        width: 100%;
         margin-left: 10px;
+    }
+    
+    .post-info-bar {
+        width: 100%;
+        position: relative;
     }
 
     .post-title {
@@ -71,6 +77,12 @@
 
     a {
         cursor: pointer;
+    }
+
+    .post-info-bar >ion-icon {
+        position: absolute;
+        top: 5px;
+        right: 5px;
     }
     
 }

@@ -69,7 +69,7 @@
   <br>
   <!-- display posts -->
   <div class="posts" *ngFor="let post of posts">
-    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [isMobile]="isMobile" [showCommentBtn]="true" [commentPage]="false"></post>
+    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [isMobile]="isMobile" [showCommentBtn]="true" [commentPage]="false" [showDeleteBtn]="post.user == username"></post>
   </div>
 
 

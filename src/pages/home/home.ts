@@ -35,7 +35,7 @@ export class HomePage {
   username: string;
   userHasAccount: boolean;
   selectedSubreddit: string;
-  selectedTheme: String;
+  selectedTheme: string;
   subscribedSubreddits: any;
   user_id: string;
   constructor(private authService: AuthService,
@@ -59,7 +59,7 @@ export class HomePage {
       this.theming.getActiveTheme().subscribe(val => {
         if (val) {
           this.selectedTheme = val;
-          switch (val.valueOf()) {
+          switch (val) {
             case 'light-theme':
               this.menuColor = 'light';
               this.menuIconColor = 'secondary';
@@ -117,6 +117,14 @@ export class HomePage {
     this.events.subscribe('nav', () => {
       this.getAllPosts();
     });
+
+    //refresh subscribed when user subscribes/unsubscribes
+    this.events.subscribe('refresh:subscribed', () => {
+      this.storageService.getSubscribedSubreddits().then(subscribed => {
+        console.log('refresh');
+        this.subscribedSubreddits = subscribed;
+      });
+    });
   }
   /** 
    * Set up environment
@@ -128,11 +136,13 @@ export class HomePage {
     this.isMobile = this.dataSharing.getIsMobile();
     this.sort("hot");
   }
-
+  /**
+   * get user's subscribed subreddits from storage or from database
+   */
   getSubscribed() {
     //initialize subscribed subreddits
     let subscribedSubreddits = this.storageService.getInitSubreddits();
-    if (!subscribedSubreddits || subscribedSubreddits.length == 0) {
+    // if (!subscribedSubreddits || subscribedSubreddits.length == 0) {
       this.databaseService.getSubscribedSubreddits(this.authService.getUID()).then(subreddits => {
         console.log(subreddits);
         this.subscribedSubreddits = subreddits;
@@ -143,12 +153,14 @@ export class HomePage {
         this.subscribedSubreddits = subscribed;
         this.storageService.setSubscribedSubreddits(subscribed);
       });
-    }
-    else {
-      this.subscribedSubreddits = subscribedSubreddits;
-    }
+    // }
+    // else {
+    //   this.subscribedSubreddits = subscribedSubreddits;
+    // }
   }
-
+  /**
+   * get a list of all subreddits
+   */
   getAllSubreddits() {
     // Clean subreddits
     this.subreddits = [];
@@ -160,7 +172,9 @@ export class HomePage {
       }
     }).catch(err => console.error(err));
   }
-
+  /**
+   * get all posts
+   */
   getAllPosts() {
     // Clean posts
     this.posts = [];
@@ -179,7 +193,9 @@ export class HomePage {
       this.posts = this.dataSharing.sortBy(this.posts, 'hot');
     }).catch(err => console.error(err));
   }
-
+  /**
+   * set the user's username
+   */
   setUsername() {
     this.username = this.authService.getUsername();
   }
@@ -206,7 +222,7 @@ export class HomePage {
   openAuth() {
     let param = { theme: this.selectedTheme };
     let authModal = this.modalCtrl.create(LoginPage, param, {
-      cssClass: this.selectedTheme.valueOf()
+      cssClass: this.selectedTheme
     });
     authModal.present();
     authModal.onWillDismiss((isLoggedIn: boolean) => {
@@ -227,7 +243,7 @@ export class HomePage {
     if (this.isLoggedIn) {
       let param = { userHasAccount: this.userHasAccount, username: this.username, theme: this.selectedTheme };
       let profModal = this.modalCtrl.create(ProfilePage, param, {
-        cssClass: this.selectedTheme.valueOf()
+        cssClass: this.selectedTheme
       });
       profModal.present();
       // this.navCtrl.push('profile', param);
@@ -236,7 +252,9 @@ export class HomePage {
       this.openAuth();
     }
   }
-
+  /**
+   * display user info to the console
+   */
   showUserInfo() {
     console.log("Username: " + this.authService.getUsername());
     console.log("UID: " + this.authService.getUID());
@@ -266,7 +284,7 @@ export class HomePage {
     this.showMenu = false;
     this.showSearchbar = !this.showSearchbar;
   }
-
+  /*
   toggleNewPostBox() {
     if (this.userHasAccount && this.isLoggedIn) {
       this.showNewPostBox = !this.showNewPostBox;
@@ -275,7 +293,7 @@ export class HomePage {
       //prompt user to log in
       this.openAuth();
     }
-  }
+  }*/
   /**
    * close any overlaying components
    */
@@ -374,14 +392,14 @@ export class HomePage {
    * create a new subreddit
    */
   createSubreddit() {
-    let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { theme: this.selectedTheme.valueOf() }, {
-      cssClass: this.selectedTheme.valueOf()
+    let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { theme: this.selectedTheme }, {
+      cssClass: this.selectedTheme
     });
     console.log("loggedIn: " + this.isLoggedIn);
     if (this.isLoggedIn) {
       createSubredditModal.present();
     } else {
-      let authModal = this.modalCtrl.create(LoginPage, { theme: this.selectedTheme }, { cssClass: this.selectedTheme.valueOf() });
+      let authModal = this.modalCtrl.create(LoginPage, { theme: this.selectedTheme }, { cssClass: this.selectedTheme });
       authModal.present();
       authModal.onWillDismiss((isLoggedIn) => {
         if (isLoggedIn) {

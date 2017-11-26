@@ -6,7 +6,7 @@ import { Events } from 'ionic-angular';
 @Injectable()
 export class SettingsProvider {
 
-    private theme: BehaviorSubject<String>;
+    private theme: BehaviorSubject<string>;
 
     constructor(private storage: Storage, private events: Events) {
         this.getTheme();
@@ -40,8 +40,10 @@ export class SettingsProvider {
     getActiveTheme() {
         return this.theme.asObservable();
     }
-
+    /**
+     * get the theme as a string
+     */
     getThemeAsString(): string {
-        return this.theme.value.valueOf();
+        return this.theme.value;
     }
 }

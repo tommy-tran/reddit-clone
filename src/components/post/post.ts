@@ -26,6 +26,8 @@ export class PostComponent implements OnInit {
   @Input() showCommentBtn: boolean;
   @Input() subreddit: Subreddit;
   @Input() commentPage: boolean;
+  @Input() showDeleteBtn: boolean;
+
   constructor(private authService: AuthService, 
     private databaseService: DatabaseService, 
     public navCtrl: NavController, 
@@ -210,5 +212,9 @@ export class PostComponent implements OnInit {
 
   showComments() {
     this.navCtrl.push(CommentsPage, {post: this.post});
+  }
+
+  deletePost() {
+    //remove post from db and from view
   }
 }

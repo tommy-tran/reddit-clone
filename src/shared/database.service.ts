@@ -41,7 +41,10 @@ export class DatabaseService {
             }).catch((err => console.log(err)));
         }).catch(err => console.log(err));
     }
-
+    /**
+     * check if a subreddit name is valid or not
+     * @param subredditName name of the subreddit
+     */
     checkValidSubreddit(subredditName: string) {
         return new Promise<boolean>((resolve, reject) => {
             var database = firebase.database();
@@ -623,8 +626,8 @@ export class DatabaseService {
 
             let x = firebase.database().ref(`users/${user_id}/subscribed`).toJSON();
             console.log(x);
-            
-                firebase.database().ref(`users/${user_id}/subscribed`).once('value').then(subreddits => {
+
+            firebase.database().ref(`users/${user_id}/subscribed`).once('value').then(subreddits => {
                 console.log(subreddits);
                 console.log(subreddits.val());
                 return resolve(subreddits.val());

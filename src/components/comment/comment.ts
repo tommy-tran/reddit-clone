@@ -14,6 +14,7 @@ export class CommentComponent {
   @Input() comment: Comment;
   @Input() postId: string;
   @Input() color: string;
+  @Input() showDeleteBtn: boolean;
   disableInput: boolean;
   isLoggedIn: boolean;
   score: number;
@@ -173,5 +174,9 @@ export class CommentComponent {
     else {
       this.datePosted = secondsDifference + ' seconds ago';
     }
+  }
+
+  deleteComment() {
+    //remove comment from db and from view
   }
 }

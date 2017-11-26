@@ -30,6 +30,7 @@ export class SubredditPage implements OnInit {
 	subreddit: Subreddit;
 	times: string[];
 	user_id: string;
+	username: string;
 
 	// TODO: Description, Moderator/creator privileges
 
@@ -48,7 +49,8 @@ export class SubredditPage implements OnInit {
 		//initial sort by method and icon
 		this.sortIcon = 'flame';
 		this.sortMethod = 'hot';
-
+		this.username = this.authService.getUsername();
+		
 		//theme to pass to create post
 		this.events.subscribe('theme:retrieved', () => {
 			console.log('ok');
@@ -63,7 +65,9 @@ export class SubredditPage implements OnInit {
 		});
 
 	}
-
+	/**
+	 * get posts for the current subreddit
+	 */
 	getPosts() {
 		this.databaseService.getSubredditPosts(this.id).then(posts => {
 			if (posts) {
@@ -78,7 +82,9 @@ export class SubredditPage implements OnInit {
 			}
 		});
 	}
-
+	/**
+	 * initialize page state and content
+	 */
 	setUp() {
 		this.authService.updateAuthState().then(() => {
 			this.posts = []; // Clear posts
@@ -92,7 +98,9 @@ export class SubredditPage implements OnInit {
 		console.log(this.isSubscribed);
 		this.getPosts();
 	}
-
+	/**
+	 * initialize current subreddit
+	 */
 	ngOnInit() {
 		// When the back button is pressed
 		this.navBar.backButtonClick = () => {
@@ -125,10 +133,10 @@ export class SubredditPage implements OnInit {
 				// 404 page or homepage?
 			}
 		}
-
-
 	}
-
+	/**
+	 * add a new post to the current subreddit
+	 */
 	createPost() {
 		let theme = this.theming.getThemeAsString()
 		let createPostModal = this.modalCtrl.create(CreatePostPage, { subreddit: this.subreddit, theme: theme }, { cssClass: theme });
@@ -182,6 +190,10 @@ export class SubredditPage implements OnInit {
 				subreddits.push({ subreddit_id: subreddit_id, subreddit_name: subreddit_name });
 				this.storageService.setSubscribedSubreddits(subreddits);
 				console.log('subscribe success');
+				//emit to home page to refresh subscribed
+				this.navCtrl.viewDidLeave.subscribe(() => {
+					this.events.publish('refresh:subscribed');
+				});
 			});
 		}).catch(err => console.error(err));
 	}
@@ -202,6 +214,10 @@ export class SubredditPage implements OnInit {
 				}
 				this.storageService.setSubscribedSubreddits(subreddits);
 				console.log('unsubscribe success');
+				//emit to home page to refresh subscribed
+				this.navCtrl.viewWillLeave.subscribe(() => {
+					this.events.publish('refresh:subscribed');
+				});
 			});
 		}).catch(err => console.error(err));
 	}

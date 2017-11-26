@@ -55,11 +55,15 @@ export class ProfilePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }
-
+  /**
+   * close the profile modal
+   */
   closeModal() {
     this.viewController.dismiss();
   }
-
+  /**
+   * show user info on console
+   */
   showUserInfo() {
     console.log("Username: " + this.username);
     console.log("UID: " + this.uid);

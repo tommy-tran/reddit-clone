@@ -7,24 +7,42 @@ export class DataSharingService {
     screenY: number;
     isMobile: boolean;
     constructor() { }
+    /**
+     * get the screen width
+     */
     getScreenX() {
         return this.screenX;
     }
-
+    /**
+     * set the width of the screen
+     * @param width width of the screen
+     */
     setScreenX(width: number) {
         this.screenX = width;
     }
+    /**
+     * get the screen height
+     */
     getScreenY() {
         return this.screenY;
     }
-
+    /**
+     * set the height of the screen
+     * @param height height of the screen
+     */
     setScreenY(height: number) {
         this.screenY = height;
     }
+    /**
+     * return true is running on a mobile device
+     */
     getIsMobile() {
         return this.isMobile;
     }
-
+    /**
+     * set the device is mobile property
+     * @param isMobile true if the device is mobile, false otherwise
+     */
     setIsMobile(isMobile: boolean) {
         this.isMobile = isMobile;
     }

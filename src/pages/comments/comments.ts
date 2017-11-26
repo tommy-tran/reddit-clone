@@ -20,6 +20,7 @@ export class CommentsPage implements OnInit {
   comments: Comment[];
   itemColor: string;
   textColor: string;
+  username: string;
   @ViewChild('myInput') myInput: ElementRef;
   @ViewChild(Navbar) navBar: Navbar;
   constructor(private authService: AuthService,
@@ -31,12 +32,12 @@ export class CommentsPage implements OnInit {
     //theming
     let theme;
     this.theming.getActiveTheme().subscribe(val => {
-      theme = val.valueOf();
+      theme = val;
       console.log(theme)
       this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
       this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
     });
-    
+    this.username = this.authService.getUsername();
     this.post = this.navParams.data.post;
     this.getPostComments();
   }
