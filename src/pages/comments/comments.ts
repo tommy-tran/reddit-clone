@@ -31,7 +31,7 @@ export class CommentsPage implements OnInit {
     //theming
     let theme;
     this.theming.getActiveTheme().subscribe(val => {
-      theme = val.valueOf();
+      theme = val;
       console.log(theme)
       this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
       this.textColor = theme == 'dark-theme' ? '#fff' : '#000';

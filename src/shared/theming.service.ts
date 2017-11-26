@@ -1,15 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Storage } from "@ionic/storage";
 import { Events } from 'ionic-angular';
 
 @Injectable()
-export class SettingsProvider {
+export class SettingsProvider implements OnInit {
 
-    private theme: BehaviorSubject<String>;
+    private theme: BehaviorSubject<string>;
 
     constructor(private storage: Storage, private events: Events) {
-        this.getTheme();
         console.log('k')
         this.events.subscribe('platform:ready', () => {
             this.getTheme();
@@ -26,6 +25,9 @@ export class SettingsProvider {
             this.events.publish('theme:retrieved');
         });
     }
+    ngOnInit() {
+        this.getTheme();
+    }
     /**
      * set a theme for the app
      * @param val name of theme
@@ -40,8 +42,10 @@ export class SettingsProvider {
     getActiveTheme() {
         return this.theme.asObservable();
     }
-
+    /**
+     * return the active theme
+     */
     getThemeAsString(): string {
-        return this.theme.value.valueOf();
+        return this.theme.value;
     }
 }

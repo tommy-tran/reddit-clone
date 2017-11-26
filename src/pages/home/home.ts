@@ -35,7 +35,7 @@ export class HomePage {
   username: string;
   userHasAccount: boolean;
   selectedSubreddit: string;
-  selectedTheme: String;
+  selectedTheme: string;
   subscribedSubreddits: any;
   user_id: string;
   constructor(private authService: AuthService,
@@ -59,7 +59,7 @@ export class HomePage {
       this.theming.getActiveTheme().subscribe(val => {
         if (val) {
           this.selectedTheme = val;
-          switch (val.valueOf()) {
+          switch (val) {
             case 'light-theme':
               this.menuColor = 'light';
               this.menuIconColor = 'secondary';
@@ -206,7 +206,7 @@ export class HomePage {
   openAuth() {
     let param = { theme: this.selectedTheme };
     let authModal = this.modalCtrl.create(LoginPage, param, {
-      cssClass: this.selectedTheme.valueOf()
+      cssClass: this.selectedTheme
     });
     authModal.present();
     authModal.onWillDismiss((isLoggedIn: boolean) => {
@@ -227,7 +227,7 @@ export class HomePage {
     if (this.isLoggedIn) {
       let param = { userHasAccount: this.userHasAccount, username: this.username, theme: this.selectedTheme };
       let profModal = this.modalCtrl.create(ProfilePage, param, {
-        cssClass: this.selectedTheme.valueOf()
+        cssClass: this.selectedTheme
       });
       profModal.present();
       // this.navCtrl.push('profile', param);
@@ -374,14 +374,14 @@ export class HomePage {
    * create a new subreddit
    */
   createSubreddit() {
-    let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { theme: this.selectedTheme.valueOf() }, {
-      cssClass: this.selectedTheme.valueOf()
+    let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { theme: this.selectedTheme }, {
+      cssClass: this.selectedTheme
     });
     console.log("loggedIn: " + this.isLoggedIn);
     if (this.isLoggedIn) {
       createSubredditModal.present();
     } else {
-      let authModal = this.modalCtrl.create(LoginPage, { theme: this.selectedTheme }, { cssClass: this.selectedTheme.valueOf() });
+      let authModal = this.modalCtrl.create(LoginPage, { theme: this.selectedTheme }, { cssClass: this.selectedTheme });
       authModal.present();
       authModal.onWillDismiss((isLoggedIn) => {
         if (isLoggedIn) {
