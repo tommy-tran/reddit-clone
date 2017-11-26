@@ -12,6 +12,7 @@ export class CommentComponent {
   datePosted: string;
   userHasAccount: any;
   @Input() comment: Comment;
+  @Input() subredditId: string;
   @Input() postId: string;
   @Input() color: string;
   @Input() showDeleteBtn: boolean;
@@ -190,7 +191,7 @@ export class CommentComponent {
         {
           text: 'Confirm',
           handler: data => {
-            this.databaseService.deleteComment(this.postId,this.comment.comment_id).then(() => {
+            this.databaseService.deleteComment(this.subredditId, this.postId,this.comment.comment_id).then(() => {
               this.events.publish('update:comments')
             })
           }

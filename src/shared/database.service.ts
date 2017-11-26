@@ -537,8 +537,6 @@ export class DatabaseService {
             ref.transaction((comments) => {
                 return (comments || 0) + 1;
             }).catch(err => console.error(err));
-
-
             resolve(comment);
         });
 
@@ -572,13 +570,18 @@ export class DatabaseService {
     }
     /**
      * remove a comment
+     * @param subredditId id of the subreddit
      * @param postId id of the post
      * @param comment comment to be deleted
      */
-    deleteComment(postId: string, commentId: string) {
+    deleteComment(subredditId:string, postId: string, commentId: string) {
         return new Promise((resolve, reject) => {
             firebase.database().ref('comments/' + postId + '/comments/' + commentId)
             .remove().then(() => {
+                let ref = firebase.database().ref('posts/' + subredditId + "/" + postId + "/numcomments");
+                ref.transaction((comments) => {
+                    return (comments || 0) - 1;
+                }).catch(err => console.error(err));
                 resolve()
             }).catch(err => {
                 console.error(err)
