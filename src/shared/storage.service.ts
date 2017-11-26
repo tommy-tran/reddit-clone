@@ -58,11 +58,16 @@ export class StorageService {
             return false;
         }
     }
-
+    /**
+     * set initially subscribed subreddits
+     * @param subreddits initially subscribed subreddits
+     */
     setInitSubreddits(subreddits: any[]) {
         this.initSubreddits = subreddits;
-    }
-
+    }   
+    /**
+     * return initially subscribed subreddits
+     */
     getInitSubreddits() {
         return this.initSubreddits;
     }
