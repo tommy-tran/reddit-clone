@@ -63,6 +63,10 @@ export class SubredditPage implements OnInit {
 				this.isLoggedIn = true;
 			});
 		});
+		this.events.subscribe('update:posts', () => {
+			this.posts = []; // Clear posts
+			this.getPosts(); // Get votable posts
+		});
 
 	}
 	/**

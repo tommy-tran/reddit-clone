@@ -8,7 +8,7 @@
         <div class="post-info-bar">
           <a class="subreddit-name" *ngIf="!subreddit" (click)="goToSubreddit()">r/{{post.subreddit}}</a>
           <a class="subreddit-name" *ngIf="subreddit">r/{{post.subreddit}}</a> &bull; {{datePosted}} &bull; u/{{post.user}}
-          <ion-icon (click)="deletePost()" name="trash" *ngIf="showDeleteBtn"></ion-icon>
+          <ion-icon [style.cursor]="pointer" (click)="deletePost()" name="trash" *ngIf="showDeleteBtn"></ion-icon>
         </div>
         <div *ngIf="!commentPage">
           <div class="post-title link" [style.fontSize]="isCardLayout ? '18px' : '16px'" (click)="showComments()">{{post.title}}</div>

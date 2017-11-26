@@ -558,37 +558,34 @@ export class DatabaseService {
      * @param subredditId id of the subreddit
      * @param postId id of the post
      */
-    deletePost(subredditId, postId) {
-        //delete posts
-        firebase.database().ref('subreddit-data/' + subredditId + '/posts/' + postId).remove().then(() => {
-            console.log('delete post success');
-        }).catch(err => console.error(err)).then(() => {
-            //now delete post comments
-            firebase.database().ref('subreddit-data/' + subredditId + '/comments/' + postId).remove().then(() => {
-                console.log('delete comments success');
-            }).catch(err => console.error(err))
-        });
+    deletePost(subredditId: string, postId: string) {
+        return new Promise((resolve, reject) => {
+            firebase.database().ref('posts/' + subredditId + '/' + postId).remove().then(() => {
+                firebase.database().ref('comments/' + postId).remove().then(() => {
+                    resolve()
+                })
+            }).catch(err => {
+                console.error(err)
+                reject()
+            })
+        })
     }
     /**
      * remove a comment
      * @param postId id of the post
      * @param comment comment to be deleted
      */
-    deleteComment(subredditId: string, postId: string, comment: Comment) {
-        firebase.database().ref('comments/' + postId + '/' + comment.comment_id)
+    deleteComment(postId: string, commentId: string) {
+        return new Promise((resolve, reject) => {
+            firebase.database().ref('comments/' + postId + '/comments/' + commentId)
             .remove().then(() => {
-                console.log('delete success');
-            }).catch(err => console.error(err));
-        //OR
-        firebase.database().ref('comments/' + postId + '/' + comment.comment_id)
-            .set({
-                message: "[removed]",
-                timestamp: null,
-                upvotes: null,
-                user: null
-            }).then(() => {
-                console.log('delete success');
-            }).catch(err => console.error(err));
+                resolve()
+            }).catch(err => {
+                console.error(err)
+                reject()
+            });
+        })
+
     }
     /**
      * subscribe a user to a subreddit
@@ -623,13 +620,7 @@ export class DatabaseService {
      */
     getSubscribedSubreddits(user_id: string) {
         return new Promise(resolve => {
-
-            let x = firebase.database().ref(`users/${user_id}/subscribed`).toJSON();
-            console.log(x);
-
             firebase.database().ref(`users/${user_id}/subscribed`).once('value').then(subreddits => {
-                console.log(subreddits);
-                console.log(subreddits.val());
                 return resolve(subreddits.val());
             }).catch(err => console.error(err));
         });
