@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../../models/post.model';
 import { DatabaseService } from '../../shared/database.service';
 import { AuthService } from '../../shared/auth.service';
-import { NavController, AlertController, ModalController } from 'ionic-angular';
+import { NavController, AlertController, ModalController, Events } from 'ionic-angular';
 import { LoginPage, CommentsPage } from "../../shared/pages";
 import { Subreddit } from '../../models/subreddit.model';
 
@@ -29,7 +29,8 @@ export class PostComponent implements OnInit {
   @Input() showDeleteBtn: boolean;
 
   constructor(private authService: AuthService, 
-    private databaseService: DatabaseService, 
+    private databaseService: DatabaseService,
+    public events: Events,
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public modalCtrl: ModalController) {
@@ -215,6 +216,22 @@ export class PostComponent implements OnInit {
   }
 
   deletePost() {
-    //remove post from db and from view
+    this.alertCtrl.create({
+      title: "Deletion confirmation",
+      subTitle: "Are you sure you want to delete this post?",
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: data => {
+            this.databaseService.deletePost(this.post.subreddit_id, this.post.post_id).then(() => {
+              this.events.publish('update:posts')
+            })
+          }
+        },
+        {
+          text: 'Cancel'
+        }
+      ]
+    }).present();
   }
 }

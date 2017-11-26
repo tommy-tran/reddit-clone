@@ -87,6 +87,7 @@ export class HomePage {
     this.storage.get("userHasAccount").then(val => {
       this.userHasAccount = val;
     });
+    
     this.user_id = this.authService.getUID();
     this.showSubscribedSubreddits = true;
 
@@ -121,10 +122,14 @@ export class HomePage {
     //refresh subscribed when user subscribes/unsubscribes
     this.events.subscribe('refresh:subscribed', () => {
       this.storageService.getSubscribedSubreddits().then(subscribed => {
-        console.log('refresh');
         this.subscribedSubreddits = subscribed;
       });
     });
+
+    this.events.subscribe('update:posts', () => {
+			this.posts = []; // Clear posts
+			this.getAllPosts(); // Get votable posts
+		});
   }
   /** 
    * Set up environment
@@ -144,7 +149,6 @@ export class HomePage {
     let subscribedSubreddits = this.storageService.getInitSubreddits();
     // if (!subscribedSubreddits || subscribedSubreddits.length == 0) {
       this.databaseService.getSubscribedSubreddits(this.authService.getUID()).then(subreddits => {
-        console.log(subreddits);
         this.subscribedSubreddits = subreddits;
         let subscribed = [];
         for (var key in subreddits) {
@@ -231,7 +235,6 @@ export class HomePage {
         this.userHasAccount = true;
         this.getSubscribed();
         this.closeAllOverlays();
-        console.log("loggedin: " + this.isLoggedIn);
       }
     });
   }
@@ -251,14 +254,6 @@ export class HomePage {
     else {
       this.openAuth();
     }
-  }
-  /**
-   * display user info to the console
-   */
-  showUserInfo() {
-    console.log("Username: " + this.authService.getUsername());
-    console.log("UID: " + this.authService.getUID());
-    console.log("Email: " + this.authService.getEmail());
   }
 
   /**
@@ -395,7 +390,6 @@ export class HomePage {
     let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { theme: this.selectedTheme }, {
       cssClass: this.selectedTheme
     });
-    console.log("loggedIn: " + this.isLoggedIn);
     if (this.isLoggedIn) {
       createSubredditModal.present();
     } else {

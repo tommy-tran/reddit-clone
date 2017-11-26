@@ -40,6 +40,10 @@ export class CommentsPage implements OnInit {
     this.username = this.authService.getUsername();
     this.post = this.navParams.data.post;
     this.getPostComments();
+
+    this.events.subscribe('update:comments', () => {
+      this.getPostComments();
+    });
   }
 
   ngOnInit() {

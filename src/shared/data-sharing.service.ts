@@ -84,7 +84,7 @@ export class DataSharingService {
                     posts[j + 1] = posts[j];
                 }
                 //Insert the copied number at the correct position
-                //in sorted part. 
+                //in sorted part.
                 posts[j + 1] = tmp;
             }
         }
