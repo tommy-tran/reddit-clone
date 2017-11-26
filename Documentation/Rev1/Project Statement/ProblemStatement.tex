@@ -1,0 +1,84 @@
+\documentclass[12pt,fleqn]{article}
+
+\usepackage{fullpage}
+\usepackage[round]{natbib}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\usepackage{fancyhdr}
+\fancyhead[L]{November 26, 2017}
+\fancyhead[C]{SE 3XA3: Problem Statement}
+\fancyhead[R]{AKT}
+\renewcommand{\headrulewidth}{0.2pt}
+
+\pagestyle{fancy}
+\usepackage[margin=2.5cm,headsep=.2in ]{geometry}
+
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Group 29 (AKT)\\ Problem Statement}
+\author{
+Alex Trudeau\\
+	\texttt{400030148}
+\and
+Kathryn Kodama\\
+  	\texttt{400013582}
+\and
+Tommy Tran\\
+	\texttt{001150067}
+}
+\date{\today\\Version 2.0}
+
+\begin{document}
+\maketitle
+\begin{table}[ht]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Version} & {\bf Date} & {\bf Notes}\\
+\midrule
+1.0 & 22/09/17 & Created document \\
+1.1 & 25/09/17 & Update and finalized document Rev. 0 \\
+2.0 & 26/11/17 & Started Rev.1 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\pagebreak
+\section*{}
+\section {Problem Statement}
+
+\subsection{Introduction}
+
+In today's society the internet plays a large role in the lives of the general public. Users can find out about current events as they are taking place through online news sources and connect with one another through social media platforms.  Furthermore, with the emergence of social networking there is a greater access to the number of people one can discuss with and as a result a greater demand for online communities.  The goal of this project is to provide the general public with a \textbf{community based social news aggregator} where users can post information and take part in online discussions pertaining to a specific topic with ease.  
+
+\subsection{Importance}
+
+With the current prominence of social media, it is important to provide users with a centralized platform to both share and discuss information online easily.  Since anyone in the general public can access the project forums, a wider range of users will be able to participate.  This project aids the \textbf{building of online communities} with the ability to discuss a wide range of topics from current events to specific interests or hobbies. \\
+\newline
+Additionally, one of the main functionalities of this project is the \textbf{ability to rate content} shared on the application through 'up-votes' and 'down-votes'.  The web content rating aspect of the project will allow \textbf{users the ability to curate the content shown} and provide feedback on one another's posts even if they have nothing new to add to the discussion.  
+
+\subsection{Context}
+
+The stakeholders for this application are the Developers (AKT Team), the end-users/general public, and the communities that exist both on the application and off the application that relate to specific 'subreddits' or threads.\\
+\newline
+The scope of this project is to mimic the basic functionality of Reddit with a new design.  This core functions of this project are user authentication, creation of threads, comments, and the ability to rate content through 'up-votes' and 'down-votes'.  The project will be constructed using Node.js and JavaScript which any device with web browsing capabilities will be able to access.   
+
+\end {document}

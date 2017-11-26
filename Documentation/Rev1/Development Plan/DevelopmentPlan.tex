@@ -1,0 +1,153 @@
+\documentclass[12pt,fleqn]{article}
+\usepackage{fullpage}
+\usepackage[round]{natbib}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+
+\usepackage{fancyhdr}
+\fancyhead[L]{November 26, 2017}
+\fancyhead[C]{SE 3XA3: Development Plan}
+\fancyhead[R]{AKT}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\pagestyle{fancy}
+\usepackage[margin=2.5cm,headsep=.2in ]{geometry}
+
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Group 29 (AKT)\\ Software Development Plan}
+\author{
+Alex Trudeau\\
+	\texttt{400030148}
+\and
+Kathryn Kodama\\
+  	\texttt{400013582}
+\and
+Tommy Tran\\
+	\texttt{001150067}
+}
+\date{\today\\Version 2.0}
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\tableofcontents
+
+\begin{table}[ht]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Version} & {\bf Date} & {\bf Notes}\\
+\midrule
+1.0 & 25/09/17 & Created document \\
+1.1 & 26/09/17 & Updated document sections (1, 5, 6) \\
+1.2 & 29/09/17 & Finalized document Rev. 0 \\
+2.0 & 26/11/17 & Started Rev.1 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+\clearpage
+
+\section{Team Meeting Plan}
+
+\subsection{Meeting Details}
+
+Team AKT will meet regularly twice a week with all members present for the duration of the project.  The meetings will take place in Lab (L03) at 8:30am on Wednesdays and 2:30pm on Fridays.  Depending on the progress of the project, extra meetings may be required and will take place at Thode Library on the McMaster University campus or online throug Skype; times may vary.  Additional meetings may not require all members to be present.
+
+\subsection{Meeting Roles}
+Roles for the each team meeting will be assigned as follows:\\ \\
+\textbf{Chair:} The chair of each meeting will be selected on a regular rotating basis.  The chair will be responsible for preparing the meeting agenda (see section 1.3 below).\\ \\
+\textbf{Notetaker:} The primary notetaker will be Kathryn Kodama.  If the primary notetaker is not present, either Alex Trudeau or Tommy Tran will fill the role.  The notetaker is responsible for taking meeting minutes when appropriate, that is if there is a large amount of content covered in the meeting or an import design decision has been made.  
+
+\subsection{Meeting Agenda}
+As stated in section 1.2 above, each meeting will have a chair who will prepare the meeting agenda.  The notetaker will take meeting minutes when appropriate.  \\ \\
+\textbf{Basic Meeting Agenda Outline} \\ 
+\textit{To be filled out prior to meeting:}
+\begin{itemize}
+    \item Chair of meeting contacts team members in order to generate meeting agenda.  Checkmarks specified in documentation that should have been completed since last meeting are added to the agenda.
+\end{itemize} 
+
+\textit{To be completed throughout meeting:}
+\begin{itemize}
+    \item Chair reviews agenda
+    \item Team members responsible for each topic present the issue and seek input from other team members if required.
+    \item If necessary project schedule is modified based on current progress.
+\end{itemize}
+
+\textit{To be completed at the end of each meeting:}
+\begin{itemize}
+    \item Entire team comes up with a written statement on decisions made in meeting and effectiveness of the meeting.
+    \item Chair reminds team of what is to be completed by the next meeting according to the Project Schedule.
+\end{itemize}
+
+
+\section {Team Communication Plan}
+Team AKT will primarily communicate through a Facebook Messenger Chat, Git issues, and in person.  Facebook Messenger will be used for casual conversation such as questions, quick updates, and choosing a meeting time and place if an additional meeting outside of lab hours is required. Git issues will be used for flaws in the code discovered through creation or testing.
+
+\section {Team Member Roles}
+\begin{tabular}{ | c | c | }
+\hline 
+\textbf{Team Member} & \textbf{Roles} \\
+\hline
+Alex Trudeau & Backend Developer \\
+\hline 
+Kathryn Kodama & Developer, Documentation \\
+\hline
+Tommy Tran & Developer, Tester \\
+\hline
+
+\end{tabular}
+
+\section {Git Workflow Plan}
+\begin{itemize}
+\item Properly tag commits and documentation on Gitlab.
+\item The Master will be branch for finalized, working code.  Where there are merge issues Alex Trudeau will primarily resolve the conflict.  Where there are merge issues Alex Trudeau will primarily resolve the conflict.
+\item Create a developer branch that stems to feature branches.
+\item Notify other members on possible breaking code conflicts
+\item Git Issues will be used should the team notice any significant issues while testing. 
+\end{itemize}
+
+\section {Proof of Concept Demonstration Plan}
+Considering the experience of the team members, most features of the Reddit-Clone application will be implemented by the proof of concept deadline.  One of the challenges of the Reddit-Clone project will be to develop and routinely test to ensure all features function according to the specified requirements. Many features such as a mobile friendly experience, user profile, and post sorting may be postponed for development until after the proof of concept demonstration as they have secondary priority. Core functionality such as viewing posts or comments and user handling(authentication and account management) will be demonstrated as a proof of concept as they have primary priority.
+
+\section {Technology}
+\textbf{Programming Languages: }JavaScript \\ 
+\textbf{Frameworks: }Ionic 2 and Angular \\
+\textbf{Document Generation: } Latex will be used for official documentation and Google Docs will be used for meeting minutes and meeting agendas. Compodoc will be used to generate the MIS.
+
+\section {Coding Style}
+ \href{https://google.github.io/styleguide/javascriptguide.xml}{This link contains the coding style being followed.}
+
+\section {Project Schedule}
+See Gantt Chart on Gitlab repository: \url{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone/blob/master/Documentation/Development\%20Plan/GanttChart}
+
+\section {Project Review (for Revisions 1)}
+On the whole, the reddit-clone project was created with success.  The development plan was followed and the project along with the required documentation was finished on time.  The final project can be viewed online at \href{https://redditclone.me/}{redditclone.me}.
+\subsection{What went well}
+The group collaborated and used GitHub to its' full potential.  Multiple branches were used to develop different functionalities on.  The issues tab of the GitHub was frequently used and was helpful in documenting challenges as the project was developed.  The group met all milestones and deadlines on time.  This helped to make sure the project was on track and scheduled to completed by the end of November 2017.  Through this project all group members were able to improve their knowledge of web and mobile application development, specifically with regards to TypeScript and Ionic 2 and Angular 4 framework.  
+
+\subsection{What could have been improved upon}
+The testing of the project should have been started earlier as it was rushed near the end of the project.  If the testing began earlier, there would be more time to construct the testing plan and testing document.  Additionally the Gantt chart could have been more closely followed.  Often the Gantt chart was updated after the corresponding sections had been completed.  Perhaps more efficient use of the Gantt chart would have led to more time for additional functionalities and revising documentation.  
+
+\end{document}
