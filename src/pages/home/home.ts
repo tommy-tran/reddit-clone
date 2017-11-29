@@ -116,6 +116,7 @@ export class HomePage {
     });
     // When user navigates from subreddits, refresh
     this.events.subscribe('nav', () => {
+      this.isLoggedIn = this.authService.isLoggedIn();
       this.getAllPosts();
     });
 

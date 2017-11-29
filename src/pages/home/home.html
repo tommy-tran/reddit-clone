@@ -21,53 +21,58 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <!-- search results overlay -->
-  <div id="searchbar-results" *ngIf="showSearchbar">
-    <ion-list inset padding-left padding-right *ngIf="!showSubscribedSubreddits">
-      <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
-    </ion-list>
-    <ion-list inset padding-left padding-right *ngIf="showSubscribedSubreddits && isLoggedIn">
-      <div id="list-label">Subscribed Subreddits</div>
-      <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subscribedSubreddits">r/{{subreddit.subreddit_name}}</button>
-    </ion-list>
-  </div>
-  <!-- sort by tab -->
-  <div style="width: 100%" text-right>
-    <a (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
+  <div padding class="header">  
+    
+    <div id="searchbar-results" *ngIf="showSearchbar">
+      <ion-list inset padding-left padding-right *ngIf="!showSubscribedSubreddits">
+        <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
+      </ion-list>
+      <ion-list inset padding-left padding-right *ngIf="showSubscribedSubreddits && isLoggedIn">
+        <div id="list-label">Subscribed Subreddits</div>
+        <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subscribedSubreddits">r/{{subreddit.subreddit_name}}</button>
+      </ion-list>
+    </div>
+    <!-- sort by tab -->
+    <div class="header__box">
+        <div class="header__box__nav">
+          <span style="color: white">Subreddit navigation:</span>
+          <select class="subreddit-nav" [(ngModel)]="selectedSubreddit">
+            <option *ngFor="let subreddit of subreddits" value="{{subreddit.subreddit_id}}">
+              <li>{{subreddit.name}}</li>
+            </option>
+          </select>
+          <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
+        </div>
+        <div style="width: 100%" text-right>
+            <a class="shadow2" (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
+        </div>
+    </div>
+
+    <div style="text-align: center; color: white; margin-top: 20px">
+      <h2 class="shadow" style="padding-top: 10px; font-size: 35px; font-weight: 800">Welcome to Reddit Clone</h2>
+      <p>
+        <i>A social news aggregator where users have the power to add, rate, and curate content!</i>
+      </p>
+      <p *ngIf="username">Your username is {{username}}</p>
+      <br>
+    </div>
+    <!-- create subreddit -->
+    <!-- <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button> -->
+    <!-- sort posts -->
+    <div id="sort-and-login">
+      <span style="color: white;">Sort Posts By</span>
+      <button ion-button clear small (click)="showSortByPopover($event)">
+        <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
+        <ion-icon name="arrow-down"></ion-icon>
+      </button>
+    </div>
+
   </div>
 
-  <!-- <div>
-    <span>Subreddit navigation:</span>
-    <select class="subreddit-nav" [(ngModel)]="selectedSubreddit">
-      <option *ngFor="let subreddit of subreddits" value="{{subreddit.subreddit_id}}">
-        <li>{{subreddit.name}}</li>
-      </option>
-    </select>
-    <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
-  </div> -->
-
-  <div style="text-align: center">
-    <h2>Welcome to Reddit Clone</h2>
-    <p>
-      <i>A social news aggregator where users have the power to add, rate, and curate content!</i>
-    </p>
-    <p *ngIf="username">Your username is {{username}}</p>
-    <br>
-  </div>
-  <!-- create subreddit -->
-  <!-- <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button> -->
-  <!-- sort posts -->
-  <div id="sort-and-login">
-    <span>Sort Posts By</span><br>
-    <button ion-button clear small (click)="showSortByPopover($event)">
-      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
-      <ion-icon name="arrow-down"></ion-icon>
-    </button>
-  </div>
-  <br>
   <!-- display posts -->
-  <div class="posts" *ngFor="let post of posts">
+  <div padding-horizontal class="posts" *ngFor="let post of posts">
     <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [isMobile]="isMobile" [showCommentBtn]="true" [commentPage]="false" [showDeleteBtn]="post.user == username"></post>
   </div>
 

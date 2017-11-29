@@ -4,29 +4,30 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3 *ngIf="subreddit">Welcome to /r/{{subreddit.name}}</h3>
-  <p *ngIf="subreddit">{{subreddit.description}}</p>
-  <div text-center>
+<ion-content>
+  <div padding class="header">
+    <h3 class="shadow" style="padding-top: 20px; font-size: 27px; font-weight: 700;" *ngIf="subreddit">Welcome to /r/{{subreddit.name}}</h3>
+    <p *ngIf="subreddit">{{subreddit.description}}</p>
     <button *ngIf="isSubscribed" ion-button round small color="prettygray" (click)="unsubscribe(user_id, subreddit.subreddit_id)">
       <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;Subscribed
     </button>
     <button *ngIf="!isSubscribed" color="secondary" round small ion-button (click)="subscribe(user_id, subreddit.name, subreddit.subreddit_id)">
       <ion-icon name="add"></ion-icon>&nbsp;&nbsp;Subscribe</button>
+    <div style="display: flex; width:100%; border-bottom: 1px solid lightgray;">
+      <div style="flex-shrink: 2;" id="sortby">
+        <span>Sort Posts By</span>
+        <button ion-button clear small (click)="showSortByPopover($event)">
+          <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
+          <ion-icon name="arrow-down"></ion-icon>
+        </button>
+      </div>
+      <p style="width: 100%; flex-shrink: 1" class="lighttext">Scroll through the posts below or click "Create a post" to add your own content.</p>      
+      <div style="flex-shrink: 2; width: 100%; text-align: right"><button ion-button (click)="createPost()" style=" margin-bottom: 15px;">Create a post</button></div>
+    </div>
   </div>
-  <p>Scroll through the posts below or click "Create a post" to add your own content.</p>
-  <button ion-button (click)="createPost()" style="margin: 10px 0 20px 0">Create a post</button>
+
   <br>
-  <div id="sortby">
-    <span>Sort Posts By</span>
-    <br>
-    <button ion-button clear small (click)="showSortByPopover($event)">
-      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
-      <ion-icon name="arrow-down"></ion-icon>
-    </button>
-  </div>
-  <br>
-  <ion-list>
+  <ion-list padding-horizontal>
     <div *ngFor="let post of posts">
       <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false" [showDeleteBtn]="post.user == username"></post>
     </div>

@@ -1,6 +1,14 @@
 .light-theme {
   ion-content {
     background-color: #fff;
+
+    .header {
+      background-color: #24a0ed;
+    }
+
+    .shadow {
+      text-shadow: 0px 1px 1px #000;      
+    }
   }
  
   .toolbar-background {

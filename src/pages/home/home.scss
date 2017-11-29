@@ -53,4 +53,16 @@ page-home {
         padding-top: 5px;
         width: 100%;
     }
+
+    .header {
+        margin-bottom: 20px;
+
+        &__box {
+            display: flex;
+
+            &__nav {
+                width: 100%;
+            }
+        }
+    }
 }
