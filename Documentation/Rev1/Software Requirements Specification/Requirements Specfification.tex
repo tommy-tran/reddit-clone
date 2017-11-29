@@ -22,7 +22,7 @@
 \textheight 200mm
 
 \usepackage{fancyhdr}
-\fancyhead[L]{November 26, 2017}
+\fancyhead[L]{November 29, 2017}
 \fancyhead[C]{SE 3XA3: Requirements Specification}
 \fancyhead[R]{AKT}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -45,7 +45,7 @@ Kathryn Kodama\\
 Tommy Tran\\
 	\texttt{001150067}
 }
-\date{\today\\Version 2.0}
+\date{\today\\Version 2.1}
 
 % Image directory
 \graphicspath{{img/}}
@@ -68,6 +68,7 @@ Tommy Tran\\
 1.1 & 05/10/17 & Updated document \\
 1.2 & 06/10/17 & Finalized document Rev. 0 \\
 2.0 & 26/11/17 & Started Rev.1 \\
+2.1 & 29/11/17 & Updated document \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -160,6 +161,8 @@ Post & A submission by a user that contains text or a link \\
 Reddit & The open source project being mimicked, can be viewed on \href{https://www.reddit.com/}{https://www.reddit.com/} \\
 Reddit-Clone & The current project being designed \\
 Subreddit & Page holding the posts of a certain topic \\
+Subscribe & A function for users to "favourite" certain subreddits. \\
+Unsubscribe & A function for users to remove a subreddit from their list of subscribed subreddits. \\ 
 Up-vote & A way for a user to 'vote-up' a comment or post \\
 User & A person using the application \\
 \bottomrule
@@ -266,7 +269,7 @@ Below is the Use-Case Diagram for the User Interaction System.
 
 \begin{tcolorbox}
 \textbf{Requirement Number: FR1}\\
-\textbf{Description:} A user should be able to create a profile, log-in, log-out, and delete their profile.\\
+\textbf{Description:} A user should be able to create a profile, log-in and log-out at their will.\\
 \textbf{Rationale:} If the user cannot create a profile, they cannot create posts or contribute content.  Similarly, a user should have the right to permanently remove themselves from the application through deletion of their profile. \\
 \textbf{Fit Criterion:} Able to create a user profile, verify through an email address, reset one's password, and delete application.
 \end{tcolorbox}
@@ -280,7 +283,7 @@ Below is the Use-Case Diagram for the User Interaction System.
 
 \begin{tcolorbox}
 \textbf{Requirement Number: FR3} \\
-\textbf{Description:} Any user should be able to browse content (not required to log-in). \\
+\textbf{Description:} Any user should be able to browse content (not required to log-in).  This includes navigating to subreddits and viewing corresponding posts and comments. \\
 \textbf{Rationale:} Users should not need to be authenticated when just browsing the application.\\
 \textbf{Fit Criterion:} Both authenticated and anonymous users shall be able to browse through posts and comments in any subreddit.
 \end{tcolorbox}
@@ -318,6 +321,27 @@ Below is the Use-Case Diagram for the User Interaction System.
 \textbf{Description:} User profiles show karma points(accumulated from their posts or comments) \\
 \textbf{Rationale:} Users submitting quality content or have comments which the community values should be awarded.\\
 \textbf{Fit Criterion:} User profiles shall show their accumulated karma points from all of their posts and comments.
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\textbf{Requirement Number: FR9} \\
+\textbf{Description:} Users should be able to search for their desired subreddits. \\
+\textbf{Rationale:} There can be a large a number of subreddits as the number of users increase.  Having the option to search for subreddits will make the end user experience more enjoyable..\\
+\textbf{Fit Criterion:} There shall be a search bar at the top of the home page where users can search for a subreddit that matches their input.
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\textbf{Requirement Number: FR10} \\
+\textbf{Description:} Users should be able to subscribe to their favourite subreddits as well as unsubscribe.\\
+\textbf{Rationale:} There can be a large number of subreddits on the application as the number of users increase. Users being able to favourite subreddits will help them navigate to their desired subreddits faster.\\
+\textbf{Fit Criterion:} When viewing a subreddit users will be able to click a "subscribe" button.  The subscribed subreddit will show up when they enter the search bar on the home page.  Similarily, when viewing a subreddit users are subscribed too they will be able to click an "unsubscribe" button.
+\end{tcolorbox}
+
+\begin{tcolorbox}
+\textbf{Requirement Number: FR11} \\
+\textbf{Description:} Users should be able to create subreddits.\\
+\textbf{Rationale:} Users should be able to create new subreddits so that they can facilitate new discussions and communities.\\
+\textbf{Fit Criterion:} When on the home page in the top right menu users should be able to select "Create a subreddit" where they are prompted to add the title and description.
 \end{tcolorbox}
 
 \pagebreak

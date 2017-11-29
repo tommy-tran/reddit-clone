@@ -24,7 +24,7 @@
 \textheight 200mm
 \renewcommand\baselinestretch{1.0}
 \usepackage{fancyhdr}
-\fancyhead[L]{October 27, 2017}
+\fancyhead[L]{November 29, 2017}
 \fancyhead[C]{SE 3XA3: Test Plan}
 \fancyhead[R]{AKT}
 \pagestyle{fancy}
@@ -44,7 +44,7 @@ Kathryn Kodama\\
 Tommy Tran\\
 	\texttt{001150067}
 }
-\date{\today\\Version 1.3}
+\date{\today\\Version 2.0}
 \begin{document}
 
 \maketitle
@@ -64,9 +64,9 @@ Tommy Tran\\
 \midrule
 1.0 & 18/10/17 & Created Document\\
 1.1 & 24/10/17 & Updated  content and formatting\\
-1.2 & 26/10/17 & Updated content
-\\
-1.3 & 27/10/17 & Finalized content for rev.0 \\
+1.2 & 26/10/17 & Updated content\\
+1.3 & 27/10/17 & Finalized content for Rev.0 \\
+2.0 & 20/11/17 & Started Rev.1 \\
 \bottomrule
 \end{tabularx}
 \textbf{*list of figures is not applicable to this document as of version 1.3}
@@ -74,7 +74,7 @@ Tommy Tran\\
 
 
 
-\pagebreak
+\clearpage
 
 
 
@@ -86,13 +86,12 @@ The purpose of this test plan is to verify that the program works as intended an
 \subsection {Scope}
 This test plan provides the basis for testing the Reddit-Clone program's functionality and that it properly mimics the functionality of the original open source project Reddit.  The program allows for users to post, discuss, and curate user created content.
 
-The testing of Reddit-Clone means to cover Dynamic testing and dynamic testing through black box, white box, manual, and automated tests.  This document is an outline of the testing methods including the testing tools to be utilized.
+The testing of Reddit-Clone means to cover the entirety of the project through black box, white box, manual, and automated tests.  This document is an outline of the testing methods including the testing tools to be utilized.
 
 \subsection {Acronyms, Abbreviations, and Symbols}
 
 \begin{table}[ht]
 \caption{\textbf{Table of Abbreviations}} \label{Abbreviations}
-
 \begin{tabularx}{\textwidth}{p{3cm}X}
 \toprule
 \textbf{Abbreviation} & \textbf{Definition} \\
@@ -101,31 +100,32 @@ AKT & Alex, Kathryn, Tommy; also the team name (see Definitions table)\\
 PoC & Proof of concept, project as of October 16, 2017\\
 DevPlan & Development Plan document \\
 UI & User Interaction \\
-
 \bottomrule
 \end{tabularx}
-
 \end{table}
 
 \begin{table}[ht]
 \caption{\textbf{Table of Definitions}} \label{Definitions}
-
 \begin{tabularx}{\textwidth}{p{3cm}X}
 \toprule
 \textbf{Term} & \textbf{Definition}\\
 \midrule
+AKT & The developer team for Reddit-Clone\\
+Black Box Testing & A testing method where the code is tested without knowledge of the internal structure \\
+Comment & An authenticated user's text response to another user's post or comment \\
+Down-dote & A term for "disliking" a post/comment on Reddit-Clone. \\
+Dynamic Testing & A type of testing where the software is tested based on specific input values to see if it matches the expected output values \\
+GUI & Graphic User Interface \\ 
+Manual Testing & A type of testing where the tester plays the role of the end user and uses most of the application's features to ensure correct behaviour \\
+Post & A submission by an authenticated user that contains text and/or media attachments \\
 Reddit & The original Reddit open source projected to be recreated (\url{http://www.reddit.com})\\
 Reddit-Clone & The project being created.\\
-AKT & The developer team for Reddit-Clone\\
-Up Vote & A term for "liking" a post/comment on Reddit-Clone.  \\
-Down Vote & A term for "disliking" a post/comment on Reddit-Clone. \\
 Subreddit & A page containing the posts of a certain topic \\
-GUI & Graphic User Interface \\ 
-Post & A submission by an authenticated user that contains text and/or media attachments \\
-Comment & An authenticated user's text response to another user's post or comment \\
+System Testing & A type of testing where the entire software and integration is tested. System testing is a subset of black box testing.\\
+Up-vote & A term for "liking" a post/comment on Reddit-Clone.  \\
+White Box Testing & A type of testing where the software is tested with knowledge of the inner workings of the code \\
 \bottomrule
 \end{tabularx}
-
 \end{table}	
 
 \pagebreak
@@ -139,22 +139,22 @@ Reddit-Clone will allow authenticated users create posts, subreddits and comment
 The testing team for Reddit-Clone are all members of the AKT Development team: Alex Trudeau, Kathryn Kodama, Tommy Tran.  The lead tester will be Tommy Tran.
 
 \subsection {Tools Used for Testing}
-%% Can someone verify this?
-The dynamic testing will utilize the following tools.  Mocha and Angular 4 testing packages will be used to test the JavaScript functionality of this project.
+The dynamic testing will utilize the following tools.  Jasmine with Karma framework and Angular 4 testing packages will be used to dynamically test the JavaScript functionality of this project.  Through the use of Jasmine the testing team will carry out unit tests and end to end testing.
 
-The Dynamic testing will be performed without additional tools.  The HTML/Css testing will be tested through observation on Unix, Windows, iOs, and Android environments.
+The HTML/CSS testing will be tested through static testing and observation on Unix, Windows, iOS, and Android environments.
 
 \subsection {Testing Schedule}
 
-Refer to the \href{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone/blob/master/Documentation/Gantt_27_10_17.pdf}{Gantt Chart} located in the project GitLab for the testing schema.   Testing is divided into the following categories within the Gantt chart: Account Management, Content Management, Navigation Methods.  Each testing category is assigned to a different member of the AKT development team and associated with a start and date time
+Refer to the \href{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone}{Gantt Chart} located in the project GitLab for the testing schema.   Testing is divided into the following categories within the Gantt chart: Account Management, Content Management, Navigation Methods.  Each testing category is assigned to a different member of the AKT development team and associated with a start date and end date.
 
 \begin{table}[ht]
 \caption{\bf Testing Schedule (as outlined in the Gantt Chart)}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Category} & {\bf Group Member} & {\bf Completion Date}\\
 \midrule
-Account Management & Alex Trudeau & 7/11/2017\\
-Content Management & Tommy Tran & 9/11/2017 \\
+Set up testing framework & Kathryn Kodama; Tommy Tran & 5/11/2017 \\
+Account Management & Alex Trudeau & 10/11/2017\\
+Content Management & Tommy Tran & 12/11/2017 \\
 Navigation Methods & Kathryn Kodama & 11/11/2017\\ 
 \bottomrule
 \end{tabularx}
@@ -162,16 +162,14 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 
 
 \pagebreak
-% \subsection{Tests for Functional Requirements}
-% \subsubsection{User Input}
-% \subsubsection{Navigation}
-
-% \subsection{Tests for Nonfunctional Requirements}
-% \subsubsection{Usability}
-% \subsubsection{Performance}
 
 % Authentication Methods, Account Management, Content Management, Navigation Methods, 
+\section{Traceability Matrix}
+Please view the requirements specification document to view the functional and non-functional requirements located in the traceability matrix below.  The tests detailed our outlined in the sections below.\\
+\newline
+\includegraphics[scale=0.55]{matrix.png}
 
+\pagebreak
 \section{System Testing}
 \subsection{Tests for Functional Requirements}
 \subsubsection{Account Management}
@@ -192,7 +190,7 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{Type:} Functional, Dynamic, Manual\\
 \textbf{Initial State:} Not authenticated, on home page\\
 \textbf{Input:} Enter invalid or already registered username/email\\
-\textbf{Output:} Error message shown to user\\
+\textbf{Output:} Error message shown to user.  This test generates an exception.\\
 \textbf{How the test will be performed:} Tester will attempt sign up with an invalid or already used username or email.
 \end{tcolorbox}
 
@@ -208,41 +206,31 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 
 \newpage
 
-\textbf{\\Delete account}
-\begin{tcolorbox}
-\textbf{Test ID:} FRT1-4\\
-\textbf{Type:} Functional, Dynamic, Manual\\
-\textbf{Initial State:} Authenticated, viewing profile\\
-\textbf{Input:} Select delete account, then confirm\\
-\textbf{Output:} Deleted account success message\\
-\textbf{How the test will be performed:} User will be deleted and then database will be checked and account deletion will be verified
-\end{tcolorbox}
+
 
 \textbf{\\Log in}
 \begin{tcolorbox}
-\textbf{Test ID:} FRT1-5\\
+\textbf{Test ID:} FRT1-4\\
 \textbf{Type:} Functional, Dynamic, Manual\\
 \textbf{Initial State:} Prompted to log in\\
 \textbf{Input:} Enter user information from previously created account\\
 \textbf{Output:} Successful or failed authentication
-\textbf{How the test will be performed:} Tester will log in with an email not associated with any account (authentication fails) and then with a previously created user account (authentication succeeds).
+\textbf{How the test will be performed:} The user will log into the application with an email not associated with any account (authentication fails). Then the user will log in with a previously created user account (authentication succeeds).
 \end{tcolorbox}
 
 \textbf{\\Log in (unverified)}
 \begin{tcolorbox}
-\textbf{Test ID:} FRT1-6\\
+\textbf{Test ID:} FRT1-5\\
 \textbf{Type:} Functional, Dynamic, Manual\\
-\textbf{Initial State:} Prompted to log in\\
-\textbf{Input:} Enter user information from previously created account\\
-\textbf{Output:} Error message notifying user to verify by email
-\textbf{How the test will be performed:} Tester will log in with a previously created user account. Authentication succeeds but will prompt the user to check email for verification email.
+\textbf{Initial State:} User prompted to log in\\
+\textbf{Input:} The user will enter user information from previously created account.\\
+\textbf{Output:} An error message should appear notifying the user to verify their account via their email.
+\textbf{How the test will be performed:} The user will log in with a previously created user account. The authentication succeeds but will then prompt the user to check their email to verify their account. 
 \end{tcolorbox}
-
-\newpage
 
 \textbf{\\Log out}
 \begin{tcolorbox}
-\textbf{Test ID:} FRT1-7\\
+\textbf{Test ID:} FRT1-6\\
 \textbf{Type:} Functional, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated, viewing homepage\\
 \textbf{Input:} Log out button selected\\
@@ -284,19 +272,9 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{How the test will be performed:} Tester will manually view and verify that posts from multiple subreddits show on the homepage and when a subreddit is selected, posts from only that specific subreddit is shown
 \end{tcolorbox}
 
-\textbf{\\Edit posts}
-\begin{tcolorbox}
-\textbf{Test ID:} FRT4-1\\
-\textbf{Type:} Structural, Dynamic, Automated\\
-\textbf{Initial State:} Authenticated\\
-\textbf{Input:} Send edit test post request to database\\
-\textbf{Output:} Test post is modified\\
-\textbf{How the test will be performed:} Authenticated test account will send a request to edit a post and then verify that the post has been successfully modified.
-\end{tcolorbox}
-
 \textbf{\\Delete posts}
 \begin{tcolorbox}
-\textbf{Test ID:} FRT4-2\\
+\textbf{Test ID:} FRT4-1\\
 \textbf{Type:} Structural, Dynamic, Automated\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send delete request for test post to database\\
@@ -304,21 +282,9 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{How the test will be performed:} Authenticated test account will send a request to delete a post and then verify that the post has been successfully deleted.
 \end{tcolorbox}
 
-\newpage
-
-\textbf{\\Edit comment}
-\begin{tcolorbox}
-\textbf{Test ID:} FRT4-3\\
-\textbf{Type:} Structural, Dynamic, Automated\\
-\textbf{Initial State:} Authenticated\\
-\textbf{Input:} Send edit test comment request to database\\
-\textbf{Output:} Test comment is modified\\
-\textbf{How the test will be performed:} Authenticated test account will send a request to edit a comment and then verify that the comment has been successfully modified.
-\end{tcolorbox}
-
 \textbf{\\Delete comment}
 \begin{tcolorbox}
-\textbf{Test ID:} FRT4-4\\
+\textbf{Test ID:} FRT4-2\\
 \textbf{Type:} Structural, Dynamic, Automated\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send delete request for test comment to database\\
@@ -335,8 +301,6 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{Output:} Test comment created\\
 \textbf{How the test will be performed:} Authenticated test account will send a request to create a comment and then verify that the comment has been successfully created.
 \end{tcolorbox}
-
-\newpage
 
 \textbf{\\Up-voting a post}
 \begin{tcolorbox}
@@ -368,8 +332,6 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{How the test will be performed:} Authenticated test account will send a request to upvote a comment and then verify that the comment points has been successfully incremented.
 \end{tcolorbox}
 
-\newpage
-
 \textbf{\\Down-voting a comment}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT6-4\\
@@ -400,8 +362,6 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{How the test will be performed:} Tester will select different sorting option and verify that sorting works. Hot shows more recently popular posts, New shows newest posts and Top shows posts with highest karma points.
 \end{tcolorbox}
 
-\newpage
-
 \textbf{\\Sorting posts (Subreddit)}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT7-2\\
@@ -422,6 +382,16 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{Input:} Select user to open user profile  \\
 \textbf{Output:} User profile modal opened\\
 \textbf{How the test will be performed:} Tester will select a user to view their information and verify that all of the information is correct with the database.
+\end{tcolorbox}
+
+\textbf{\\Edit user profile picture}
+\begin{tcolorbox}
+\textbf{Test ID:} FRT8-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select update photo and add link url, click "Submit"  \\
+\textbf{Output:} User profile picture changed\\
+\textbf{How the test will be performed:} Tester will select a user to view their information and change the profile photo.  The user will log in and out to ensure the new profile picture has been saved to their account.
 \end{tcolorbox}
 
 \textbf{\\View subreddit}
@@ -516,6 +486,14 @@ Navigation Methods & Kathryn Kodama & 11/11/2017\\
 \textbf{Output:} Application shouold present error in credentials message\\
 \textbf{How the test will be performed:} A member of the AKT development team will attempt enter a user's email into the login component and a random password, then attempt to log in.
 \end{tcolorbox}
+
+\section{Tests for Proof of Concept}
+Proof of concept testing will be focused on manual testing of the core functionalities of the project.  Proof of concept testing will focus on setting the stage for how the project will be tested going forward.  In terms of testing for the proof of concept, two major functionalities will be tested: account creation and management and creating content (posts, subreddits, comments).
+
+\subsection{Account Creation and Management}
+\subsection{Creating Content}
+
+
 
 \section{Comparison to Existing Implementation}
 In order to ensure that the project has at least the core functions of Reddit, all functional types tests that we use can also be applied to the original Reddit application.
