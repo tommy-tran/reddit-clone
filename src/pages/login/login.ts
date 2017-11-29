@@ -25,6 +25,8 @@ export class LoginPage {
   userHasAccount: boolean;
   usernameText: string;
   validUsername: boolean;
+  resetEmail: boolean;
+
   constructor(
     private alertCtrl: AlertController,
     private authService: AuthService,
@@ -46,7 +48,8 @@ export class LoginPage {
 		this.isMobile = this.dataSharing.getIsMobile();
 		this.screenX = window.screen.width;
 		this.screenY = window.screen.height;
-		this.isMobile = platform.is('mobile');
+    this.isMobile = platform.is('mobile');
+    this.resetEmail = false;
 		//does the user have an account?
 		this.storage.get('userHasAccount').then((val: boolean) => {
 		this.userHasAccount = val;
@@ -75,6 +78,33 @@ export class LoginPage {
   }
 
   /**
+   * resetPassword
+   * @param(form: NgForm)
+   */
+  resetPassword(form: NgForm){
+    if (form.value.emailInput) {
+      firebase.auth().sendPasswordResetEmail(form.value.emailInput).then(() => {
+        let alert = this.alertCtrl.create({
+          subTitle: 'reset password email sent to ' + form.value.emailInput,
+          message: 'Please note that it may take time for the email to reach your inbox',
+          buttons: ['Ok']
+        });
+        alert.present();
+        console.log("email address reset password sent")
+        this.resetEmail = false;     
+      }).catch(err => {
+        console.error(err);
+        let alert = this.alertCtrl.create({
+          title: err.message,
+          subTitle: "Please try again",
+          buttons: ['Ok']
+        });
+        alert.present();
+      });    
+    }
+  }
+
+  /**
    * get form data and log user in
    * @param form form with user's login info
    */
@@ -96,7 +126,10 @@ export class LoginPage {
         this.signInUser(email, pswd);
       }
       else {
-        this.alertCtrl.create({ title: 'Email not verified', subTitle: 'Please check your email and verify your account', buttons: [{ text: 'Ok' }] }).present();
+        this.alertCtrl.create({ 
+          title: 'Email not verified', 
+          subTitle: 'Please check your email and verify your account', 
+          buttons: [{ text: 'Ok' }] }).present();
       }
     }).catch(err => console.error(err));
   }
@@ -216,9 +249,14 @@ export class LoginPage {
   switchForms() {
     this.userHasAccount = !this.userHasAccount;
   }
+
   /**
-   * close the login modal
+   * switch from normal login to reset email login
    */
+  switchToResetEmail(){
+    this.resetEmail = !this.resetEmail;
+  }
+
   closeModal() {
     this.viewController.dismiss(this.isLoggedIn);
   }

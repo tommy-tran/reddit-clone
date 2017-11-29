@@ -45,6 +45,7 @@ export class AuthService {
                     this.loggedIn = true;
                     this.uid = user.uid;
                     this.email = user.email;
+
                     this.events.publish('user:loggedin&set');
                     this.setUsername().then(() => {
                         return resolve(true);
@@ -169,6 +170,7 @@ export class AuthService {
             })
         });
     }
+
     /**
      * return an error message from firebases error codes
      * @param code firebase error code

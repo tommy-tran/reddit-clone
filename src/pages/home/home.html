@@ -47,15 +47,14 @@
     <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
   </div> -->
 
-  <div style="text-align: center;">
+  <div style="text-align: center">
     <h2>Welcome to Reddit Clone</h2>
     <p>
       <i>A social news aggregator where users have the power to add, rate, and curate content!</i>
     </p>
-    <p *ngIf="username">Logged in as: <strong>u/{{username}}</strong></p>
+    <p *ngIf="username">Your username is {{username}}</p>
+    <br>
   </div>
-  
-  <br>
   <!-- create subreddit -->
   <!-- <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button> -->
   <!-- sort posts -->
