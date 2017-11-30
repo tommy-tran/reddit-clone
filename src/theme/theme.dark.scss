@@ -3,8 +3,6 @@
       background-color: #1a1a1a;
       color: #fff !important;
 
-      
-
       .header {
         background-color: #556d7a;        
       }
@@ -14,8 +12,9 @@
       }
 
       .shadow2 {
-          text-shadow: 1px 1px 1px #000;  
+        text-shadow: 0px 1px 1px rgb(255, 50, 0);
       }
+
     }
    
     .toolbar-title {
@@ -25,6 +24,10 @@
     .header .toolbar-background {
       border-color: #ff0fff;
       background-color: #1a1a1a;
+    }
+
+    .toolbar {
+      border-bottom: 1px solid rgba(36, 160, 237, 0.5);
     }
 
     .back-button {

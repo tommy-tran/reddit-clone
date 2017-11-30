@@ -107,7 +107,7 @@ export class HomePage {
     this.closeAllOverlays();
 
     // When user logs in, update authservice variables
-    this.events.subscribe('user:loggedin', () => {
+    this.events.subscribe('update:posts', () => {
       this.authService.updateAuthState().then(() => {
         this.setUsername();
         this.posts = []; // Clear posts

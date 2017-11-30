@@ -1,7 +1,12 @@
 .comment-container {
-    border-top: 3px solid lightgray;
     padding-top: 8px;
     padding-bottom: 8px;
+}
+
+hr {
+    border-top: 1px solid rgba(100, 100, 100, 0.35);
+    margin-bottom: 10px;
+    height: 1px;
 }
 
 .comment-content {

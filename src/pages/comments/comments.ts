@@ -43,6 +43,7 @@ export class CommentsPage implements OnInit {
 
     this.events.subscribe('update:comments', () => {
       this.getPostComments();
+      this.post = this.navParams.data.post;
     });
   }
 
@@ -75,7 +76,6 @@ export class CommentsPage implements OnInit {
       this.databaseService.writeComment(commentData, this.post.post_id, this.post.subreddit_id).then((comment: Comment) => {
         this.comments.push(comment);
       });
-
     }
   }
   /**

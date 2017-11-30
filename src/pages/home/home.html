@@ -46,7 +46,7 @@
           <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
         </div>
         <div style="width: 100%" text-right>
-            <a class="shadow2" (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
+            <a style="font-size: 15px;" class="shadow2" (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
         </div>
     </div>
 

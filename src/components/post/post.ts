@@ -129,8 +129,7 @@ export class PostComponent implements OnInit {
         this.databaseService.checkDownvoted(user, this.post).then(boolean => {
           this.userDownvoted = boolean;
         });
-        this.updatePost();
-        
+        this.updatePost();   
       });
     } else{
       console.log("not logged in");
@@ -146,7 +145,8 @@ export class PostComponent implements OnInit {
             }
           },
           {
-            text: 'Dismiss'          }
+            text: 'Dismiss'
+          }
         ]
       });
       alert.present();
@@ -181,7 +181,8 @@ export class PostComponent implements OnInit {
             }
           },
           {
-            text: 'Dismiss'          }
+            text: 'Dismiss'
+          }
         ]
       });
       alert.present();

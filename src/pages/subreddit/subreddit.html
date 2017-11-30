@@ -1,6 +1,6 @@
 <ion-header no-border>
   <ion-navbar transparent>
-    <ion-title *ngIf="subreddit">/r/{{subreddit.name}}</ion-title>
+    <ion-title style="text-align: left" *ngIf="subreddit">/r/{{subreddit.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,10 +11,10 @@
     <button *ngIf="isSubscribed" ion-button round small color="prettygray" (click)="unsubscribe(user_id, subreddit.subreddit_id)">
       <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;Subscribed
     </button>
-    <button *ngIf="!isSubscribed" color="secondary" round small ion-button (click)="subscribe(user_id, subreddit.name, subreddit.subreddit_id)">
+    <button *ngIf="!isSubscribed" color="black" round small ion-button (click)="subscribe(user_id, subreddit.name, subreddit.subreddit_id)">
       <ion-icon name="add"></ion-icon>&nbsp;&nbsp;Subscribe</button>
     <div style="display: flex; width:100%; border-bottom: 1px solid lightgray;">
-      <div style="flex-shrink: 2;" id="sortby">
+      <div style="flex-shrink: 2; padding-top: 20px" id="sortby">
         <span>Sort Posts By</span>
         <button ion-button clear small (click)="showSortByPopover($event)">
           <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;

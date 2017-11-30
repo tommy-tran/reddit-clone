@@ -226,7 +226,8 @@ export class LoginPage {
         this.storage.set('isLoggedIn', true).then(() => {
           this.isLoggedIn = true;
           this.viewController.dismiss(this.isLoggedIn);
-          this.events.publish('user:loggedin');            
+          this.events.publish('update:posts');
+          this.events.publish('update:comments');
         });
     }).catch(err => {
       loading.dismiss();
