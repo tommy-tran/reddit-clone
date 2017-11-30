@@ -502,6 +502,14 @@ In order to ensure that the project has at least the core functions of Reddit, a
 \subsection{Unit testing of internal functions}
 The Jasmine test framework will be leveraged in order to unit test the functionality of the components and services. The core functions that will be tested are within the database service (database.service.ts) which handles almost all of the data transfer between the application and Firebase. These tests will mainly consist of structural tests to verify that the application receives proper information from the database. There will be no use of stubs or drivers in unit testing.
 
+\subsection{Coverage Metrics}
+One coverage metric used for testing is testing against lines of code. The metric is as follows: \\
+(A) = total lines of code being tested \\
+(B) = total lines of testing code executed \\
+(B) / (A)  x 100= test coverage percentage\\
 
+Other coverage metrics includ the number of requirements compared to the number of test cases that cover that specific requirement.  The traceability matrix mentioned above is well suited to analyze this metric.  \\
+
+Additionally, the number of test cases passed and failed will be a good metric to view the coverage of the test plan.  
 
 \end{document}
