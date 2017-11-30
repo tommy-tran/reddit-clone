@@ -386,6 +386,11 @@ export class HomePage {
     });
     if (this.isLoggedIn) {
       createSubredditModal.present();
+      createSubredditModal.onDidDismiss(sub_id => {
+        if(sub_id != null){
+          this.goToSubreddit(sub_id);
+        }
+      })
     } else {
       let authModal = this.modalCtrl.create(LoginPage, { theme: this.selectedTheme }, { cssClass: this.selectedTheme });
       authModal.present();

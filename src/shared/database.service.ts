@@ -439,7 +439,7 @@ export class DatabaseService {
      * @param user_id user_id of the creator
      */
     newSubreddit(subredditName: string, subredditDescription: string, username: string, user_id: string) {
-        return new Promise(resolve => {
+        return new Promise<string>(resolve => {
             let key = firebase.database().ref('subreddits').push().key;
             let subreddit = new Subreddit(
                 subredditName,
@@ -453,7 +453,7 @@ export class DatabaseService {
             updates['subreddits/' + key] = subreddit;
             updates['subredditlist/' + subredditName] = key
             firebase.database().ref().update(updates);
-            resolve();
+            return resolve(key);
         });
 
     }
