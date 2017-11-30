@@ -33,7 +33,6 @@ export class CommentsPage implements OnInit {
     let theme;
     this.theming.getActiveTheme().subscribe(val => {
       theme = val;
-      console.log(theme)
       this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
       this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
     });
@@ -42,8 +41,8 @@ export class CommentsPage implements OnInit {
     this.getPostComments();
 
     this.events.subscribe('update:comments', () => {
+      this.updatePost();      
       this.getPostComments();
-      this.post = this.navParams.data.post;
     });
   }
 
@@ -53,6 +52,14 @@ export class CommentsPage implements OnInit {
       this.events.publish('nav');
       this.navCtrl.pop();
     }
+  }
+
+  updatePost() {
+    this.databaseService.getPost(this.post.post_id, this.post.subreddit_id).then((post) => {
+      if (this.post) {
+        this.post = post;
+      }
+    })
   }
 
   /**
