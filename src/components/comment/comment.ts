@@ -60,7 +60,6 @@ export class CommentComponent {
 
       });
     } else {
-      console.log("not logged in");
       const alert = this.alertCtrl.create({
         title: "Not Logged In",
         subTitle: "Please log in to upvote and downvote posts, as well as create your own subreddits, posts, and comments!",
@@ -96,7 +95,6 @@ export class CommentComponent {
         this.updateComment();
       });
     } else {
-      console.log("not logged in");
       const alert = this.alertCtrl.create({
         title: "Not Logged In",
         subTitle: "Please log in to upvote and downvote posts, as well as create your own subreddits, posts, and comments!",
@@ -135,7 +133,6 @@ export class CommentComponent {
     authModal.onWillDismiss((isLoggedIn) => {
       if (isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
-        console.log("loggedin: " + this.isLoggedIn);
       }
     });
   }

@@ -250,7 +250,6 @@ export class HomePage {
         cssClass: this.selectedTheme
       });
       profModal.present();
-      // this.navCtrl.push('profile', param);
     }
     else {
       this.openAuth();

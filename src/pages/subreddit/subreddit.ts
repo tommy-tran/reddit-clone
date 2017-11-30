@@ -97,7 +97,6 @@ export class SubredditPage implements OnInit {
 		this.user_id = this.authService.getUID();
 		this.posts = [];
 		this.isSubscribed = this.storageService.isSubscribed(this.subreddit.subreddit_id);
-		console.log(this.isSubscribed);
 		this.getPosts();
 	}
 	/**
