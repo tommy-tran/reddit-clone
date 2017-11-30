@@ -80,25 +80,25 @@
 
   <!-- menu overlay -->
   <div id="menu" *ngIf="showMenu">
-    <button [color]="menuColor" ion-item text-right no-lines (click)="!isLoggedIn ? openAuth() : logout()">
-      <ion-icon [color]="menuIconColor" name="contact"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span>{{!isLoggedIn ? 'Log In / Sign Up' : 'Log Out'}}</span>
+    <button [color]="menuColor" style="margin-top: 2px" ion-item text-right no-lines (click)="openProfile()">
+      <ion-icon [color]="menuIconColor" name="person"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span style="margin-right: 10px;">Profile</span>
     </button>
     <button [color]="menuColor" ion-item text-right no-lines (click)="createSubreddit()">
       <ion-icon [color]="menuIconColor" name="create"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span>Create a Subreddit</span>
+      <span style="margin-right: 10px;">Create a Subreddit</span>
     </button>
     <button [color]="menuColor" ion-item text-right no-lines (click)="toggleLayout()">
       <ion-icon [color]="menuIconColor" name="menu"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span>{{isCardLayout ? 'Compact View' : 'Card View'}}</span>
+      <span style="margin-right: 10px;">{{isCardLayout ? 'Compact View' : 'Card View'}}</span>
     </button>
     <button [color]="menuColor" ion-item text-right no-lines (click)="toggleTheme()">
       <ion-icon [color]="menuIconColor" name="contrast"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span>{{selectedTheme == 'dark-theme' ? 'Light Theme' : 'Dark Theme'}}</span>
+      <span style="margin-right: 10px;">{{selectedTheme == 'dark-theme' ? 'Light Theme' : 'Dark Theme'}}</span>
     </button>
-    <button [color]="menuColor" ion-item text-right no-lines (click)="openProfile()">
-      <ion-icon [color]="menuIconColor" name="person"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span>Profile</span>
+    <button [color]="menuColor" ion-item text-right no-lines (click)="!isLoggedIn ? openAuth() : logout()">
+      <ion-icon [color]="menuIconColor" name="contact"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span style="margin-right: 10px;">{{!isLoggedIn ? 'Log In / Sign Up' : 'Log Out'}}</span>
     </button>
   </div>
 
