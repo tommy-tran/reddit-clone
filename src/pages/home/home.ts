@@ -87,6 +87,7 @@ export class HomePage {
     this.storage.get("userHasAccount").then(val => {
       this.userHasAccount = val;
     });
+    
     this.user_id = this.authService.getUID();
     this.showSubscribedSubreddits = true;
 
@@ -106,7 +107,7 @@ export class HomePage {
     this.closeAllOverlays();
 
     // When user logs in, update authservice variables
-    this.events.subscribe('user:loggedin', () => {
+    this.events.subscribe('update:posts', () => {
       this.authService.updateAuthState().then(() => {
         this.setUsername();
         this.posts = []; // Clear posts
@@ -115,13 +116,12 @@ export class HomePage {
     });
     // When user navigates from subreddits, refresh
     this.events.subscribe('nav', () => {
+      this.isLoggedIn = this.authService.isLoggedIn();
       this.getAllPosts();
     });
-
     //refresh subscribed when user subscribes/unsubscribes
     this.events.subscribe('refresh:subscribed', () => {
       this.storageService.getSubscribedSubreddits().then(subscribed => {
-        console.log('refresh');
         this.subscribedSubreddits = subscribed;
       });
     });
@@ -144,7 +144,6 @@ export class HomePage {
     let subscribedSubreddits = this.storageService.getInitSubreddits();
     // if (!subscribedSubreddits || subscribedSubreddits.length == 0) {
       this.databaseService.getSubscribedSubreddits(this.authService.getUID()).then(subreddits => {
-        console.log(subreddits);
         this.subscribedSubreddits = subreddits;
         let subscribed = [];
         for (var key in subreddits) {
@@ -231,7 +230,6 @@ export class HomePage {
         this.userHasAccount = true;
         this.getSubscribed();
         this.closeAllOverlays();
-        console.log("loggedin: " + this.isLoggedIn);
       }
     });
   }
@@ -246,19 +244,10 @@ export class HomePage {
         cssClass: this.selectedTheme
       });
       profModal.present();
-      // this.navCtrl.push('profile', param);
     }
     else {
       this.openAuth();
     }
-  }
-  /**
-   * display user info to the console
-   */
-  showUserInfo() {
-    console.log("Username: " + this.authService.getUsername());
-    console.log("UID: " + this.authService.getUID());
-    console.log("Email: " + this.authService.getEmail());
   }
 
   /**
@@ -395,7 +384,6 @@ export class HomePage {
     let createSubredditModal = this.modalCtrl.create(CreateSubredditPage, { theme: this.selectedTheme }, {
       cssClass: this.selectedTheme
     });
-    console.log("loggedIn: " + this.isLoggedIn);
     if (this.isLoggedIn) {
       createSubredditModal.present();
     } else {

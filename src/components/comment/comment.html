@@ -1,7 +1,7 @@
 <div class="comment-container">
     <div class="comment-top-bar">
         <span>{{comment.creator}} &bull; {{datePosted}}</span>
-        <ion-icon *ngIf="showDeleteBtn" name="trash" (click)="deleteComment"></ion-icon>
+        <ion-icon *ngIf="showDeleteBtn" name="trash" (click)="deleteComment()"></ion-icon>
     </div>
     <div class="comment-content">
         <p [style.color]="color">{{comment.message}}</p>
@@ -25,4 +25,5 @@
             </a>
         </div>
     </div>
+    <hr>
 </div>

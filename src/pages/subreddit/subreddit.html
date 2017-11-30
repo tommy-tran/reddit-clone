@@ -1,32 +1,36 @@
 <ion-header no-border>
   <ion-navbar transparent>
-    <ion-title *ngIf="subreddit">/r/{{subreddit.name}}</ion-title>
+    <ion-title style="text-align: left" *ngIf="subreddit">/r/{{subreddit.name}}</ion-title>
+    <ion-buttons left style="margin-left: 10px;"><img style="width: 24px;" src="https://i.imgur.com/QDkJkpQ.png" alt="Reddit Clone"></ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3 *ngIf="subreddit">Welcome to /r/{{subreddit.name}}</h3>
-  <p *ngIf="subreddit">{{subreddit.description}}</p>
-  <div text-center>
+<ion-content>
+  <div padding class="header">
+    <img src="https://i.imgur.com/nzUWNa8.png" alt="Reddit Clone">
+    <h3 class="shadow" style="font-size: 27px; font-weight: 700;" *ngIf="subreddit">Welcome to /r/{{subreddit.name}}</h3>
+    <p *ngIf="subreddit">{{subreddit.description}}</p>
     <button *ngIf="isSubscribed" ion-button round small color="prettygray" (click)="unsubscribe(user_id, subreddit.subreddit_id)">
       <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;Subscribed
     </button>
-    <button *ngIf="!isSubscribed" color="secondary" round small ion-button (click)="subscribe(user_id, subreddit.name, subreddit.subreddit_id)">
-      <ion-icon name="add"></ion-icon>&nbsp;&nbsp;Subscribe</button>
-  </div>
-  <p>Scroll through the posts below or click "Create a post" to add your own content.</p>
-  <button ion-button (click)="createPost()" style="margin: 10px 0 20px 0">Create a post</button>
-  <br>
-  <div id="sortby">
-    <span>Sort Posts By</span>
-    <br>
-    <button ion-button clear small (click)="showSortByPopover($event)">
-      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
-      <ion-icon name="arrow-down"></ion-icon>
+    <button *ngIf="!isSubscribed" color="black" round small ion-button (click)="subscribe(user_id, subreddit.name, subreddit.subreddit_id)">
+      <ion-icon name="add"></ion-icon>&nbsp;&nbsp;Subscribe
     </button>
+    <p style="width: 100%;" class="lighttext">Scroll through the posts below or click "Create a post" to add your own content.</p>      
+    <div style="display: flex; width:100%; border-bottom: 1px solid lightgray; padding-bottom: 10px">
+      <div style="flex-shrink: 2;" id="sortby">
+        <span>Sort Posts By</span>
+        <button ion-button clear small (click)="showSortByPopover($event)">
+          <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
+          <ion-icon name="arrow-down"></ion-icon>
+        </button>
+      </div>
+      <div style="flex-shrink: 2; width: 100%; text-align: right"><button ion-button (click)="createPost()">Create a post</button></div>
+    </div>
   </div>
+
   <br>
-  <ion-list>
+  <ion-list padding-horizontal>
     <div *ngFor="let post of posts">
       <post [post]="post" [subreddit]="subreddit" [showCommentBtn]="true" [commentPage]="false" [showDeleteBtn]="post.user == username"></post>
     </div>

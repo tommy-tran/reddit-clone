@@ -33,13 +33,17 @@ export class CommentsPage implements OnInit {
     let theme;
     this.theming.getActiveTheme().subscribe(val => {
       theme = val;
-      console.log(theme)
       this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
       this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
     });
     this.username = this.authService.getUsername();
     this.post = this.navParams.data.post;
     this.getPostComments();
+
+    this.events.subscribe('update:comments', () => {
+      this.updatePost();      
+      this.getPostComments();
+    });
   }
 
   ngOnInit() {
@@ -48,6 +52,14 @@ export class CommentsPage implements OnInit {
       this.events.publish('nav');
       this.navCtrl.pop();
     }
+  }
+
+  updatePost() {
+    this.databaseService.getPost(this.post.post_id, this.post.subreddit_id).then((post) => {
+      if (this.post) {
+        this.post = post;
+      }
+    })
   }
 
   /**
@@ -71,7 +83,6 @@ export class CommentsPage implements OnInit {
       this.databaseService.writeComment(commentData, this.post.post_id, this.post.subreddit_id).then((comment: Comment) => {
         this.comments.push(comment);
       });
-
     }
   }
   /**

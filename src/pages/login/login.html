@@ -45,7 +45,7 @@
         </form>
       </div>
       <!-- form for an existing user -->
-      <div *ngIf="userHasAccount && !needsVerification" text-center>
+      <div *ngIf="userHasAccount && !needsVerification && !resetEmail" text-center>
         <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
           <ion-item [style.backgroundColor]="itemColor">
             <ion-input [style.color]="textColor" name="emailInput" placeholder="Enter Email" ngModel></ion-input>
@@ -55,6 +55,19 @@
           </ion-item>
           <button [style.marginTop]="screenY/24+'px'" ion-button type="submit">Submit</button>
         </form>
+        <!-- button to switch form to reset password type -->
+        <button text-wrap clear ion-button (click)="switchToResetEmail()">Forgot password?</button>
+      </div>
+      <!-- form for reset email -->
+      <div *ngIf="resetEmail" text-center>
+        <h3>Reset Email</h3>
+        <form #resetEmailForm="ngForm" (ngSubmit)="resetPassword(resetEmailForm)">
+          <ion-item [style.backgroundColor]="itemColor">
+            <ion-input [style.color]="textColor" name="emailInput" placeholder="Enter Email" ngModel></ion-input>            
+          </ion-item>
+          <button [style.marginTop]="screenY/24+'px'" ion-button type="submit">send verification email</button>
+        </form>
+        <button text-wrap clear ion-button (click)="switchToResetEmail()">Back to Login Page</button>                  
       </div>
       <!--error messages only show if form not complete or passwords don't match-->
       <div class="login-errors" [style.display]="(showIncompleteFormErr || showPasswordsErr) ? 'block' : 'none'" text-center>
@@ -62,9 +75,10 @@
         <div [style.visibility]="showPasswordsErr ? 'visible' : 'hidden'">Passwords Do Not Match</div>
       </div>
       <!-- button to switch form type -->
-      <div *ngIf="!needsVerification" text-center>
+      <div *ngIf="!needsVerification && !resetEmail" text-center>
         <button text-wrap clear ion-button (click)="switchForms()">{{userHasAccount ? "Don't have an account? Create one here" : 'Already have an account? Login in Here'}}</button>
       </div>
+ 
       <!-- only displayed after user creates and account and needs to verify their email -->
       <div *ngIf="needsVerification" text-center id="verify-container">
         <div [style.padding]="'30px 0'" text-center>For your convenience, you can quickly sign in AFTER you verify your email</div>

@@ -34,24 +34,24 @@ export class AuthService {
      * updates the user authentication state, determines if user is logge din or not
      */
     updateAuthState() {
-        return new Promise((resolve, reject) => {
+        return new Promise<boolean>((resolve, reject) => {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     // User is signed in.
-                    console.log(user.photoURL);
                     if (user.photoURL == null){
                         this.setPhoto("https://www.stockvault.net/data/2009/10/05/110974/thumb16.jpg");
                     }
                     this.loggedIn = true;
                     this.uid = user.uid;
                     this.email = user.email;
+
                     this.events.publish('user:loggedin&set');
                     this.setUsername().then(() => {
-                        return resolve();
+                        return resolve(true);
                     });
                 } else {
                     // No user is signed in
-                    return reject();                    
+                    return reject(false);                    
                 }
             });
         }).catch(err => console.log(err));
@@ -169,6 +169,7 @@ export class AuthService {
             })
         });
     }
+
     /**
      * return an error message from firebases error codes
      * @param code firebase error code

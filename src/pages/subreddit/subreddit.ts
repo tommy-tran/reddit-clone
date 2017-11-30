@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NavController, NavParams, Navbar, Events, ModalController, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, Navbar, Events, ModalController, PopoverController, AlertController } from 'ionic-angular';
 
 import { AuthService } from '../../shared/auth.service';
 import { CreatePostPage, LoginPage } from "../../shared/pages";
@@ -31,11 +31,9 @@ export class SubredditPage implements OnInit {
 	times: string[];
 	user_id: string;
 	username: string;
-
-	// TODO: Description, Moderator/creator privileges
-
 	constructor(
 		private databaseService: DatabaseService,
+		private alertCtrl: AlertController,
 		private dataSharing: DataSharingService,
 		private authService: AuthService,
 		public navCtrl: NavController,
@@ -56,12 +54,16 @@ export class SubredditPage implements OnInit {
 			console.log('ok');
 			this.theming.getActiveTheme().subscribe(val => this.selectedTheme = val);
 		});
-		this.events.subscribe('user:loggedin', () => {
+		this.events.subscribe('update:posts', () => {
 			this.authService.updateAuthState().then(() => {
 				this.posts = []; // Clear posts
 				this.getPosts(); // Get votable posts
 				this.isLoggedIn = true;
 			});
+		});
+		this.events.subscribe('update:posts', () => {
+			this.posts = []; // Clear posts
+			this.getPosts(); // Get votable posts
 		});
 
 	}
@@ -95,7 +97,6 @@ export class SubredditPage implements OnInit {
 		this.user_id = this.authService.getUID();
 		this.posts = [];
 		this.isSubscribed = this.storageService.isSubscribed(this.subreddit.subreddit_id);
-		console.log(this.isSubscribed);
 		this.getPosts();
 	}
 	/**
@@ -111,7 +112,6 @@ export class SubredditPage implements OnInit {
 		this.isLoggedIn = this.authService.isLoggedIn();
 
 		// Routing
-		console.log(this.navParams.data);
 		if (this.navParams.data['UID']) {
 			this.subreddit = this.navParams.data;
 			this.setUp();
@@ -143,13 +143,30 @@ export class SubredditPage implements OnInit {
 		if (this.isLoggedIn) {
 			createPostModal.present();
 		} else {
-			let authModal = this.modalCtrl.create(LoginPage, { theme: theme }, { cssClass: theme });
-			authModal.present();
-			authModal.onWillDismiss((isLoggedIn) => {
-				if (isLoggedIn) {
-					this.isLoggedIn = isLoggedIn;
+			const alert = this.alertCtrl.create({
+			  title: "Not Logged In",
+			  subTitle: "Please log in to upvote and downvote posts, as well as create your own subreddits, posts, and comments!",
+			  buttons: [
+				{
+				  text: 'Log In/Sign Up',
+				  role: 'login',
+				  handler: data => {
+					let theme = this.theming.getThemeAsString();
+					let authModal = this.modalCtrl.create(LoginPage, { theme: theme }, { cssClass: theme });
+					authModal.present();
+					authModal.onWillDismiss((isLoggedIn) => {
+						if (isLoggedIn) {
+							this.isLoggedIn = isLoggedIn;
+						}
+					});
+				  }
+				},
+				{
+				  text: 'Dismiss'
 				}
+			  ]
 			});
+			alert.present();
 		}
 
 		createPostModal.onDidDismiss(() => {
@@ -165,7 +182,7 @@ export class SubredditPage implements OnInit {
 		let popover = this.popoverCtrl.create(SortByPopover, { sortMethod: this.sortMethod });
 		popover.present({ ev: ev });
 		popover.onWillDismiss(sortMethod => {
-			if (sortMethod != this.sortMethod) {
+			if (sortMethod != this.sortMethod && sortMethod) {
 				this.sortMethod = sortMethod.sortMethod;
 				this.sortIcon = sortMethod.icon;
 				this.posts = this.dataSharing.sortBy(this.posts, this.sortMethod);
@@ -181,21 +198,47 @@ export class SubredditPage implements OnInit {
 	 * @param subreddit_id id of the subreddit to subscribe to
 	 */
 	subscribe(user_id: string, subreddit_name: string, subreddit_id: string) {
-		this.isSubscribed = !this.isSubscribed;
-		this.databaseService.subscribeSubreddit(user_id, subreddit_name, subreddit_id).then(() => {
-			this.storageService.getSubscribedSubreddits().then(subreddits => {
-				if (!subreddits) {
-					subreddits = [];
-				}
-				subreddits.push({ subreddit_id: subreddit_id, subreddit_name: subreddit_name });
-				this.storageService.setSubscribedSubreddits(subreddits);
-				console.log('subscribe success');
-				//emit to home page to refresh subscribed
-				this.navCtrl.viewDidLeave.subscribe(() => {
-					this.events.publish('refresh:subscribed');
+		if (this.isLoggedIn){
+			this.isSubscribed = !this.isSubscribed;
+			this.databaseService.subscribeSubreddit(user_id, subreddit_name, subreddit_id).then(() => {
+				this.storageService.getSubscribedSubreddits().then(subreddits => {
+					if (!subreddits) {
+						subreddits = [];
+					}
+					subreddits.push({ subreddit_id: subreddit_id, subreddit_name: subreddit_name });
+					this.storageService.setSubscribedSubreddits(subreddits);
+					console.log('subscribe success');
+					//emit to home page to refresh subscribed
+					this.navCtrl.viewDidLeave.subscribe(() => {
+						this.events.publish('refresh:subscribed');
+					});
 				});
+			}).catch(err => console.error(err));
+		  } else {
+			const alert = this.alertCtrl.create({
+			  title: "Not Logged In",
+			  subTitle: "Please log in or sign up to subscribe to subreddits!",
+			  buttons: [
+				{
+				  text: 'Log In/Sign Up',
+				  role: 'login',
+				  handler: data => {
+					let theme = this.theming.getThemeAsString();
+					let authModal = this.modalCtrl.create(LoginPage, { theme: theme }, { cssClass: theme });
+					authModal.present();
+					authModal.onWillDismiss((isLoggedIn) => {
+						if (isLoggedIn) {
+							this.isLoggedIn = isLoggedIn;
+						}
+					});
+				  }
+				},
+				{
+				  text: 'Dismiss'          }
+			  ]
 			});
-		}).catch(err => console.error(err));
+			alert.present();
+		  }
 	}
 	/**
 	 * unsubscribe a user from a subreddit

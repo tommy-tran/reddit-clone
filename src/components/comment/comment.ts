@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Comment } from "../../models/comment.model";
-import { NavParams, AlertController, ModalController } from "ionic-angular";
+import { NavParams, AlertController, ModalController, Events } from "ionic-angular";
 import { AuthService } from "../../shared/auth.service";
 import { DatabaseService } from "../../shared/database.service";
 import { LoginPage } from "../../shared/pages";
@@ -12,6 +12,7 @@ export class CommentComponent {
   datePosted: string;
   userHasAccount: any;
   @Input() comment: Comment;
+  @Input() subredditId: string;
   @Input() postId: string;
   @Input() color: string;
   @Input() showDeleteBtn: boolean;
@@ -20,7 +21,13 @@ export class CommentComponent {
   score: number;
   userDownvoted: boolean;
   userUpvoted: boolean;
-  constructor(private alertCtrl: AlertController, private authService: AuthService, private databaseService: DatabaseService, private modalCtrl: ModalController, public navParams: NavParams) {
+  constructor(
+    private alertCtrl: AlertController, 
+    private authService: AuthService, 
+    private databaseService: DatabaseService, 
+    private events: Events,
+    private modalCtrl: ModalController, 
+    public navParams: NavParams) {
     this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
@@ -53,7 +60,6 @@ export class CommentComponent {
 
       });
     } else {
-      console.log("not logged in");
       const alert = this.alertCtrl.create({
         title: "Not Logged In",
         subTitle: "Please log in to upvote and downvote posts, as well as create your own subreddits, posts, and comments!",
@@ -89,7 +95,6 @@ export class CommentComponent {
         this.updateComment();
       });
     } else {
-      console.log("not logged in");
       const alert = this.alertCtrl.create({
         title: "Not Logged In",
         subTitle: "Please log in to upvote and downvote posts, as well as create your own subreddits, posts, and comments!",
@@ -128,7 +133,6 @@ export class CommentComponent {
     authModal.onWillDismiss((isLoggedIn) => {
       if (isLoggedIn) {
         this.isLoggedIn = isLoggedIn;
-        console.log("loggedin: " + this.isLoggedIn);
       }
     });
   }
@@ -177,6 +181,22 @@ export class CommentComponent {
   }
 
   deleteComment() {
-    //remove comment from db and from view
+    this.alertCtrl.create({
+      title: "Deletion confirmation",
+      subTitle: "Are you sure you want to delete this comment?",
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: data => {
+            this.databaseService.deleteComment(this.subredditId, this.postId,this.comment.comment_id).then(() => {
+              this.events.publish('update:comments')
+            })
+          }
+        },
+        {
+          text: 'Cancel'
+        }
+      ]
+    }).present();
   }
 }

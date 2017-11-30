@@ -3,6 +3,12 @@ page-subreddit {
         font-size: 12px;
     }
     #sortby {
-        border-bottom: 1px solid lightgray;
+        text-align: left;
+        width: 100%;
+    }
+    
+    .header {
+        width: 100%;
+        text-align: center;
     }
 }
