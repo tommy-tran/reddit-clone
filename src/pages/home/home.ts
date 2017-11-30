@@ -119,18 +119,12 @@ export class HomePage {
       this.isLoggedIn = this.authService.isLoggedIn();
       this.getAllPosts();
     });
-
     //refresh subscribed when user subscribes/unsubscribes
     this.events.subscribe('refresh:subscribed', () => {
       this.storageService.getSubscribedSubreddits().then(subscribed => {
         this.subscribedSubreddits = subscribed;
       });
     });
-
-    this.events.subscribe('update:posts', () => {
-			this.posts = []; // Clear posts
-			this.getAllPosts(); // Get votable posts
-		});
   }
   /** 
    * Set up environment
