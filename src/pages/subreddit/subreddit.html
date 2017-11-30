@@ -13,17 +13,18 @@
       <ion-icon name="checkmark"></ion-icon>&nbsp;&nbsp;Subscribed
     </button>
     <button *ngIf="!isSubscribed" color="black" round small ion-button (click)="subscribe(user_id, subreddit.name, subreddit.subreddit_id)">
-      <ion-icon name="add"></ion-icon>&nbsp;&nbsp;Subscribe</button>
-    <div style="display: flex; width:100%; border-bottom: 1px solid lightgray;">
-      <div style="flex-shrink: 2; padding-top: 20px" id="sortby">
+      <ion-icon name="add"></ion-icon>&nbsp;&nbsp;Subscribe
+    </button>
+    <p style="width: 100%;" class="lighttext">Scroll through the posts below or click "Create a post" to add your own content.</p>      
+    <div style="display: flex; width:100%; border-bottom: 1px solid lightgray; padding-bottom: 10px">
+      <div style="flex-shrink: 2;" id="sortby">
         <span>Sort Posts By</span>
         <button ion-button clear small (click)="showSortByPopover($event)">
           <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
           <ion-icon name="arrow-down"></ion-icon>
         </button>
       </div>
-      <p style="width: 100%; flex-shrink: 1" class="lighttext">Scroll through the posts below or click "Create a post" to add your own content.</p>      
-      <div style="flex-shrink: 2; width: 100%; text-align: right"><button ion-button (click)="createPost()" style=" margin-bottom: 15px;">Create a post</button></div>
+      <div style="flex-shrink: 2; width: 100%; text-align: right"><button ion-button (click)="createPost()">Create a post</button></div>
     </div>
   </div>
 

@@ -112,7 +112,6 @@ export class SubredditPage implements OnInit {
 		this.isLoggedIn = this.authService.isLoggedIn();
 
 		// Routing
-		console.log(this.navParams.data);
 		if (this.navParams.data['UID']) {
 			this.subreddit = this.navParams.data;
 			this.setUp();
