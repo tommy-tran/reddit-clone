@@ -208,6 +208,7 @@ export class HomePage {
       this.isLoggedIn = false;
       this.closeAllOverlays();
       this.subscribedSubreddits = [];
+      this.storageService.setSubscribedSubreddits([]);
       this.authService.updateAuthState().then(() => {
         this.posts = [];
         this.getAllPosts();
@@ -290,6 +291,7 @@ export class HomePage {
     this.showMenu = false;
     this.showNewPostBox = false;
     this.showSearchbar = false;
+    this.showSubscribedSubreddits = true;
   }
   /**
    * switch between large images and small images

@@ -520,11 +520,12 @@ export class DatabaseService {
      * @param postId id of the post the comment is being written to
      */
     writeComment(commentData: any, postId: string, subredditId: string) {
-        return new Promise(resolve => {
+        return new Promise<Comment>(resolve => {
             let key = firebase.database().ref('comments/' + postId + '/comments/').push().key;
+            let d = new Date();
             let comment = new Comment(
                 commentData.message,
-                firebase.database.ServerValue.TIMESTAMP,
+                d.getTime(),
                 commentData.creator,
                 commentData.UID,
                 key,
@@ -537,7 +538,7 @@ export class DatabaseService {
             ref.transaction((comments) => {
                 return (comments || 0) + 1;
             }).catch(err => console.error(err));
-            resolve(comment);
+            return resolve(comment);
         });
 
     }
