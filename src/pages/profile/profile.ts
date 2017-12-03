@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, ViewController, Events } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+
 import { AuthService } from '../../shared/auth.service';
 import { DatabaseService } from '../../shared/database.service';
 import { SettingsProvider } from '../../shared/theming.service';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
+
 
 @IonicPage()
 @Component({
@@ -12,6 +14,7 @@ import { NgForm } from '@angular/forms/src/directives/ng_form';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+
   isLoggedIn: boolean;
   username: string;
   email: string;
@@ -21,6 +24,7 @@ export class ProfilePage {
   photo: string;
   selectedTheme: String;
   changePhoto: boolean;
+
 
   constructor(
     private alertCtrl: AlertController,
@@ -47,11 +51,21 @@ export class ProfilePage {
       });
     }
   }
-  /**
-   * close the profile modal
-   */
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProfilePage');
+  }
+
   closeModal() {
     this.viewController.dismiss();
+  }
+
+  showUserInfo() {
+    console.log("Username: " + this.username);
+    console.log("UID: " + this.uid);
+    console.log("Email: " + this.email);
+    console.log("Karma: " + this.karma);
+    console.log("Member Since: " + this.memberSince);
   }
 
   setPhoto(form: NgForm){
@@ -76,7 +90,6 @@ export class ProfilePage {
   showPhotoLink(){
     this.changePhoto = true;
   }
-
   isURL(str : string) {
     if (str.includes('.')) {
       var pattern = new RegExp('^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$');
