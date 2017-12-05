@@ -205,7 +205,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Type:} Functional, Dynamic, Manual\\
 \textbf{Initial State:} After successful user account creation\\
 \textbf{Input:} Open verification link in email \\
-\textbf{Output:} Success message \\
+\textbf{Output:} Success message (User can now log in) \\
 \textbf{How the test will be performed:} Tester will check account email and open the verification link
 \end{tcolorbox}
 
@@ -219,7 +219,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Type:} Functional, Dynamic, Manual\\
 \textbf{Initial State:} Prompted to log in\\
 \textbf{Input:} Enter user information from previously created account\\
-\textbf{Output:} Successful or failed authentication
+\textbf{Output:} Successful or failed authentication\\
 \textbf{How the test will be performed:} The user will log into the application with an email not associated with any account (authentication fails). Then the user will log in with a previously created user account (authentication succeeds).
 \end{tcolorbox}
 
@@ -229,7 +229,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Type:} Functional, Dynamic, Manual\\
 \textbf{Initial State:} User prompted to log in\\
 \textbf{Input:} The user will enter user information from previously created account.\\
-\textbf{Output:} An error message should appear notifying the user to verify their account via their email.
+\textbf{Output:} An error message should appear notifying the user to verify their account via their email.\\
 \textbf{How the test will be performed:} The user will log in with a previously created user account. The authentication succeeds but will then prompt the user to check their email to verify their account. 
 \end{tcolorbox}
 
@@ -271,7 +271,7 @@ Please view the requirements specification document to view the functional and n
 \begin{tcolorbox}
 \textbf{Test ID:} FRT3-1\\
 \textbf{Type:} Functional, Dynamic, Manual\\
-\textbf{Initial State:} Authenticated\\
+\textbf{Initial State:} Application active and at home page\\
 \textbf{Input:} View homepage and then select a subreddit\\
 \textbf{Output:} Show posts from a variety of subreddits on homepage, show posts from specific subreddit when selected\\
 \textbf{How the test will be performed:} Tester will manually view and verify that posts from multiple subreddits show on the homepage and when a subreddit is selected, posts from only that specific subreddit is shown
@@ -280,7 +280,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{\\Delete posts}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT4-1\\
-\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send delete request for test post to database\\
 \textbf{Output:} Test post deleted\\
@@ -290,7 +290,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{\\Delete comment}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT4-2\\
-\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send delete request for test comment to database\\
 \textbf{Output:} Test comment deleted\\
@@ -300,7 +300,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{\\Create comment}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT5-1\\
-\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send a request to create a test comment to database\\
 \textbf{Output:} Test comment created\\
@@ -310,7 +310,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{\\Up-voting a post}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT6-1\\
-\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send a request to upvote test post to database\\
 \textbf{Output:} Test post points increased\\
@@ -320,7 +320,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{\\Down-voting a post}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT6-2\\
-\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send a request to downvote a test post to database\\
 \textbf{Output:} Test post points decreased\\
@@ -330,7 +330,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{\\Up-voting a comment}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT6-3\\
-\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send a request to upvote test comment to database\\
 \textbf{Output:} Test comment points increased\\
@@ -340,7 +340,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{\\Down-voting a comment}
 \begin{tcolorbox}
 \textbf{Test ID:} FRT6-4\\
-\textbf{Type:} Structural, Dynamic, Automated\\
+\textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Send a request to downvote a test comment to database\\
 \textbf{Output:} Test comment points decreased\\
@@ -349,7 +349,7 @@ Please view the requirements specification document to view the functional and n
 
 \textbf{\\User karma points}
 \begin{tcolorbox}
-\textbf{Test ID:} FRT6-5\\ % Need to modify FR6(modifications karma to user profile)
+\textbf{Test ID:} FRT6-5\\
 \textbf{Type:} Structural, Dynamic, Manual\\
 \textbf{Initial State:} Authenticated\\
 \textbf{Input:} Upvote/downvote a user's post/comment, select the user's name to open user profile  \\
@@ -488,7 +488,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Type:} Non-Functional, Dynamic, Manual\\
 \textbf{Initial State:} On website, not logged in as user \\
 \textbf{Input:} Enter another user's email and some password \\
-\textbf{Output:} Application shouold present error in credentials message\\
+\textbf{Output:} Application should present error in credentials message\\
 \textbf{How the test will be performed:} A member of the AKT development team will attempt enter a user's email into the login component and a random password, then attempt to log in.
 \end{tcolorbox}
 
@@ -513,7 +513,7 @@ One coverage metric used for testing is testing against lines of code. The metri
 (B) = total lines of testing code executed \\
 (B) / (A)  x 100= test coverage percentage\\
 
-Other coverage metrics includ the number of requirements compared to the number of test cases that cover that specific requirement.  The traceability matrix mentioned above is well suited to analyze this metric.  \\
+Other coverage metrics include the number of requirements compared to the number of test cases that cover that specific requirement.  The traceability matrix mentioned above is well suited to analyze this metric.  \\
 
 Additionally, the number of test cases passed and failed will be a good metric to view the coverage of the test plan.  
 
