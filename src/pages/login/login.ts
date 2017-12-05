@@ -38,32 +38,32 @@ export class LoginPage {
     public viewController: ViewController,
     public events: Events,
     platform: Platform) {
-		// Initialize
-		this.usernameText = "";
+    // Initialize
+    this.usernameText = "";
     let theme = this.navParams.data.theme;
     this.itemColor = theme == 'dark-theme' ? '#1a1a1a' : '#fff';
     this.textColor = theme == 'dark-theme' ? '#fff' : '#000';
-		this.screenX = this.dataSharing.getScreenX();
-		this.screenY = this.dataSharing.getScreenY();
-		this.isMobile = this.dataSharing.getIsMobile();
-		this.screenX = window.screen.width;
-		this.screenY = window.screen.height;
+    this.screenX = this.dataSharing.getScreenX();
+    this.screenY = this.dataSharing.getScreenY();
+    this.isMobile = this.dataSharing.getIsMobile();
+    this.screenX = window.screen.width;
+    this.screenY = window.screen.height;
     this.isMobile = platform.is('mobile');
     this.resetEmail = false;
-		//does the user have an account?
-		this.storage.get('userHasAccount').then((val: boolean) => {
-		this.userHasAccount = val;
-		});
-		this.validUsername = false;
+    //does the user have an account?
+    this.storage.get('userHasAccount').then((val: boolean) => {
+      this.userHasAccount = val;
+    });
+    this.validUsername = false;
   }
 
   /**
    * Checking username availibility
    */
-  checkUsername(username : string) {
+  checkUsername(username: string) {
     // Check if username is letters and numbers
-    if (!(/^\w+$/i.test(username)) || username.length < 3 || username.length > 16)  {
-        this.validUsername = false;
+    if (!(/^\w+$/i.test(username)) || username.length < 3 || username.length > 16) {
+      this.validUsername = false;
     } else {
       username = username.toLowerCase();
       var database = firebase.database();
@@ -81,7 +81,7 @@ export class LoginPage {
    * resetPassword
    * @param(form: NgForm)
    */
-  resetPassword(form: NgForm){
+  resetPassword(form: NgForm) {
     if (form.value.emailInput) {
       firebase.auth().sendPasswordResetEmail(form.value.emailInput).then(() => {
         let alert = this.alertCtrl.create({
@@ -91,7 +91,7 @@ export class LoginPage {
         });
         alert.present();
         console.log("email address reset password sent")
-        this.resetEmail = false;     
+        this.resetEmail = false;
       }).catch(err => {
         console.error(err);
         let alert = this.alertCtrl.create({
@@ -100,7 +100,7 @@ export class LoginPage {
           buttons: ['Ok']
         });
         alert.present();
-      });    
+      });
     }
   }
 
@@ -110,15 +110,17 @@ export class LoginPage {
    */
   loginUser(form: NgForm) {
     if (form.value.emailInput && form.value.password) {
-      this.signInUser(form.value.emailInput, form.value.password);
+      this.attemptSignIn(form.value.emailInput, form.value.password);
     }
   }
   /**
    * attempt to sign in after verification email is sent
    */
-  attemptSignIn() {
-    let email = this.authService.getEmail();
-    let pswd = this.authService.getPswd();
+  attemptSignIn(email?: string, pswd?: string) {
+    if (!email && !pswd) {
+      email = this.authService.getEmail();
+      pswd = this.authService.getPswd();
+    }
     firebase.auth().signInWithEmailAndPassword(email, pswd).then(() => {
       let isVerified = firebase.auth().currentUser.emailVerified;
       firebase.auth().signOut().catch((err) => console.error(err));
@@ -126,10 +128,11 @@ export class LoginPage {
         this.signInUser(email, pswd);
       }
       else {
-        this.alertCtrl.create({ 
-          title: 'Email not verified', 
-          subTitle: 'Please check your email and verify your account', 
-          buttons: [{ text: 'Ok' }] }).present();
+        this.alertCtrl.create({
+          title: 'Email not verified',
+          subTitle: 'Please check your email and verify your account',
+          buttons: [{ text: 'Ok' }]
+        }).present();
       }
     }).catch(err => console.error(err));
   }
@@ -156,9 +159,9 @@ export class LoginPage {
 
           // Add user to user collection
           firebase.database().ref('users/' + uid).set({
-              email: email,
-              karma: 0,
-              username: username,
+            email: email,
+            karma: 0,
+            username: username,
           });
 
           // Add user to userlist (to handle looking for duplicate users)
@@ -229,20 +232,20 @@ export class LoginPage {
           this.events.publish('update:posts');
           this.events.publish('update:comments');
         });
-    }).catch(err => {
-      loading.dismiss();
-      console.log(err);
-      this.alertCtrl.create({
-        title: err.message,
-        subTitle: 'Please try again',
-        buttons: [
-          {
-            text: 'OK'
-          }
-        ]
-      }).present();
-    });
-  }).catch(err => console.error(err));
+      }).catch(err => {
+        loading.dismiss();
+        console.log(err);
+        this.alertCtrl.create({
+          title: err.message,
+          subTitle: 'Please try again',
+          buttons: [
+            {
+              text: 'OK'
+            }
+          ]
+        }).present();
+      });
+    }).catch(err => console.error(err));
   }
   /**
    * switch between login and sign up forms
@@ -254,7 +257,7 @@ export class LoginPage {
   /**
    * switch from normal login to reset email login
    */
-  switchToResetEmail(){
+  switchToResetEmail() {
     this.resetEmail = !this.resetEmail;
   }
 

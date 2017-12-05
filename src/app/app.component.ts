@@ -12,6 +12,7 @@ import { DatabaseService } from '../shared/database.service';
   templateUrl: 'app.html'
 })
 export class MyApp {
+  isMobile: boolean;
   rootPage: any = HomePage;
   selectedTheme: String;
 
@@ -25,7 +26,8 @@ export class MyApp {
     });
     platform.ready().then(() => {
       //this.dataSharing.setScreenX(platform.width());
-      this.dataSharing.setIsMobile(platform.is('mobile'));
+      this.isMobile = platform.is('mobile');
+      this.dataSharing.setIsMobile(this.isMobile);
       this.events.publish('platform:ready');
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
