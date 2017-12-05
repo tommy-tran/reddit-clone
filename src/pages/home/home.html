@@ -3,7 +3,6 @@
     <ion-title>
       Home
     </ion-title>
-    <ion-buttons left style="margin-left: 10px;"><img style="width: 24px;" src="https://i.imgur.com/QDkJkpQ.png" alt="Reddit Clone"></ion-buttons>
     <ion-buttons end>
       <!-- <button ion-button icon-only (click)="toggleNewPostBox()">
         <ion-icon name="create"></ion-icon>
@@ -22,84 +21,78 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <!-- search results overlay -->
-  <div padding class="header">  
-    
-    <div id="searchbar-results" *ngIf="showSearchbar">
-      <ion-list inset padding-left padding-right *ngIf="!showSubscribedSubreddits">
-        <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
-      </ion-list>
-      <ion-list inset padding-left padding-right *ngIf="showSubscribedSubreddits && isLoggedIn">
-        <div id="list-label">Subscribed Subreddits</div>
-        <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subscribedSubreddits">r/{{subreddit.subreddit_name}}</button>
-      </ion-list>
-    </div>
-    <!-- sort by tab -->
-    <div class="header__box">
-        <div class="header__box__nav">
-          <span style="color: white">Subreddit navigation:</span>
-          <select class="subreddit-nav" [(ngModel)]="selectedSubreddit">
-            <option *ngFor="let subreddit of subreddits" value="{{subreddit.subreddit_id}}">
-              <li>{{subreddit.name}}</li>
-            </option>
-          </select>
-          <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
-        </div>
-        <div style="width: 100%" text-right>
-            <a style="font-size: 15px;" class="shadow2" (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
-        </div>
-    </div>
-
-    <div style="text-align: center; color: white;">
-      <img src="https://i.imgur.com/nzUWNa8.png" alt="Reddit Clone">
-      <h2 class="shadow" style="font-size: 36px; font-weight: 800">Welcome to Reddit Clone</h2>
-      <p>
-        <i>A social news aggregator where users have the power to add, rate, and curate content!</i>
-      </p>
-      <p *ngIf="username">Your username is {{username}}</p>
-      <br>
-    </div>
-    <!-- create subreddit -->
-    <!-- <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button> -->
-    <!-- sort posts -->
-    <div id="sort-and-login">
-      <span style="color: white;">Sort Posts By</span>
-      <button ion-button clear small (click)="showSortByPopover($event)">
-        <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
-        <ion-icon name="arrow-down"></ion-icon>
-      </button>
-    </div>
-
+  <div id="searchbar-results" *ngIf="showSearchbar">
+    <ion-list inset padding-left padding-right *ngIf="!showSubscribedSubreddits">
+      <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subredditDisplay">r/{{subreddit.name}}</button>
+    </ion-list>
+    <ion-list inset padding-left padding-right *ngIf="showSubscribedSubreddits && isLoggedIn">
+      <div id="list-label">Subscribed Subreddits</div>
+      <button ion-item no-lines (click)="goToSubreddit(subreddit.subreddit_id)" *ngFor="let subreddit of subscribedSubreddits">r/{{subreddit.subreddit_name}}</button>
+    </ion-list>
+  </div>
+  <!-- sort by tab -->
+  <div style="width: 100%" text-right>
+    <a (click)="!isLoggedIn ? openAuth() : logout()">{{!isLoggedIn ? 'Log In / Register' : 'Sign Out'}}</a>
   </div>
 
+  <!-- <div>
+    <span>Subreddit navigation:</span>
+    <select class="subreddit-nav" [(ngModel)]="selectedSubreddit">
+      <option *ngFor="let subreddit of subreddits" value="{{subreddit.subreddit_id}}">
+        <li>{{subreddit.name}}</li>
+      </option>
+    </select>
+    <button class="subreddit-button" (click)="goToSubreddit(selectedSubreddit)">GO</button>
+  </div> -->
+
+  <div style="text-align: center">
+    <h2>Welcome to Reddit Clone</h2>
+    <p>
+      <i>A social news aggregator where users have the power to add, rate, and curate content!</i>
+    </p>
+    <p *ngIf="username">Your username is u/{{username}}</p>
+    <br>
+  </div>
+  <!-- create subreddit -->
+  <!-- <button ion-button (click)="createSubreddit()" style="margin-bottom: 20px">Create a Subreddit</button> -->
+  <!-- sort posts -->
+  <div id="sort-and-login">
+    <span>Sort Posts By</span><br>
+    <button ion-button clear small (click)="showSortByPopover($event)">
+      <ion-icon name="{{sortIcon}}"></ion-icon>&nbsp;&nbsp;{{sortMethod}}&nbsp;&nbsp;
+      <ion-icon name="arrow-down"></ion-icon>
+    </button>
+  </div>
+  <br>
   <!-- display posts -->
-  <div padding-horizontal class="posts" *ngFor="let post of posts">
-    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [isMobile]="isMobile" [showCommentBtn]="true" [commentPage]="false" [showDeleteBtn]="post.user == username"></post>
+  <div class="posts" *ngFor="let post of posts">
+    <post *ngIf="posts" [post]="post" [isCardLayout]="isCardLayout" [isMobile]="isMobile" [showCommentBtn]="true" [commentPage]="false"></post>
   </div>
 
 
   <!-- menu overlay -->
   <div id="menu" *ngIf="showMenu">
-    <button [color]="menuColor" style="margin-top: 2px" ion-item text-right no-lines (click)="openProfile()">
-      <ion-icon [color]="menuIconColor" name="person"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span style="margin-right: 10px;">Profile</span>
+    <button [color]="menuColor" ion-item text-right no-lines (click)="!isLoggedIn ? openAuth() : logout()">
+      <ion-icon [color]="menuIconColor" name="contact"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span>{{!isLoggedIn ? 'Log In / Sign Up' : 'Log Out'}}</span>
     </button>
     <button [color]="menuColor" ion-item text-right no-lines (click)="createSubreddit()">
       <ion-icon [color]="menuIconColor" name="create"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span style="margin-right: 10px;">Create a Subreddit</span>
+      <span>Create a Subreddit</span>
     </button>
     <button [color]="menuColor" ion-item text-right no-lines (click)="toggleLayout()">
       <ion-icon [color]="menuIconColor" name="menu"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span style="margin-right: 10px;">{{isCardLayout ? 'Compact View' : 'Card View'}}</span>
+      <span>{{isCardLayout ? 'Compact View' : 'Card View'}}</span>
     </button>
     <button [color]="menuColor" ion-item text-right no-lines (click)="toggleTheme()">
       <ion-icon [color]="menuIconColor" name="contrast"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span style="margin-right: 10px;">{{selectedTheme == 'dark-theme' ? 'Light Theme' : 'Dark Theme'}}</span>
+      <span>{{selectedTheme == 'dark-theme' ? 'Light Theme' : 'Dark Theme'}}</span>
     </button>
-    <button [color]="menuColor" ion-item text-right no-lines (click)="!isLoggedIn ? openAuth() : logout()">
-      <ion-icon [color]="menuIconColor" name="contact"></ion-icon>&nbsp;&nbsp;&nbsp;
-      <span style="margin-right: 10px;">{{!isLoggedIn ? 'Log In / Sign Up' : 'Log Out'}}</span>
+    <button [color]="menuColor" ion-item text-right no-lines (click)="openProfile()">
+      <ion-icon [color]="menuIconColor" name="person"></ion-icon>&nbsp;&nbsp;&nbsp;
+      <span>Profile</span>
     </button>
   </div>
 

@@ -2,6 +2,7 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{float}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -22,7 +23,6 @@
 \textwidth 160mm
 \textheight 200mm
 \renewcommand\baselinestretch{1.0}
-\usepackage{fancyhdr}
 \usepackage{fancyhdr}
 \fancyhead[L]{October 27, 2017}
 \fancyhead[C]{SE 3XA3: Test Plan}
@@ -64,7 +64,8 @@ Tommy Tran\\
 \midrule
 1.0 & 18/10/17 & Created Document\\
 1.1 & 24/10/17 & Updated  content and formatting\\
-1.2 & 26/10/17 & Updated content \\
+1.2 & 26/10/17 & Updated content
+\\
 1.3 & 27/10/17 & Finalized content for rev.0 \\
 \bottomrule
 \end{tabularx}
@@ -148,19 +149,17 @@ The Dynamic testing will be performed without additional tools.  The HTML/Css te
 Refer to the \href{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone/blob/master/Documentation/Gantt_27_10_17.pdf}{Gantt Chart} located in the project GitLab for the testing schema.   Testing is divided into the following categories within the Gantt chart: Account Management, Content Management, Navigation Methods.  Each testing category is assigned to a different member of the AKT development team and associated with a start and date time
 
 \begin{table}[ht]
-\caption{\textbf{Testing Schedule (as outlined in the Gantt Chart)}} \label{Definitions}
-
-\begin{tabularx}{\textwidth}{{2.5cm}p{3.5cm}XX}
-\toprule
-\textbf{Category} & \textbf{Group Member} & \textbf{Completion Date}\\
+\caption{\bf Testing Schedule (as outlined in the Gantt Chart)}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Category} & {\bf Group Member} & {\bf Completion Date}\\
 \midrule
 Account Management & Alex Trudeau & 7/11/2017\\
 Content Management & Tommy Tran & 9/11/2017 \\
-Navigation Methods & Kathryn Kodama & 11/11/2017 \\ 
+Navigation Methods & Kathryn Kodama & 11/11/2017\\ 
 \bottomrule
 \end{tabularx}
+\end{table}
 
-\end{table}	
 
 \pagebreak
 % \subsection{Tests for Functional Requirements}

@@ -439,7 +439,7 @@ export class DatabaseService {
      * @param user_id user_id of the creator
      */
     newSubreddit(subredditName: string, subredditDescription: string, username: string, user_id: string) {
-        return new Promise(resolve => {
+        return new Promise<string>(resolve => {
             let key = firebase.database().ref('subreddits').push().key;
             let subreddit = new Subreddit(
                 subredditName,
@@ -453,7 +453,7 @@ export class DatabaseService {
             updates['subreddits/' + key] = subreddit;
             updates['subredditlist/' + subredditName] = key
             firebase.database().ref().update(updates);
-            resolve();
+            return resolve(key);
         });
 
     }
@@ -520,11 +520,12 @@ export class DatabaseService {
      * @param postId id of the post the comment is being written to
      */
     writeComment(commentData: any, postId: string, subredditId: string) {
-        return new Promise(resolve => {
+        return new Promise<Comment>(resolve => {
             let key = firebase.database().ref('comments/' + postId + '/comments/').push().key;
+            let d = new Date();
             let comment = new Comment(
                 commentData.message,
-                firebase.database.ServerValue.TIMESTAMP,
+                d.getTime(),
                 commentData.creator,
                 commentData.UID,
                 key,
@@ -537,7 +538,7 @@ export class DatabaseService {
             ref.transaction((comments) => {
                 return (comments || 0) + 1;
             }).catch(err => console.error(err));
-            resolve(comment);
+            return resolve(comment);
         });
 
     }

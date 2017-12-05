@@ -21,8 +21,8 @@
       </div>
 
     </div>
-    <div text-center [style.width]="isMobile ? '100%' : '50%'" *ngIf="post.link && isCardLayout">
-      <img class="link" src="{{post.link}}" alt="post media" (click)="goToLink()">
+    <div text-center style="max-width: 100%;" *ngIf="post.link && isCardLayout">
+      <img class="link" style="max-height: 780px" src="{{post.link}}" alt="post media" (click)="goToLink()">
     </div>
     <div class="post-actions">
       <div class="comments" *ngIf="showCommentBtn">

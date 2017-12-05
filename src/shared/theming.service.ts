@@ -10,7 +10,6 @@ export class SettingsProvider {
 
     constructor(private storage: Storage, private events: Events) {
         this.getTheme();
-        console.log('k')
         this.events.subscribe('platform:ready', () => {
             this.getTheme();
         });
