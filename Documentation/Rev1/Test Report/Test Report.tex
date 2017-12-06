@@ -1,0 +1,332 @@
+\documentclass[12pt,fleqn]{article}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{float}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{vhistory}
+\usepackage{tcolorbox}
+
+
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+\usepackage{fancyhdr}
+\fancyhead[L]{December 6, 2017}
+\fancyhead[C]{SE 3XA3: Test Plan}
+\fancyhead[R]{AKT}
+\pagestyle{fancy}
+
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+\title{Group 29 (AKT)\\ Test Report}
+\author{
+Alex Trudeau\\
+	\texttt{400030148}
+\and
+Kathryn Kodama\\
+  	\texttt{400013582}
+\and
+Tommy Tran\\
+	\texttt{001150067}
+}
+\date{\today\\Version 1.1}
+\begin{document}
+
+\maketitle
+
+
+
+\pagebreak
+
+
+\tableofcontents
+
+\listoftables
+
+\begin{table}[ht]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Version} & {\bf Date} & {\bf Notes}\\
+\midrule
+1.0 & 01/12/17 & Created Document\\
+1.1 & 04/10/17 & Updated  content and formatting\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+
+\clearpage
+
+\section{System Testing}
+
+\subsection{Functional Requirement Tests Evaluation}
+
+\subsubsection{User account creation (valid inputs)}
+\textbf{Test ID:} FRT1-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Not authenticated, on home page\\
+\textbf{Input:} Enter valid username, email and password\\
+\textbf{Output:} Email sent to inputted email(user cannot log in yet). \\
+\textbf{Result:} PASS
+
+\subsubsection{User account creation (invalid inputs)}
+\textbf{Test ID:} FRT1-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Not authenticated, on home page\\
+\textbf{Input:} Enter invalid or already registered username/email\\
+\textbf{Output:} Error message shown to user.  This test generates an exception.\\
+\textbf{Result:} PASS
+
+\subsubsection{Verify user account}
+\textbf{Test ID:} FRT1-3\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} After successful user account creation\\
+\textbf{Input:} Open verification link in email \\
+\textbf{Output:} Success message(User can log in) \\
+\textbf{Result:} PASS
+
+\subsubsection{Log in}
+\textbf{Test ID:} FRT1-4\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Prompted to log in\\
+\textbf{Input:} Enter user information from previously created account\\
+\textbf{Output:} Successful or failed authentication\\
+\textbf{Result:} PASS
+
+\subsubsection{Log in (unverified)}
+\textbf{Test ID:} FRT1-5\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} User prompted to log in\\
+\textbf{Input:} The user will enter user information from previously created account.\\
+\textbf{Output:} An error message should appear notifying the user to verify their account via their email.\\
+\textbf{Result:} FAIL
+
+\subsubsection{Log out}
+\textbf{Test ID:} FRT1-6\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, viewing homepage\\
+\textbf{Input:} Log out button selected\\
+\textbf{Output:} Log in/Sign Up button shown on homepage\\
+\textbf{Result:} PASS
+
+\subsubsection{Post creation}
+\textbf{Test ID:} FRT2-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, create post modal opened\\
+\textbf{Input:} Test post parameters\\
+\textbf{Output:} Check post shows in subreddit\\
+\textbf{Result:} PASS
+
+\subsubsection{Content browsing}
+\textbf{Test ID:} FRT3-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active and at home page\\
+\textbf{Input:} View homepage and then select a subreddit\\
+\textbf{Output:} Show posts from a variety of subreddits on homepage, show posts from specific subreddit when selected\\
+\textbf{Result:} PASS
+
+\subsubsection{Delete posts}
+\textbf{Test ID:} FRT4-1\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send delete request for test post to database\\
+\textbf{Output:} Test post deleted\\
+\textbf{Result:} PASS
+
+\subsubsection{Delete comment}
+\textbf{Test ID:} FRT4-2\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send delete request for test comment to database\\
+\textbf{Output:} Test comment deleted\\
+\textbf{Result:} PASS
+
+\subsubsection{Create comment}
+\textbf{Test ID:} FRT5-1\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to create a test comment to database\\
+\textbf{Output:} Test comment created\\
+\textbf{Result:} PASS
+\newpage
+\subsubsection{Up-voting a post}
+\textbf{Test ID:} FRT6-1\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to upvote test post to database\\
+\textbf{Output:} Test post points increased\\
+\textbf{Result:} PASS
+
+\subsubsection{Down-voting a post}
+\textbf{Test ID:} FRT6-2\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to downvote a test post to database\\
+\textbf{Output:} Test post points decreased\\
+\textbf{Result:} PASS
+
+\subsubsection{Up-voting a comment}
+\textbf{Test ID:} FRT6-3\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to upvote test comment to database\\
+\textbf{Output:} Test comment points increased\\
+\textbf{Result:} PASS
+
+\subsubsection{Down-voting a comment}
+\textbf{Test ID:} FRT6-4\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Send a request to downvote a test comment to database\\
+\textbf{Output:} Test comment points decreased\\
+\textbf{Result:} PASS
+\newpage
+\subsubsection{User karma points}
+\textbf{Test ID:} FRT6-5\\
+\textbf{Type:} Structural, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated\\
+\textbf{Input:} Upvote/downvote a user's post/comment, select the user's name to open user profile  \\
+\textbf{Output:} User profile modal opened(karma points should have changed)\\
+\textbf{Result:} PASS
+
+\subsubsection{Sorting posts (Home page)}
+\textbf{Test ID:} FRT7-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, on home page\\
+\textbf{Input:} Select all three different sorting options: Hot, New and Top \\
+\textbf{Output:} All posts sorted according to selection\\
+\textbf{Result:} PASS
+
+\subsubsection{Sorting posts (Subreddit)}
+\textbf{Test ID:} FRT7-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, on test subreddit\\
+\textbf{Input:} Select all three different sorting options: Hot, New and Top \\
+\textbf{Output:} All posts sorted according to selection\\
+\textbf{Result:} PASS
+
+\subsubsection{View user profile}
+\textbf{Test ID:} FRT8-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select user to open user profile  \\
+\textbf{Output:} User profile modal opened\\
+\textbf{Result:} PASS
+\newpage
+\subsubsection{Edit user profile picture}
+\textbf{Test ID:} FRT8-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select update photo and add link url, click "Submit"  \\
+\textbf{Output:} User profile picture changed\\
+\textbf{Result:} PASS
+
+\subsubsection{View subreddit}
+\textbf{Test ID:} FRT9-1\\ % Need to add new functional requirement: allow users to view subreddits
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select a test subreddit or use subreddit navigation \\
+\textbf{Output:} Test subreddit displayed\\
+\textbf{Result:} PASS
+
+\subsubsection{Search for existing subreddit}
+\textbf{Test ID:} FRT10-1\\ % Need to add new functional requirement: searching
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Input a subreddit name \\
+\textbf{Output:} Show subreddit (if it exists)\\
+\textbf{Result:} PASS
+
+\subsubsection{Search for non-existing subreddit}
+\textbf{Test ID:} FRT10-2\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Input a subreddit name \\
+\textbf{Output:} No subreddit shown\\
+\textbf{Result:} PASS
+\newpage
+\subsubsection{Subreddit creation}
+\textbf{Test ID:} FRT11-1\\
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Authenticated, create subreddit modal opened\\
+\textbf{Input:} Test subreddit name and description\\
+\textbf{Output:} Subreddit created\\
+\textbf{Result:} PASS
+
+\subsection{Nonfunctional Requirements Tests Evaluation}
+
+\subsubsection{Portability}
+\textbf{Open app on multiple operating systems and platforms}\\
+\textbf{Test ID:} NFRT1-1\\
+\textbf{Type:} Non-Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application closed, not running \\
+\textbf{Input:} Navigate to website \\
+\textbf{Output:} Page will load, posts will load if connected to internet\\
+\textbf{Result:} PASS
+
+\subsubsection{Performance}
+\textbf{Retrieving data within a 5 second response time}\\
+\textbf{Test ID:} NFRT2-1\\ 
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} Application active \\
+\textbf{Input:} Select any button on the application or refreshing the page\\
+\textbf{Output:} Page requested loads within 5 seconds. \\
+\textbf{Result:} PASS
+
+\subsubsection{Reliability/Availability}
+\textbf{Accessing the application with internet accesss}
+\textbf{Test ID:} NFRT2-2\\ 
+\textbf{Type:} Functional, Dynamic, Manual\\
+\textbf{Initial State:} In a location with wifi access or data accesss \\
+\textbf{Input:} Visit the correct URL of the project hosted\\
+\textbf{Output:} Application loads on device \\
+\textbf{Result:} PASS
+
+\subsubsection{Security}
+\textbf{Moderator control}\\
+\textbf{Test ID:} NFRT3-1\\
+\textbf{Type:} Non-Functional, Dynamic, Manual\\
+\textbf{Initial State:} Logged on to Firebase on AKT development team account \\
+\textbf{Input:} Navigate to authentication database/posts database \\
+\textbf{Output:} Specified user accounts/comments/posts deleted\\
+\textbf{Result:} PASS
+\\
+\\
+\textbf{User attempts to access another user's account}\\
+\textbf{Test ID:} NFRT3-2\\
+\textbf{Type:} Non-Functional, Dynamic, Manual\\
+\textbf{Initial State:} On website, not logged in as user \\
+\textbf{Input:} Enter another user's email and some password \\
+\textbf{Output:} Application should present error in credentials message\\
+\textbf{Result:} PASS
+
+\section {Automated Testing}
+It has been decided that automatic testing is not feasible for this project because of the time constraint and difficulty. Since the system is already nearly fully implemented (as well as many extra features), the team has decided that system tests are enough to verify correctness and functionality. In order to implement automated testing for a project of this scale, testing should be focused on much earlier.
+
+% should include usability tests
+\section{Resulting Changes}
+Test FRT1-5 has failed. Users being able to log in before verifying could be a potentially safety critical problem. A solution was proposed and the system has been updated to fix this problem.
+
+
+\section{Coverage Metrics}
+Coverage metrics include the number of requirements compared to the number of test cases that cover that specific requirement. The trace-ability matrix mentioned above is well suited to analyze this metric.
+
+Additionally, the number of test cases passed and failed will be a good metric to view the coverage of the test plan.
+
+\end{document}

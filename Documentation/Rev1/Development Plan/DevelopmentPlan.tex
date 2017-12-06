@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{color}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -21,7 +22,7 @@
 \textheight 200mm
 
 \usepackage{fancyhdr}
-\fancyhead[L]{November 26, 2017}
+\fancyhead[L]{December 6, 2017}
 \fancyhead[C]{SE 3XA3: Development Plan}
 \fancyhead[R]{AKT}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -44,7 +45,7 @@ Kathryn Kodama\\
 Tommy Tran\\
 	\texttt{001150067}
 }
-\date{\today\\Version 2.0}
+\date{\today\\Version 2.1}
 \begin{document}
 
 \maketitle
@@ -56,12 +57,14 @@ Tommy Tran\\
 \begin{table}[ht]
 \caption{\bf Revision History}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+
 \toprule {\bf Version} & {\bf Date} & {\bf Notes}\\
 \midrule
 1.0 & 25/09/17 & Created document \\
 1.1 & 26/09/17 & Updated document sections (1, 5, 6) \\
 1.2 & 29/09/17 & Finalized document Rev. 0 \\
-2.0 & 26/11/17 & Started Rev.1 \\
+\leavevmode\color{red}2.0 & \leavevmode\color{red}26/11/17 & \leavevmode\color{red}Started Rev.1 \\
+\leavevmode\color{red}2.1 & \leavevmode\color{red}03/11/17 & \leavevmode\color{red}Finalized Rev.1 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -132,22 +135,22 @@ Tommy Tran & Developer, Tester \\
 Considering the experience of the team members, most features of the Reddit-Clone application will be implemented by the proof of concept deadline.  One of the challenges of the Reddit-Clone project will be to develop and routinely test to ensure all features function according to the specified requirements. Many features such as a mobile friendly experience, user profile, and post sorting may be postponed for development until after the proof of concept demonstration as they have secondary priority. Core functionality such as viewing posts or comments and user handling(authentication and account management) will be demonstrated as a proof of concept as they have primary priority.
 
 \section {Technology}
-\textbf{Programming Languages: }JavaScript \\ 
+\textcolor{red}{\textbf{Programming Languages: }TypeScript (JavaScript)} \\ 
 \textbf{Frameworks: }Ionic 2 and Angular \\
-\textbf{Document Generation: } Latex will be used for official documentation and Google Docs will be used for meeting minutes and meeting agendas. Compodoc will be used to generate the MIS.
+\textcolor{red}{\textbf{Document Generation: } Latex will be used for official documentation and Google Docs will be used for meeting minutes and meeting agendas. Compodoc will be used to generate the MIS.}
 
-\section {Coding Style}
- \href{https://google.github.io/styleguide/javascriptguide.xml}{This link contains the coding style being followed.}
+\textcolor{red}{\section {Coding Style}
+ \href{https://google.github.io/styleguide/javascriptguide.xml}{This link contains the coding style being followed.}}
 
-\section {Project Schedule}
-See Gantt Chart on Gitlab repository: \url{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone/blob/master/Documentation/Development\%20Plan/GanttChart}
+\textcolor{red}{\section {Project Schedule}
+See Gantt Chart on Gitlab repository under Documentation --> Rev1: \url{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone}}
 
-\section {Project Review (for Revisions 1)}
-On the whole, the reddit-clone project was created with success.  The development plan was followed and the project along with the required documentation was finished on time.  The final project can be viewed online at \href{https://redditclone.me/}{redditclone.me}.
-\subsection{What went well}
-The group collaborated and used GitHub to its' full potential.  Multiple branches were used to develop different functionalities on.  The issues tab of the GitHub was frequently used and was helpful in documenting challenges as the project was developed.  The group met all milestones and deadlines on time.  This helped to make sure the project was on track and scheduled to completed by the end of November 2017.  Through this project all group members were able to improve their knowledge of web and mobile application development, specifically with regards to TypeScript and Ionic 2 and Angular 4 framework.  
+\textcolor{red}{\section {Project Review (for Revisions 1)}
+On the whole, the reddit-clone project was created with success.  The development plan was followed and the project along with the required documentation was finished on time.  The final project can be viewed online at \href{https://redditclone.me/}{redditclone.me}.}
 
-\subsection{What could have been improved upon}
-The testing of the project should have been started earlier as it was rushed near the end of the project.  If the testing began earlier, there would be more time to construct the testing plan and testing document.  Additionally the Gantt chart could have been more closely followed.  Often the Gantt chart was updated after the corresponding sections had been completed.  Perhaps more efficient use of the Gantt chart would have led to more time for additional functionalities and revising documentation.  
+\textcolor{red}{\subsection{What went well}
+The group collaborated and used GitHub to its' full potential.  Multiple branches were used to develop different functionalities on.  The issues tab of the GitHub was frequently used and was helpful in documenting challenges as the project was developed.  The group met all milestones and deadlines on time.  This helped to make sure the project was on track and scheduled to completed by the end of November 2017.  Through this project all group members were able to improve their knowledge of web and mobile application development, specifically with regards to TypeScript and Ionic 2 and Angular 4 framework.  }
 
+\textcolor{red}{\subsection{What could have been improved upon}
+The testing of the project should have been started earlier as it was rushed near the end of the project.  If the testing began earlier, there would be more time to construct the testing plan and testing document.  Additionally the Gantt chart could have been more closely followed.  Often the Gantt chart was updated after the corresponding sections had been completed.  Perhaps more efficient use of the Gantt chart would have led to more time for additional functionalities and revising documentation. }
 \end{document}

@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{color}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -21,7 +22,7 @@
 \textheight 200mm
 
 \usepackage{fancyhdr}
-\fancyhead[L]{December 3, 2017}
+\fancyhead[L]{December 6, 2017}
 \fancyhead[C]{SE 3XA3: Module Guide}
 \fancyhead[R]{AKT}
 \renewcommand{\headrulewidth}{0.2pt}
@@ -61,7 +62,7 @@ Tommy Tran\\
 }
 
 
-\date{\today\\ Version 2.0}
+\date{\today\\ Version 2.1}
 
 \begin{document}
 
@@ -77,10 +78,11 @@ Tommy Tran\\
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-November 6, 2017 & 1.0 & Created\\
-November 8, 2017 & 1.1 & Updated content\\
-November 10, 2017 & 1.2 & Updated and finalized content for Rev.0\\
-December 3, 2017 & 2.0 & Updated content for Rev.1\\
+06/11/2017 & 1.0 & Created\\
+08/11/2017 & 1.1 & Updated content\\
+10/11/2017 & 1.2 & Updated and finalized content for Rev.0\\
+\leavevmode\color{red}03/12/2017 & \leavevmode\color{red}2.0 & \leavevmode\color{red}Updated content for Rev.1\\
+\leavevmode\color{red}06/12/2017 & \leavevmode\color{red}2.1 & \leavevmode\color{red}Finalized \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -100,10 +102,10 @@ The following is an outline of the document structure:
     \item Section \ref{sec:md} provides details on each module, specifically it's  secret(s) and service(s)
     \item Section \ref{sec:tracematrix} contains the traceability matrices between modules/requirements and modules/anticipated changes
     \item Section \ref{sec:usehierarchy} provides the use hierarchy between each module
-    
+ 
 \end{itemize}
-
-MIS documentation was generated for each module and markdown document.  The MIS was generated using CompoDoc, a document generator for AngularJS projects.  MIS documentation can be found in the \href{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone/tree/master/Documentation/MIS}{Gitlab repo}.
+\textcolor{red}{
+MIS documentation was generated for each module and markdown document.  The MIS was generated using CompoDoc, a document generator for AngularJS projects.  MIS documentation can be found in the \href{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone/tree/master/Documentation/MIS}{Gitlab repo}.}
 
 \section{Anticipated and Unlikely Changes} \label{sec:changes}
 \subsection{Anticipated Changes} \label{subsec:anticipated}
@@ -154,7 +156,7 @@ actually be implemented.
 		\midrule
 		Database Module & M9 & 05/10/2017\\
 		\midrule
-		Homepage Module & M10 & 13/10/2017\\
+		\leavevmode\color{red}Homepage Module & \leavevmode\color{red}M10 & \leavevmode\color{red}13/10/2017\\
 		\bottomrule
 	\end{tabular}
 	\caption{Module Number Format}

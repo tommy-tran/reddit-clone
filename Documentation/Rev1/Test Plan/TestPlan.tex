@@ -3,6 +3,7 @@
 \usepackage{tabularx}
 \usepackage{hyperref}
 \usepackage{float}
+\usepackage{color}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -16,7 +17,7 @@
 \usepackage{amsfonts}
 \usepackage{vhistory}
 \usepackage{tcolorbox}
-
+\usepackage{xcolor}
 
 \oddsidemargin 0mm
 \evensidemargin 0mm
@@ -24,7 +25,7 @@
 \textheight 200mm
 \renewcommand\baselinestretch{1.0}
 \usepackage{fancyhdr}
-\fancyhead[L]{December 3, 2017}
+\fancyhead[L]{December 6, 2017}
 \fancyhead[C]{SE 3XA3: Test Plan}
 \fancyhead[R]{AKT}
 \pagestyle{fancy}
@@ -44,7 +45,7 @@ Kathryn Kodama\\
 Tommy Tran\\
 	\texttt{001150067}
 }
-\date{\today\\Version 2.1}
+\date{\today\\Version 2.2}
 \begin{document}
 
 \maketitle
@@ -67,8 +68,9 @@ Tommy Tran\\
 1.1 & 24/10/17 & Updated  content and formatting\\
 1.2 & 26/10/17 & Updated content\\
 1.3 & 27/10/17 & Finalized content for Rev.0 \\
-2.0 & 20/11/17 & Started Rev.1 \\
-2.1 & 03/12/17 & Updated content\\
+\leavevmode\color{red}2.0 & \leavevmode\color{red}20/11/17 & \leavevmode\color{red}Started Rev.1 \\
+\leavevmode\color{red}2.1 & \leavevmode\color{red}03/12/17 & \leavevmode\color{red}Updated content\\
+\leavevmode\color{red}2.2 & \leavevmode\color{red}06/12/17 & \leavevmode\color{red}Finalized content \\
 \bottomrule
 \end{tabularx}
 \textbf{*list of figures is not applicable to this document as of version 1.3}
@@ -113,19 +115,19 @@ UI & User Interaction \\
 \textbf{Term} & \textbf{Definition}\\
 \midrule
 AKT & The developer team for Reddit-Clone\\
-Black Box Testing & A testing method where the code is tested without knowledge of the internal structure \\
+\leavevmode\color{red}Black Box Testing & \leavevmode\color{red}A testing method where the code is tested without knowledge of the internal structure \\
 Comment & An authenticated user's text response to another user's post or comment \\
-Down-dote & A term for "disliking" a post/comment on Reddit-Clone. \\
-Dynamic Testing & A type of testing where the software is tested based on specific input values to see if it matches the expected output values \\
+\leavevmode\color{red}Down-vote & \leavevmode\color{red}A term for "disliking" a post/comment on Reddit-Clone. \\
+\leavevmode\color{red}Dynamic Testing & \leavevmode\color{red}A type of testing where the software is tested based on specific input values to see if it matches the expected output values \\
 GUI & Graphic User Interface \\ 
-Manual Testing & A type of testing where the tester plays the role of the end user and uses most of the application's features to ensure correct behaviour \\
+\leavevmode\color{red}Manual Testing & A\leavevmode\color{red} type of testing where the tester plays the role of the end user and uses most of the application's features to ensure correct behaviour \\
 Post & A submission by an authenticated user that contains text and/or media attachments \\
 Reddit & The original Reddit open source projected to be recreated (\url{http://www.reddit.com})\\
 Reddit-Clone & The project being created.\\
 Subreddit & A page containing the posts of a certain topic \\
-System Testing & A type of testing where the entire software and integration is tested. System testing is a subset of black box testing.\\
-Up-vote & A term for "liking" a post/comment on Reddit-Clone.  \\
-White Box Testing & A type of testing where the software is tested with knowledge of the inner workings of the code \\
+\leavevmode\color{red}System Testing & \leavevmode\color{red}A type of testing where the entire software and integration is tested. System testing is a subset of black box testing.\\
+\leavevmode\color{red}Up-vote & \leavevmode\color{red}A term for "liking" a post/comment on Reddit-Clone.  \\
+\leavevmode\color{red}White Box Testing & \leavevmode\color{red}A type of testing where the software is tested with knowledge of the inner workings of the code \\
 \bottomrule
 \end{tabularx}
 \end{table}	
@@ -140,10 +142,10 @@ Reddit-Clone will allow authenticated users create posts, subreddits and comment
 \subsection {Test Team}
 The testing team for Reddit-Clone are all members of the AKT Development team: Alex Trudeau, Kathryn Kodama, Tommy Tran.  The lead tester will be Tommy Tran.
 
-\subsection {Tools Used for Testing}
+{\color{red}\subsection {Tools Used for Testing}
 The dynamic testing will utilize the following tools.  Jasmine with Karma framework and Angular 4 testing packages will be used to dynamically test the JavaScript functionality of this project.  Through the use of Jasmine the testing team will carry out unit tests and end to end testing.
 
-The HTML/CSS testing will be tested through static testing and observation on Unix, Windows, iOS, and Android environments.
+The HTML/CSS testing will be tested through static testing and observation on Unix, Windows, iOS, and Android environments.}
 
 \subsection {Testing Schedule}
 
@@ -151,7 +153,7 @@ Refer to the \href{https://gitlab.cas.mcmaster.ca/trudeaua/reddit-clone}{Gantt C
 
 \begin{table}[ht]
 \caption{\bf Testing Schedule (as outlined in the Gantt Chart)}
-\begin{tabularx}{\textwidth}{p{7cm}p{5cm}X}
+{\color{red}\begin{tabularx}{\textwidth}{p{7.5cm}p{5cm}X}
 \toprule {\bf Category} & {\bf Group Member} & {\bf Completion Date}\\
 \midrule
 Set up testing framework & Kathryn Kodama; Tommy Tran & 5/11/2017 \\
@@ -162,18 +164,18 @@ Manual Testing: Database Management & Tommy Tran & 13/11/2017\\
 Automatic Testing: Database Services & Alex Trudeau & 17/11/2017\\
 Manual Testing: Overall site with any additional features & All members of AKT team & 04/12/2017\\
 \bottomrule
-\end{tabularx}
+\end{tabularx}}
 \end{table}
 
 
 \pagebreak
 
 % Authentication Methods, Account Management, Content Management, Navigation Methods, 
-\section{Traceability Matrix}
+{\color{red}\section{Traceability Matrix}
 Please view the requirements specification document to view the functional and non-functional requirements located in the traceability matrix below.  The tests detailed our outlined in the sections below.\\
 \newline
 \includegraphics[scale=0.55]{matrix.png}
-
+}
 \pagebreak
 \section{System Testing}
 \subsection{Tests for Functional Requirements}
@@ -186,7 +188,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Initial State:} Not authenticated, on home page\\
 \textbf{Input:} Enter valid username, email and password\\
 \textbf{Output:} Email sent to inputted email(user cannot log in yet). \\
-\textbf{How the test will be performed:} Tester will sign up and after successful sign up, check that an email was received. Database will also be verified for successful user creation.
+\textbf{How the test will be performed:} Tester will sign up and after successful sign up, check that an email was received. Database will also be verified for successful user creation. \\
 \end{tcolorbox}
 
 \textbf{\\User account creation (invalid inputs)}
@@ -196,7 +198,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Initial State:} Not authenticated, on home page\\
 \textbf{Input:} Enter invalid or already registered username/email\\
 \textbf{Output:} Error message shown to user.  This test generates an exception.\\
-\textbf{How the test will be performed:} Tester will attempt sign up with an invalid or already used username or email.
+\textbf{How the test will be performed:} Tester will attempt sign up with an invalid or already used username or email. \\
 \end{tcolorbox}
 
 \textbf{\\Verify user account}
@@ -206,12 +208,10 @@ Please view the requirements specification document to view the functional and n
 \textbf{Initial State:} After successful user account creation\\
 \textbf{Input:} Open verification link in email \\
 \textbf{Output:} Success message (User can now log in) \\
-\textbf{How the test will be performed:} Tester will check account email and open the verification link
+\textbf{How the test will be performed:} Tester will check account email and open the verification link \\
 \end{tcolorbox}
 
 \newpage
-
-
 
 \textbf{\\Log in}
 \begin{tcolorbox}
@@ -220,7 +220,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Initial State:} Prompted to log in\\
 \textbf{Input:} Enter user information from previously created account\\
 \textbf{Output:} Successful or failed authentication\\
-\textbf{How the test will be performed:} The user will log into the application with an email not associated with any account (authentication fails). Then the user will log in with a previously created user account (authentication succeeds).
+\textbf{How the test will be performed:} The user will log into the application with an email not associated with any account (authentication fails). Then the user will log in with a previously created user account (authentication succeeds). \\
 \end{tcolorbox}
 
 \textbf{\\Log in (unverified)}
@@ -230,8 +230,8 @@ Please view the requirements specification document to view the functional and n
 \textbf{Initial State:} User prompted to log in\\
 \textbf{Input:} The user will enter user information from previously created account.\\
 \textbf{Output:} An error message should appear notifying the user to verify their account via their email.\\
-\textbf{How the test will be performed:} The user will log in with a previously created user account. The authentication succeeds but will then prompt the user to check their email to verify their account. 
-\end{tcolorbox}
+\textbf{How the test will be performed:} The user will log in with a previously created user account. The authentication succeeds but will then prompt the user to check their email to verify their account. \\
+\end{tcolorbox} 
 
 \textbf{\\Log out}
 \begin{tcolorbox}
@@ -240,7 +240,7 @@ Please view the requirements specification document to view the functional and n
 \textbf{Initial State:} Authenticated, viewing homepage\\
 \textbf{Input:} Log out button selected\\
 \textbf{Output:} Log in/Sign Up button shown on homepage\\
-\textbf{How the test will be performed:} Log out and then confirm that authenticated user privileges were lost.
+\textbf{How the test will be performed:} Log out and then confirm that authenticated user privileges were lost. \\
 \end{tcolorbox}
 
 \subsubsection{Content Management}
@@ -252,7 +252,8 @@ Please view the requirements specification document to view the functional and n
 \textbf{Initial State:} Authenticated, create post modal opened\\
 \textbf{Input:} Test post parameters\\
 \textbf{Output:} Check post shows in subreddit\\
-\textbf{How the test will be performed:} Authenticated account will create a test post and verify that a post shows in the posted subreddit afterwards
+\textbf{How the test will be performed:} Authenticated account will create a test post and verify that a post shows in the posted subreddit afterwards. \\
+\textbf{Result: } PASS 
 \end{tcolorbox}
 
 \textbf{\\Subreddit creation}
@@ -507,7 +508,8 @@ In order to ensure that the project has at least the core functions of Reddit, a
 \subsection{Unit testing of internal functions}
 The Jasmine test framework will be leveraged in order to unit test the functionality of the components and services. The core functions that will be tested are within the database service (database.service.ts) which handles almost all of the data transfer between the application and Firebase. These tests will mainly consist of structural tests to verify that the application receives proper information from the database. There will be no use of stubs or drivers in unit testing.
 
-\subsection{Coverage Metrics}
+{\color{red}\subsection{Coverage Metrics}
+
 One coverage metric used for testing is testing against lines of code. The metric is as follows: \\
 (A) = total lines of code being tested \\
 (B) = total lines of testing code executed \\
@@ -515,6 +517,6 @@ One coverage metric used for testing is testing against lines of code. The metri
 
 Other coverage metrics include the number of requirements compared to the number of test cases that cover that specific requirement.  The traceability matrix mentioned above is well suited to analyze this metric.  \\
 
-Additionally, the number of test cases passed and failed will be a good metric to view the coverage of the test plan.  
+Additionally, the number of test cases passed and failed will be a good metric to view the coverage of the test plan.  }
 
 \end{document}
