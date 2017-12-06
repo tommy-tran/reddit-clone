@@ -53,7 +53,9 @@ export class CommentsPage implements OnInit {
       this.navCtrl.pop();
     }
   }
-
+  /**
+   * re-pull the post to update with comments
+   */
   updatePost() {
     this.databaseService.getPost(this.post.post_id, this.post.subreddit_id).then((post) => {
       if (this.post) {

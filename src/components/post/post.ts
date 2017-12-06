@@ -37,7 +37,9 @@ export class PostComponent implements OnInit {
     this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
-
+  /**
+   * calculate the date from a timestamp
+   */
   calculateDatePosted() {
     let currentTime = new Date();
     let difference = currentTime.getTime() - this.post.timestamp;
@@ -81,7 +83,9 @@ export class PostComponent implements OnInit {
       this.datePosted = secondsDifference + ' seconds ago';
     }
   }
-
+  /**
+   * init the post
+   */
   ngOnInit() {
     this.score = this.post.score;
     this.calculateDatePosted();
@@ -99,13 +103,17 @@ export class PostComponent implements OnInit {
     //   }
     // });
   }
-
+  /**
+   * go to a posts subreddit
+   */
   goToSubreddit() {
     this.databaseService.getSubreddit(this.post.subreddit_id).then((subreddit) => {
       this.navCtrl.push('subreddit', subreddit);
     });
   }
-
+  /**
+   * visit a posts attached url link
+   */
   goToLink() {
     if (this.post.link) {
       window.open(this.post.link);
@@ -115,7 +123,9 @@ export class PostComponent implements OnInit {
     }
 
   }
-
+  /**
+   * upvote the post
+   */
   upvote() {
     if (this.isLoggedIn){
       this.disableInput = true;
@@ -152,7 +162,9 @@ export class PostComponent implements OnInit {
       alert.present();
     }
   }
-
+  /**
+   * downvote the post
+   */
   downvote() {
     if (this.isLoggedIn){
       this.disableInput = true;
@@ -189,7 +201,9 @@ export class PostComponent implements OnInit {
     }
     
   }
-
+  /**
+   * re-pull the post from db
+   */
   updatePost() {
     this.databaseService.getPost(this.post.post_id, this.post.subreddit_id).then((post) => {
       this.post = post;

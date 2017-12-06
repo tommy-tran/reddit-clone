@@ -31,6 +31,9 @@ export class CommentComponent {
     this.isLoggedIn = this.authService.isLoggedIn(); // Check if user is logged in    
     this.disableInput = false; // For temporary disable input on upvotes/downvotes
   }
+  /**
+   * initialize the comment
+   */
   ngOnInit() {
     this.score = this.comment.score;
     let user = this.authService.getUsername();
@@ -44,6 +47,9 @@ export class CommentComponent {
     });
     this.calculateDatePosted();
   }
+  /**
+   * upvote the comment
+   */
   upvote() {
     if (this.isLoggedIn) {
       this.disableInput = true;
@@ -79,7 +85,9 @@ export class CommentComponent {
       alert.present();
     }
   }
-
+  /**
+   * downvote the post
+   */
   downvote() {
     if (this.isLoggedIn) {
       this.disableInput = true;
@@ -115,7 +123,9 @@ export class CommentComponent {
     }
 
   }
-
+  /**
+   * re-pull the comment from the db
+   */
   updateComment() {
     this.databaseService.getComment(this.postId, this.comment.comment_id).then((comment) => {
       this.comment = comment;
@@ -136,6 +146,9 @@ export class CommentComponent {
       }
     });
   }
+  /**
+   * calculate the date from a timestamp
+   */
   calculateDatePosted() {
     let currentTime = new Date();
     let difference = currentTime.getTime() - this.comment.timestamp;
@@ -179,7 +192,9 @@ export class CommentComponent {
       this.datePosted = secondsDifference + ' seconds ago';
     }
   }
-
+  /**
+   * delete the comment
+   */
   deleteComment() {
     this.alertCtrl.create({
       title: "Deletion confirmation",

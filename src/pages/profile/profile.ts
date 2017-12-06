@@ -51,11 +51,9 @@ export class ProfilePage {
       });
     }
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
-  }
-
+  /**
+   * close the current view
+   */
   closeModal() {
     this.viewController.dismiss();
   }
@@ -67,7 +65,10 @@ export class ProfilePage {
     console.log("Karma: " + this.karma);
     console.log("Member Since: " + this.memberSince);
   }
-
+  /**
+   * set the photo's url
+   * @param form form data 
+   */
   setPhoto(form: NgForm){
       if (this.isURL(form.value.photoURL)){
         this.photo = form.value.photoURL;
@@ -82,14 +83,22 @@ export class ProfilePage {
       }
       
   }
-
+  /**
+   * get the photo's url
+   */
   getPhotoURL(){
     this.photo = this.authService.getPhoto();
   }
-
+  /**
+   * toggle between text post and link post types
+   */
   showPhotoLink(){
     this.changePhoto = true;
   }
+  /**
+   * check if a string is a url
+   * @param str string to check 
+   */
   isURL(str : string) {
     if (str.includes('.')) {
       var pattern = new RegExp('^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$');

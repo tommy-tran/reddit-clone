@@ -6,7 +6,9 @@ Repo for Group 29's 3XA3 term project -- Reddit Clone
 # Description
 Reddit is a community based social news aggregator where users can post information and take part in online discussions pertaining to specific topics with ease.
 
-The goal of this project is to redevelop Reddit with all  of it's core functionality from scratch using proper software engineering principles.
+The goal of this project is to redevelop Reddit with all of it's core functionality from scratch using proper software engineering principles.
+
+Check out the website at [https://redditclone.me](redditclone.me)
 
 # Setup Instructions
 

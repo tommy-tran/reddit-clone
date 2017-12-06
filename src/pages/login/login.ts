@@ -260,7 +260,9 @@ export class LoginPage {
   switchToResetEmail() {
     this.resetEmail = !this.resetEmail;
   }
-
+  /**
+   * close current view
+   */
   closeModal() {
     this.viewController.dismiss(this.isLoggedIn);
   }
