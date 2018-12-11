@@ -8,7 +8,7 @@ Reddit is a community based social news aggregator where users can post informat
 
 The goal of this project is to redevelop Reddit with all of it's core functionality from scratch using proper software engineering principles.
 
-Check it out [https://reddit-clone-ced0e.firebaseapp.com/](here)
+Check it out [here](https://reddit-clone-ced0e.firebaseapp.com/)
 
 ## Setup Instructions
 
